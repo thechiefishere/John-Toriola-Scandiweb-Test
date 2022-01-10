@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery } from "./queries";
+import { currenciesQuery, allProductsQuery } from "./queries";
 
 export const AppContext = React.createContext();
 
@@ -16,21 +16,29 @@ export class ContextProvider extends Component {
       totalItemsInCart: 0,
       totalPrice: 0,
       currencies: [],
+      allProducts: [],
       currencyInUse: "",
       openCurrencies: false,
     };
   }
 
   componentDidMount() {
-    this.fetchCurrencies();
+    this.setCurrencies();
+    this.setAllProducts();
   }
 
-  fetchCurrencies = async () => {
-    const currenciesResult = await client.post(currenciesQuery);
-    const data = await currenciesResult.currencies;
+  setCurrencies = async () => {
+    const response = await client.post(currenciesQuery);
+    const data = response.currencies;
     this.setState({ currencies: data });
     this.setState({ currencyInUse: this.state.currencies[0].symbol });
-    return currenciesResult.currencies;
+  };
+
+  setAllProducts = async () => {
+    const response = await client.post(allProductsQuery);
+    const data = response.category.products;
+    // console.log("data", data);
+    this.setState({ allProducts: data });
   };
 
   render() {

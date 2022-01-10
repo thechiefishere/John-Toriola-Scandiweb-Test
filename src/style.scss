@@ -45,3 +45,17 @@ ul {
     margin: 0px 8px;
   }
 }
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.producttile {
+  width: 33%;
+  height: 60vh;
+  img {
+    width: 90%;
+    height: 80%;
+  }
+}
