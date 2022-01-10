@@ -16,7 +16,11 @@ export class Currency extends Component {
             >
               {state.currencies.map((currency, index) => {
                 return (
-                  <p key={index}>
+                  <p
+                    key={index}
+                    className="currencyType"
+                    onClick={() => state.changeCurrencyInUse(currency.symbol)}
+                  >
                     {currency.symbol} {currency.label}
                   </p>
                 );

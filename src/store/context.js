@@ -28,6 +28,7 @@ export class ContextProvider extends Component {
       showingCurrencyTab: false,
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,
+      changeCurrencyInUse: this.changeCurrencyInUse,
     };
   }
 
@@ -69,6 +70,10 @@ export class ContextProvider extends Component {
 
   closeCurrencyTab = () => {
     this.setState({ showingCurrencyTab: false });
+  };
+
+  changeCurrencyInUse = (newCurrency) => {
+    this.setState({ currencyInUse: newCurrency });
   };
 
   render() {
