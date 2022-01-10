@@ -29,7 +29,11 @@ export class Header extends Component {
               return (
                 <div className="currency">
                   <p>{state.currencyInUse}</p>
-                  {state.openCurrencies ? <FaChevronUp /> : <FaChevronDown />}
+                  {state.showingCurrencyTab ? (
+                    <FaChevronUp onClick={() => state.closeCurrencyTab()} />
+                  ) : (
+                    <FaChevronDown onClick={() => state.openCurrencyTab()} />
+                  )}
                 </div>
               );
             }}

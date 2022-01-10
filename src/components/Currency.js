@@ -7,7 +7,13 @@ export class Currency extends Component {
       <AppContext.Consumer>
         {(state) => {
           return (
-            <article>
+            <article
+              className={
+                state.showingCurrencyTab
+                  ? "currencyTab show-currencyTab"
+                  : "currencyTab"
+              }
+            >
               {state.currencies.map((currency, index) => {
                 return (
                   <p key={index}>

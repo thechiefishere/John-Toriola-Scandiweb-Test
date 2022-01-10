@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Currency from "./components/Currency";
 import Home from "./components/Home";
 import Clothes from "./components/Clothes";
 import Tech from "./components/Tech";
@@ -12,6 +13,7 @@ export class App extends Component {
       <ContextProvider>
         <main className="container">
           <Header />
+          <Currency />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clothes" element={<Clothes />} />

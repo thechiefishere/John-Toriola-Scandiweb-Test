@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  position: relative;
+}
+
 a {
   text-decoration: none;
   color: #000;
@@ -41,6 +45,21 @@ ul li {
 .header-end .currency {
   display: flex;
   margin: 0px 8px;
+}
+
+.currencyTab {
+  width: 70px;
+  position: absolute;
+  top: 30px;
+  right: 48px;
+  height: 0px;
+  overflow: hidden;
+  text-align: center;
+  transition: 0.5s ease-out;
+}
+
+.show-currencyTab {
+  height: 12vh;
 }
 
 .products {

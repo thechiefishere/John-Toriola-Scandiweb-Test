@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery, allProductsQuery } from "./queries";
+import {
+  currenciesQuery,
+  allProductsQuery,
+  clothesQuery,
+  techQuery,
+} from "./queries";
 
 export const AppContext = React.createContext();
 
@@ -17,14 +22,20 @@ export class ContextProvider extends Component {
       totalPrice: 0,
       currencies: [],
       allProducts: [],
+      clothes: [],
+      tech: [],
       currencyInUse: "",
-      openCurrencies: false,
+      showingCurrencyTab: false,
+      openCurrencyTab: this.openCurrencyTab,
+      closeCurrencyTab: this.closeCurrencyTab,
     };
   }
 
   componentDidMount() {
     this.setCurrencies();
     this.setAllProducts();
+    this.setClothes();
+    this.setTech();
   }
 
   setCurrencies = async () => {
@@ -37,8 +48,27 @@ export class ContextProvider extends Component {
   setAllProducts = async () => {
     const response = await client.post(allProductsQuery);
     const data = response.category.products;
-    // console.log("data", data);
     this.setState({ allProducts: data });
+  };
+
+  setClothes = async () => {
+    const response = await client.post(clothesQuery);
+    const data = response.category.products;
+    this.setState({ clothes: data });
+  };
+
+  setTech = async () => {
+    const response = await client.post(techQuery);
+    const data = response.category.products;
+    this.setState({ tech: data });
+  };
+
+  openCurrencyTab = () => {
+    this.setState({ showingCurrencyTab: true });
+  };
+
+  closeCurrencyTab = () => {
+    this.setState({ showingCurrencyTab: false });
   };
 
   render() {
