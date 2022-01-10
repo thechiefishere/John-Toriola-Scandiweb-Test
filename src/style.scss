@@ -4,17 +4,19 @@
   box-sizing: border-box;
 }
 
+body {
+}
+
 a {
   text-decoration: none;
   color: #000;
 }
-
 ul {
   list-style: none;
   display: flex;
-}
-ul li {
-  margin-right: 20px;
+  li {
+    margin-right: 20px;
+  }
 }
 
 .container {
@@ -27,6 +29,7 @@ ul li {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  // background-color: red;
 }
 
 .bag {
@@ -37,10 +40,8 @@ ul li {
 
 .header-end {
   display: flex;
+  .currency {
+    display: flex;
+    margin: 0px 8px;
+  }
 }
-.header-end .currency {
-  display: flex;
-  margin: 0px 8px;
-}
-
-/*# sourceMappingURL=index.css.map */
