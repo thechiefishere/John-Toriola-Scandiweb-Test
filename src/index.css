@@ -84,6 +84,10 @@ ul li {
   background-color: red;
 }
 
+.category-name::first-letter {
+  text-transform: uppercase;
+}
+
 .pdp {
   position: relative;
   display: flex;

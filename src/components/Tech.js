@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { AppContext } from "../store/context";
 import ProductTile from "./ProductTile";
 import { clientClone } from "../store/context";
-import { techQuery } from "../store/queries";
+import { categoryQuery } from "../store/queries";
 
 const client = clientClone();
 
@@ -12,6 +12,7 @@ export class Tech extends Component {
 
     this.state = {
       tech: [],
+      categoryName: "",
     };
   }
 
@@ -21,13 +22,14 @@ export class Tech extends Component {
   }
 
   setTech = async () => {
-    const response = await client.post(techQuery);
+    const response = await client.post(categoryQuery("tech"));
     this.setState({ tech: response.category.products });
+    this.setState({ categoryName: response.category.name });
   };
   render() {
     return (
-      <section className="home">
-        <h1>Category name</h1>
+      <section className="tech">
+        <h1 className="category-name">{this.state.categoryName}</h1>
         <section className="products">
           {this.state.tech.map((product) => {
             return <ProductTile key={product.id} product={product} />;
