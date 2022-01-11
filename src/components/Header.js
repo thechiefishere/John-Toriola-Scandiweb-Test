@@ -6,6 +6,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BsCart2 } from "react-icons/bs";
 
 export class Header extends Component {
+  static contextType = AppContext;
   render() {
     return (
       <header className="header">
@@ -38,7 +39,10 @@ export class Header extends Component {
               );
             }}
           </AppContext.Consumer>
-          <BsCart2 />
+          <div>
+            <BsCart2 onClick={this.context.toggleMiniCart} />
+            <p>{this.context.cartItems.length}</p>
+          </div>
         </div>
       </header>
     );

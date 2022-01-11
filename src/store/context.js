@@ -34,9 +34,8 @@ export class ContextProvider extends Component {
       setClickedProductId: this.setClickedProductId,
       cartItems: [],
       addToCartItems: this.addToCartItems,
-      // pdp: 0,
-      // setPdp: this.setPdp,
-      // pp: null,
+      showingMiniCart: false,
+      toggleMiniCart: this.toggleMiniCart,
     };
   }
 
@@ -92,10 +91,17 @@ export class ContextProvider extends Component {
 
   addToCartItems = (productId) => {
     if (this.state.cartItems.indexOf(productId) >= 0) return;
-    const arr = this.state.cartItems;
-    arr.push(productId);
-    this.setState({ cartItems: arr });
-    localStorage.setItem("cartItem", arr);
+    const items = this.state.cartItems;
+    items.push(productId);
+    this.setState({ cartItems: items });
+    localStorage.setItem("cartItem", items);
+  };
+
+  removeFromCart = (productId) => {
+    const items = this.state.cartItems;
+    items.filter((item) => item.id !== productId);
+    this.setState({ cartItems: items });
+    localStorage.setItem("cartItem", item);
   };
 
   getCartItemsFromLocalStorage = () => {
@@ -103,6 +109,10 @@ export class ContextProvider extends Component {
       const storedString = localStorage.getItem("cartItem").split(",");
       this.setState({ cartItems: storedString });
     }
+  };
+
+  toggleMiniCart = () => {
+    this.setState({ showingMiniCart: !this.state.showingMiniCart });
   };
 
   // setPdp = (productId) => {

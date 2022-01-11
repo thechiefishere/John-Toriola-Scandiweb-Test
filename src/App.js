@@ -8,6 +8,7 @@ import Tech from "./components/Tech";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 import { ContextProvider } from "./store/context";
 import Cart from "./components/cart/Cart";
+import CartOverlay from "./components/cart/CartOverlay";
 
 export class App extends Component {
   render() {
@@ -16,6 +17,7 @@ export class App extends Component {
         <main className="container">
           <Header />
           <Currency />
+          <CartOverlay />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clothes" element={<Clothes />} />
