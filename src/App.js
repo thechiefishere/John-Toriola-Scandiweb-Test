@@ -22,10 +22,12 @@ export class App extends Component {
             <Route path="/" element={<Home />} />
             <Route path="/clothes" element={<Clothes />} />
             <Route path="/tech" element={<Tech />} />
-            <Route
-              path="products/:productId"
-              element={<ProductDetailsPage />}
-            />
+            <Route path="/:productId" element={<ProductDetailsPage />} />
+            <Route path="clothes/:productId" element={<ProductDetailsPage />} />
+            <Route path="tech/:productId" element={<ProductDetailsPage />} />
+            {/* <Route path={["/:id", "/clothes/:id", "/tech/:id"]}>
+              <ProductDetailsPage />
+            </Route> */}
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>

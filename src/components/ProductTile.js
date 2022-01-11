@@ -28,8 +28,6 @@ export class ProductTile extends Component {
   }
 
   setPriceInSelectedCurrency = () => {
-    // console.log("this.props.currencyInUse", this.context.currencyInUse);
-    // console.log("product", this.props.product);
     if (this.props.product === null || this.state.currencyInUse === null)
       return;
     const priceInSelectedCurrency = this.props.product.prices.find(
@@ -54,7 +52,7 @@ export class ProductTile extends Component {
         />
         <div>
           {this.props.product.id === this.context.clickedProductId && (
-            <Link to={`products/${this.props.product.id}`}>
+            <Link to={`${this.props.product.id}`}>
               <BsCart2 />
             </Link>
           )}

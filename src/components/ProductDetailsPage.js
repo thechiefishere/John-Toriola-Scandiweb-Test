@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import { client } from "@tilework/opus";
-// import { Field, Query } from "@tilework/opus";
 import { productQuery } from "../store/queries";
 import { clientClone } from "../store/context";
 import { withRouter } from "../util/withRouter";

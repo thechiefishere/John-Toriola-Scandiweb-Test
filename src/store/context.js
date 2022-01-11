@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-
-import {
-  currenciesQuery,
-  allProductsQuery,
-  clothesQuery,
-  techQuery,
-} from "./queries";
+import { currenciesQuery } from "./queries";
 
 export const AppContext = React.createContext();
 
@@ -26,9 +20,6 @@ export class ContextProvider extends Component {
       totalItemsInCart: 0,
       totalPrice: 0,
       currencies: [],
-      allProducts: [],
-      clothes: [],
-      tech: [],
       currencyInUse: null,
       showingCurrencyTab: false,
       openCurrencyTab: this.openCurrencyTab,
@@ -46,9 +37,6 @@ export class ContextProvider extends Component {
 
   componentDidMount() {
     this.setCurrencies();
-    this.setAllProducts();
-    this.setClothes();
-    this.setTech();
     this.getCartItemsFromLocalStorage();
   }
 
@@ -57,24 +45,6 @@ export class ContextProvider extends Component {
     const data = response.currencies;
     this.setState({ currencies: data });
     this.setState({ currencyInUse: this.state.currencies[0].symbol });
-  };
-
-  setAllProducts = async () => {
-    const response = await client.post(allProductsQuery);
-    const data = response.category.products;
-    this.setState({ allProducts: data });
-  };
-
-  setClothes = async () => {
-    const response = await client.post(clothesQuery);
-    const data = response.category.products;
-    this.setState({ clothes: data });
-  };
-
-  setTech = async () => {
-    const response = await client.post(techQuery);
-    const data = response.category.products;
-    this.setState({ tech: data });
   };
 
   openCurrencyTab = () => {
@@ -120,44 +90,6 @@ export class ContextProvider extends Component {
   toggleMiniCart = () => {
     this.setState({ showingMiniCart: !this.state.showingMiniCart });
   };
-
-  // setPdp = (productId) => {
-  //   this.setState({ pdp: productId });
-  // };
-
-  // que = () => {
-  //   const productQuery = new Query("product")
-  //     .addArgument("id", "String!", this.state.pdp)
-  //     .addField("name")
-  //     .addField("gallery")
-  //     .addField(
-  //       new Field("prices", true)
-  //         .addField("amount")
-  //         .addField(new Field("currency").addField("symbol"))
-  //     )
-  //     .addField(
-  //       new Field("attributes", true)
-  //         .addField("name")
-  //         .addField("type")
-  //         .addField(new Field("items").addField("displayValue"))
-  //     );
-  //   return productQuery;
-  // };
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.currencyInUse !== this.state.currencyInUse) {
-  //     this.setP();
-  //   }
-  // }
-
-  // setP = async () => {
-  //   if (this.state.pdp === 0) return;
-  //   const productQuery = this.que();
-  //   const response = await client.post(productQuery);
-  //   // console.log("response", response.product);
-  //   // console.log("pdp is ", this.state.pdp);
-  //   this.setState({ pp: response.product });
-  // };
 
   render() {
     return (
