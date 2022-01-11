@@ -7,6 +7,7 @@ import Clothes from "./components/Clothes";
 import Tech from "./components/Tech";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 import { ContextProvider } from "./store/context";
+import Cart from "./components/cart/Cart";
 
 export class App extends Component {
   render() {
@@ -23,6 +24,7 @@ export class App extends Component {
               path="products/:productId"
               element={<ProductDetailsPage />}
             />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
       </ContextProvider>

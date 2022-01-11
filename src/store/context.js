@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { Field, Query } from "@tilework/opus";
 
 import {
   currenciesQuery,
@@ -26,13 +25,15 @@ export class ContextProvider extends Component {
       allProducts: [],
       clothes: [],
       tech: [],
-      currencyInUse: "",
+      currencyInUse: "ha",
       showingCurrencyTab: false,
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,
       changeCurrencyInUse: this.changeCurrencyInUse,
       clickedProductId: "",
       setClickedProductId: this.setClickedProductId,
+      cartItems: [],
+      addToCartItems: this.addToCartItems,
       // pdp: 0,
       // setPdp: this.setPdp,
       // pp: null,
@@ -87,6 +88,10 @@ export class ContextProvider extends Component {
 
   setClickedProductId = (productId) => {
     this.setState({ clickedProductId: productId });
+  };
+
+  addToCartItems = (productId) => {
+    this.setState({ cartItems: [...this.state.cartItems, productId] });
   };
 
   // setPdp = (productId) => {

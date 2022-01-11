@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 export class Attribute extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <article className="attribute">

@@ -45,6 +45,7 @@ export class ProductDetailsPage extends Component {
     // this.context.setPdp(productId);
     const productQuery = new Query("product")
       .addArgument("id", "String!", productId)
+      .addField("id")
       .addField("name")
       .addField("gallery")
       .addField("description")
@@ -119,7 +120,11 @@ export class ProductDetailsPage extends Component {
                     );
                   }}
                 </AppContext.Consumer>
-                <button>
+                <button
+                  onClick={() =>
+                    this.context.addToCartItems(this.state.product.id)
+                  }
+                >
                   <Link to="/cart">ADD TO CART</Link>
                 </button>
                 <div

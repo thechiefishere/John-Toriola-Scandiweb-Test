@@ -42,21 +42,26 @@ export const techQuery = new Query("category", true)
       )
   );
 
-// export const productQuery = new Query("product")
-//   .addArgument("id", "String!", productId)
-//   .addField("name")
-//   .addField("gallery")
-//   .addField(
-//     new Field("prices", true)
-//       .addField("amount")
-//       .addField(new Field("currency").addField("symbol"))
-//   )
-//   .addField(
-//     new Field("attributes", true)
-//       .addField("name")
-//       .addField("type")
-//       .addField(new Field("items").addField("displayValue"))
-//   );
+export const productQuery = (productId) => {
+  const productQuery = new Query("product")
+    .addArgument("id", "String!", productId)
+    .addField("id")
+    .addField("name")
+    .addField("gallery")
+    .addField("description")
+    .addField(
+      new Field("prices", true)
+        .addField("amount")
+        .addField(new Field("currency").addField("symbol"))
+    )
+    .addField(
+      new Field("attributes", true)
+        .addField("name")
+        .addField("type")
+        .addField(new Field("items").addField("displayValue"))
+    );
+  return productQuery;
+};
 
 export const currenciesQuery = new Query("currencies", true)
   .addField("symbol")
