@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
+import { Field, Query } from "@tilework/opus";
+
 import {
   currenciesQuery,
   allProductsQuery,
@@ -31,6 +33,9 @@ export class ContextProvider extends Component {
       changeCurrencyInUse: this.changeCurrencyInUse,
       clickedProductId: "",
       setClickedProductId: this.setClickedProductId,
+      // pdp: 0,
+      // setPdp: this.setPdp,
+      // pp: null,
     };
   }
 
@@ -39,6 +44,7 @@ export class ContextProvider extends Component {
     this.setAllProducts();
     this.setClothes();
     this.setTech();
+    // this.setP();
   }
 
   setCurrencies = async () => {
@@ -76,11 +82,50 @@ export class ContextProvider extends Component {
 
   changeCurrencyInUse = (newCurrency) => {
     this.setState({ currencyInUse: newCurrency });
+    this.setState({ showingCurrencyTab: false });
   };
 
   setClickedProductId = (productId) => {
     this.setState({ clickedProductId: productId });
   };
+
+  // setPdp = (productId) => {
+  //   this.setState({ pdp: productId });
+  // };
+
+  // que = () => {
+  //   const productQuery = new Query("product")
+  //     .addArgument("id", "String!", this.state.pdp)
+  //     .addField("name")
+  //     .addField("gallery")
+  //     .addField(
+  //       new Field("prices", true)
+  //         .addField("amount")
+  //         .addField(new Field("currency").addField("symbol"))
+  //     )
+  //     .addField(
+  //       new Field("attributes", true)
+  //         .addField("name")
+  //         .addField("type")
+  //         .addField(new Field("items").addField("displayValue"))
+  //     );
+  //   return productQuery;
+  // };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.currencyInUse !== this.state.currencyInUse) {
+  //     this.setP();
+  //   }
+  // }
+
+  // setP = async () => {
+  //   if (this.state.pdp === 0) return;
+  //   const productQuery = this.que();
+  //   const response = await client.post(productQuery);
+  //   // console.log("response", response.product);
+  //   // console.log("pdp is ", this.state.pdp);
+  //   this.setState({ pp: response.product });
+  // };
 
   render() {
     return (

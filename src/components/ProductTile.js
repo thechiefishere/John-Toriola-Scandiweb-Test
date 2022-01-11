@@ -32,7 +32,10 @@ export class ProductTile extends Component {
             ? "productTile clickedProduct"
             : "productTile"
         }
-        onClick={() => this.context.setClickedProductId(this.props.product.id)}
+        onClick={() => {
+          this.context.setPdp(this.props.product.id);
+          this.context.setClickedProductId(this.props.product.id);
+        }}
       >
         <img
           src={this.props.product.gallery[0]}

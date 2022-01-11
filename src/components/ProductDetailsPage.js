@@ -4,6 +4,7 @@ import { Field, Query } from "@tilework/opus";
 import { withRouter } from "../util/withRouter";
 import Attribute from "./Attribute";
 import { AppContext } from "../store/context";
+import { Link } from "react-router-dom";
 
 const url = "http://localhost:4000";
 client.setEndpoint(url);
@@ -17,6 +18,7 @@ export class ProductDetailsPage extends Component {
       firstName: "",
       otherNames: "",
       productPrice: 0,
+      currencyInUse: null,
     };
   }
 
@@ -24,18 +26,28 @@ export class ProductDetailsPage extends Component {
 
   componentDidMount() {
     this.setAllState();
-    console.log(
-      "currencyInUse in componentDidMount is....",
-      this.context.currencyInUse
-    );
+    this.setState({ currencyInUse: this.context.currencyInUse });
+    // console.log(
+    //   "currencyInUse in componentDidMount is....",
+    //   this.context.currencyInUse
+    // );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.currencyInUse !== this.context.currencyInUse) {
+      this.setPriceInSelectedCurrency(this.state.product);
+      this.setState({ currencyInUse: this.context.currencyInUse });
+    }
   }
 
   setAllState = async () => {
     const { productId } = this.props.params;
+    // this.context.setPdp(productId);
     const productQuery = new Query("product")
       .addArgument("id", "String!", productId)
       .addField("name")
       .addField("gallery")
+      .addField("description")
       .addField(
         new Field("prices", true)
           .addField("amount")
@@ -48,10 +60,8 @@ export class ProductDetailsPage extends Component {
           .addField(new Field("items").addField("displayValue"))
       );
     const response = await client.post(productQuery);
-    // console.log("response", response.product);
     this.setState({ product: response.product });
     this.splitName(response.product);
-    this.setPriceInSelectedCurrency(response.product);
   };
 
   splitName = (product) => {
@@ -63,13 +73,10 @@ export class ProductDetailsPage extends Component {
   };
 
   setPriceInSelectedCurrency = (product) => {
-    // if (product === null) return;
-    console.log("this.context", this.context);
-    console.log("pr symbol", product.prices);
+    if (product === null || this.state.currencyInUse === null) return;
     const priceInSelectedCurrency = product.prices.find(
       (price) => this.context.currencyInUse === price.currency.symbol
-    );
-    console.log("pr", priceInSelectedCurrency);
+    ).amount;
     this.setState({ productPrice: priceInSelectedCurrency });
   };
 
@@ -102,18 +109,30 @@ export class ProductDetailsPage extends Component {
                 {this.state.product.attributes.map((attribute, index) => {
                   return <Attribute key={index} attribute={attribute} />;
                 })}
-                {/* <h3>Price:</h3>
-                <h3>{this.state.priceInSelectedCurrency}</h3> */}
+                <h3>Price:</h3>
                 <AppContext.Consumer>
                   {(state) => {
-                    return <h1>{state.currencyInUse}</h1>;
+                    return (
+                      <h1>
+                        {state.currencyInUse} {this.state.productPrice}
+                      </h1>
+                    );
                   }}
                 </AppContext.Consumer>
+                <button>
+                  <Link to="/cart">ADD TO CART</Link>
+                </button>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: this.state.product.description,
+                  }}
+                ></div>
               </article>
             </section>
           </section>
         )}
       </section>
+      //   <div>Hello</div>
     );
   }
 }

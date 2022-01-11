@@ -43,12 +43,18 @@ export const techQuery = new Query("category", true)
   );
 
 // export const productQuery = new Query("product")
-//   .addArgument("id", "String", "String")
+//   .addArgument("id", "String!", productId)
 //   .addField("name")
 //   .addField("gallery")
 //   .addField(
+//     new Field("prices", true)
+//       .addField("amount")
+//       .addField(new Field("currency").addField("symbol"))
+//   )
+//   .addField(
 //     new Field("attributes", true)
 //       .addField("name")
+//       .addField("type")
 //       .addField(new Field("items").addField("displayValue"))
 //   );
 
