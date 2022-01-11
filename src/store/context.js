@@ -14,6 +14,10 @@ export const AppContext = React.createContext();
 const url = "http://localhost:4000";
 client.setEndpoint(url);
 
+export const clientClone = () => {
+  return client;
+};
+
 export class ContextProvider extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +29,7 @@ export class ContextProvider extends Component {
       allProducts: [],
       clothes: [],
       tech: [],
-      currencyInUse: "ha",
+      currencyInUse: null,
       showingCurrencyTab: false,
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,

@@ -9,17 +9,31 @@ export class ProductTile extends Component {
 
     this.state = {
       productPrice: 0,
+      currencyInUse: null,
     };
   }
 
   static contextType = AppContext;
   componentDidMount() {
     this.setPriceInSelectedCurrency();
+    this.setState({ currencyInUse: null });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.product === null) return;
+    if (prevState.currencyInUse !== this.context.currencyInUse) {
+      this.setPriceInSelectedCurrency(this.state.product);
+      this.setState({ currencyInUse: this.context.currencyInUse });
+    }
   }
 
   setPriceInSelectedCurrency = () => {
+    // console.log("this.props.currencyInUse", this.context.currencyInUse);
+    // console.log("product", this.props.product);
+    if (this.props.product === null || this.state.currencyInUse === null)
+      return;
     const priceInSelectedCurrency = this.props.product.prices.find(
-      (price) => this.props.currencyInUse === price.currency.symbol
+      (price) => this.context.currencyInUse === price.currency.symbol
     ).amount;
     this.setState({ productPrice: priceInSelectedCurrency });
   };
@@ -48,7 +62,7 @@ export class ProductTile extends Component {
         <div>
           <h4>{this.props.product.name}</h4>
           <h4>
-            {this.props.currencyInUse}
+            {this.context.currencyInUse}
             {this.state.productPrice}
           </h4>
         </div>

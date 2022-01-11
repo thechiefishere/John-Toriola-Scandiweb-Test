@@ -9,8 +9,8 @@ export class MiniCart extends Component {
     return (
       <section className="mini-cart">
         <h1>My bag, items</h1>
-        {this.context.cartItems.map((id, index) => {
-          return <CartItem key={index} productId={id} />;
+        {this.context.cartItems.map((id) => {
+          return <CartItem key={id} productId={id} />;
         })}
         <div>
           <h3>Total</h3>

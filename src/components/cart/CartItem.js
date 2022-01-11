@@ -3,10 +3,9 @@ import { AppContext } from "../../store/context";
 import CartItemCount from "./CartItemCount";
 import Attribute from "../Attribute";
 import { productQuery } from "../../store/queries";
-import { client } from "@tilework/opus";
+import { clientClone } from "../../store/context";
 
-const url = "http://localhost:4000";
-client.setEndpoint(url);
+const client = clientClone();
 
 export class CartItem extends Component {
   constructor(props) {

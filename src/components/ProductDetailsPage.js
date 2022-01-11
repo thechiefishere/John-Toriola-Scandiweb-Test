@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { client } from "@tilework/opus";
-import { Field, Query } from "@tilework/opus";
+// import { client } from "@tilework/opus";
+// import { Field, Query } from "@tilework/opus";
+import { productQuery } from "../store/queries";
+import { clientClone } from "../store/context";
 import { withRouter } from "../util/withRouter";
 import Attribute from "./Attribute";
 import { AppContext } from "../store/context";
 import { Link } from "react-router-dom";
 
-const url = "http://localhost:4000";
-client.setEndpoint(url);
+const client = clientClone();
 
 export class ProductDetailsPage extends Component {
   constructor(props) {
@@ -39,24 +40,7 @@ export class ProductDetailsPage extends Component {
 
   setAllState = async () => {
     const { productId } = this.props.params;
-    const productQuery = new Query("product")
-      .addArgument("id", "String!", productId)
-      .addField("id")
-      .addField("name")
-      .addField("gallery")
-      .addField("description")
-      .addField(
-        new Field("prices", true)
-          .addField("amount")
-          .addField(new Field("currency").addField("symbol"))
-      )
-      .addField(
-        new Field("attributes", true)
-          .addField("name")
-          .addField("type")
-          .addField(new Field("items").addField("displayValue"))
-      );
-    const response = await client.post(productQuery);
+    const response = await client.post(productQuery(productId));
     this.setState({ product: response.product });
     this.splitName(response.product);
   };
@@ -78,7 +62,6 @@ export class ProductDetailsPage extends Component {
   };
 
   render() {
-    // this.setPriceInSelectedCurrency(this.state.product);
     return (
       <section>
         {this.state.product !== null && (
