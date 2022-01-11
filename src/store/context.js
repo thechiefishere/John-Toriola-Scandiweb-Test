@@ -29,6 +29,8 @@ export class ContextProvider extends Component {
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,
       changeCurrencyInUse: this.changeCurrencyInUse,
+      clickedProductId: "",
+      setClickedProductId: this.setClickedProductId,
     };
   }
 
@@ -74,6 +76,10 @@ export class ContextProvider extends Component {
 
   changeCurrencyInUse = (newCurrency) => {
     this.setState({ currencyInUse: newCurrency });
+  };
+
+  setClickedProductId = (productId) => {
+    this.setState({ clickedProductId: productId });
   };
 
   render() {

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BsCart2 } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { AppContext } from "../store/context";
 
 export class ProductTile extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ export class ProductTile extends Component {
     };
   }
 
+  static contextType = AppContext;
   componentDidMount() {
     this.setPriceInSelectedCurrency();
   }
@@ -23,13 +26,24 @@ export class ProductTile extends Component {
 
   render() {
     return (
-      <article className="producttile">
+      <article
+        className={
+          this.props.product.id === this.context.clickedProductId
+            ? "productTile clickedProduct"
+            : "productTile"
+        }
+        onClick={() => this.context.setClickedProductId(this.props.product.id)}
+      >
         <img
           src={this.props.product.gallery[0]}
           alt={this.props.product.name}
         />
         <div>
-          <BsCart2 />
+          {this.props.product.id === this.context.clickedProductId && (
+            <Link to={`products/${this.props.product.id}`}>
+              <BsCart2 />
+            </Link>
+          )}
         </div>
         <div>
           <h4>{this.props.product.name}</h4>
