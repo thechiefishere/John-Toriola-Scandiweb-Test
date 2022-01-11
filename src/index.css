@@ -120,4 +120,15 @@ ul li {
   height: 20px;
 }
 
+.cart__item {
+  display: flex;
+}
+.cart__item img {
+  width: 100%;
+  height: 20vh;
+}
+.cart__item__count {
+  display: flex;
+}
+
 /*# sourceMappingURL=index.css.map */

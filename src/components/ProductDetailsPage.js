@@ -26,14 +26,11 @@ export class ProductDetailsPage extends Component {
 
   componentDidMount() {
     this.setAllState();
-    this.setState({ currencyInUse: this.context.currencyInUse });
-    // console.log(
-    //   "currencyInUse in componentDidMount is....",
-    //   this.context.currencyInUse
-    // );
+    this.setState({ currencyInUse: null });
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
       this.setPriceInSelectedCurrency(this.state.product);
       this.setState({ currencyInUse: this.context.currencyInUse });
@@ -42,7 +39,6 @@ export class ProductDetailsPage extends Component {
 
   setAllState = async () => {
     const { productId } = this.props.params;
-    // this.context.setPdp(productId);
     const productQuery = new Query("product")
       .addArgument("id", "String!", productId)
       .addField("id")

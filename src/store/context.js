@@ -45,7 +45,7 @@ export class ContextProvider extends Component {
     this.setAllProducts();
     this.setClothes();
     this.setTech();
-    // this.setP();
+    this.getCartItemsFromLocalStorage();
   }
 
   setCurrencies = async () => {
@@ -91,7 +91,18 @@ export class ContextProvider extends Component {
   };
 
   addToCartItems = (productId) => {
-    this.setState({ cartItems: [...this.state.cartItems, productId] });
+    if (this.state.cartItems.indexOf(productId) >= 0) return;
+    const arr = this.state.cartItems;
+    arr.push(productId);
+    this.setState({ cartItems: arr });
+    localStorage.setItem("cartItem", arr);
+  };
+
+  getCartItemsFromLocalStorage = () => {
+    if (localStorage.getItem("cartItem") !== null) {
+      const storedString = localStorage.getItem("cartItem").split(",");
+      this.setState({ cartItems: storedString });
+    }
   };
 
   // setPdp = (productId) => {

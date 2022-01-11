@@ -25,13 +25,11 @@ export class CartItem extends Component {
   componentDidMount() {
     this.setProduct();
     this.splitName(this.state.product);
-    this.setState({ currencyInUse: this.context.currencyInUse });
+    this.setState({ currencyInUse: null });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log("this.context.currencyInUse", this.context.currencyInUse);
-    // console.log("prevState.currencyInUse", prevState.currencyInUse);
-    console.log("cartItems", this.context.cartItems);
+    if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
       this.setPriceInSelectedCurrency(this.state.product);
       this.setState({ currencyInUse: this.context.currencyInUse });
@@ -52,10 +50,7 @@ export class CartItem extends Component {
   };
 
   setPriceInSelectedCurrency = (product) => {
-    // console.log("product is ", product);
     if (product === null || this.state.currencyInUse === null) return;
-    // console.log("this.context.currencyInUse", this.context.currencyInUse);
-    // console.log("price.currency.symbol", product.prices.currency.symbol);
     const priceInSelectedCurrency = product.prices.find(
       (price) => this.context.currencyInUse === price.currency.symbol
     ).amount;
@@ -64,9 +59,9 @@ export class CartItem extends Component {
 
   render() {
     return (
-      <section className="cart-item">
+      <section>
         {this.state.product !== null && (
-          <section>
+          <section className="cart__item">
             <article>
               <h1>{this.state.firstName}</h1>
               <h3>{this.state.otherNames}</h3>
