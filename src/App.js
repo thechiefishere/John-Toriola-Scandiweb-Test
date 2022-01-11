@@ -25,9 +25,6 @@ export class App extends Component {
             <Route path="/:productId" element={<ProductDetailsPage />} />
             <Route path="clothes/:productId" element={<ProductDetailsPage />} />
             <Route path="tech/:productId" element={<ProductDetailsPage />} />
-            {/* <Route path={["/:id", "/clothes/:id", "/tech/:id"]}>
-              <ProductDetailsPage />
-            </Route> */}
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
