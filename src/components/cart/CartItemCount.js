@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { AppContext } from "../../store/context";
 
 export class CartItemCount extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export class CartItemCount extends Component {
     };
   }
 
+  static contextType = AppContext;
   nextImage = () => {
     let nextImageIndex = this.state.count;
     if (this.state.count >= this.props.gallery.length - 1) {
@@ -42,7 +44,10 @@ export class CartItemCount extends Component {
   };
 
   decreaseNumberOfItem = () => {
-    if (this.state.numberOfItem === 1) return;
+    if (this.state.numberOfItem === 1) {
+      this.context.removeFromCart(this.props.productId);
+      return;
+    }
     this.setState({ numberOfItem: this.state.numberOfItem - 1 });
   };
 

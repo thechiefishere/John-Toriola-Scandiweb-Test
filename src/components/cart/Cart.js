@@ -8,8 +8,8 @@ export class Cart extends Component {
   render() {
     return (
       <section className="cart">
-        {this.context.cartItems.map((id, index) => {
-          return <CartItem key={index} productId={id} />;
+        {this.context.cartItems.map((id) => {
+          return <CartItem key={id} productId={id} />;
         })}
       </section>
     );

@@ -76,6 +76,7 @@ export class CartItem extends Component {
             <CartItemCount
               gallery={this.state.product.gallery}
               name={this.state.product.name}
+              productId={this.state.product.id}
             />
           </section>
         )}

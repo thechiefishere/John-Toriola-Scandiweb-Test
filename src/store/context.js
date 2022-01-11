@@ -34,6 +34,7 @@ export class ContextProvider extends Component {
       setClickedProductId: this.setClickedProductId,
       cartItems: [],
       addToCartItems: this.addToCartItems,
+      removeFromCart: this.removeFromCart,
       showingMiniCart: false,
       toggleMiniCart: this.toggleMiniCart,
     };
@@ -97,11 +98,12 @@ export class ContextProvider extends Component {
     localStorage.setItem("cartItem", items);
   };
 
+  /**avoid using index as key */
   removeFromCart = (productId) => {
-    const items = this.state.cartItems;
-    items.filter((item) => item.id !== productId);
+    let items = this.state.cartItems;
+    items = items.filter((id) => id !== productId);
     this.setState({ cartItems: items });
-    localStorage.setItem("cartItem", item);
+    localStorage.setItem("cartItem", items);
   };
 
   getCartItemsFromLocalStorage = () => {
