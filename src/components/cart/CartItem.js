@@ -33,6 +33,9 @@ export class CartItem extends Component {
       this.setPriceInSelectedCurrency(this.state.product);
       this.setState({ currencyInUse: this.context.currencyInUse });
     }
+    if (prevState.product !== this.state.product) {
+      this.splitName(this.state.product);
+    }
   }
 
   setProduct = async () => {
@@ -62,8 +65,8 @@ export class CartItem extends Component {
         {this.state.product !== null && (
           <section className="cart__item">
             <article>
-              <h1>{this.state.firstName}</h1>
-              <h3>{this.state.otherNames}</h3>
+              <h3>{this.state.firstName}</h3>
+              <h5>{this.state.otherNames}</h5>
               <h3>
                 {this.context.currencyInUse}
                 {this.state.productPrice}

@@ -48,7 +48,7 @@ export class ContextProvider extends Component {
   };
 
   openCurrencyTab = () => {
-    this.setState({ showingCurrencyTab: true });
+    this.setState({ showingCurrencyTab: true, showingMiniCart: false });
   };
 
   closeCurrencyTab = () => {
@@ -56,8 +56,7 @@ export class ContextProvider extends Component {
   };
 
   changeCurrencyInUse = (newCurrency) => {
-    this.setState({ currencyInUse: newCurrency });
-    this.setState({ showingCurrencyTab: false });
+    this.setState({ currencyInUse: newCurrency, showingCurrencyTab: false });
   };
 
   setClickedProductId = (productId) => {
@@ -88,7 +87,10 @@ export class ContextProvider extends Component {
   };
 
   toggleMiniCart = () => {
-    this.setState({ showingMiniCart: !this.state.showingMiniCart });
+    this.setState({
+      showingMiniCart: !this.state.showingMiniCart,
+      showingCurrencyTab: false,
+    });
   };
 
   render() {
