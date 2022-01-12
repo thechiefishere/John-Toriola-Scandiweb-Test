@@ -8,9 +8,14 @@ export class Cart extends Component {
   render() {
     return (
       <section className="cart">
-        {this.context.cartItems.map((id) => {
-          return <CartItem key={id} productId={id} />;
-        })}
+        {this.context.cartItems.length > 0 ? (
+          this.context.cartItems.map((item) => {
+            const id = item.split(" ")[0];
+            return <CartItem key={id} productId={id} />;
+          })
+        ) : (
+          <h1>Your cart is empty</h1>
+        )}
       </section>
     );
   }

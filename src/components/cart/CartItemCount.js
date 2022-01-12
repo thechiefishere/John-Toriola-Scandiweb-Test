@@ -15,6 +15,16 @@ export class CartItemCount extends Component {
   }
 
   static contextType = AppContext;
+  componentDidMount() {
+    this.setNumberOfItemFromContext();
+  }
+
+  setNumberOfItemFromContext = () => {
+    let itemCountInCart = this.context.getItemCountInCart(this.props.productId);
+    if (!itemCountInCart) return;
+    this.setState({ numberOfItem: itemCountInCart });
+  };
+
   nextImage = () => {
     let nextImageIndex = this.state.count;
     if (this.state.count >= this.props.gallery.length - 1) {
@@ -40,15 +50,19 @@ export class CartItemCount extends Component {
   };
 
   increaseNumberOfItem = () => {
-    this.setState({ numberOfItem: this.state.numberOfItem + 1 });
+    let itemCount = this.state.numberOfItem + 1;
+    this.setState({ numberOfItem: itemCount });
+    this.context.updateCartItemCount(this.props.productId, itemCount);
   };
 
   decreaseNumberOfItem = () => {
-    if (this.state.numberOfItem === 1) {
+    let itemCount = this.state.numberOfItem - 1;
+    if (itemCount === 0) {
       this.context.removeFromCart(this.props.productId);
       return;
     }
-    this.setState({ numberOfItem: this.state.numberOfItem - 1 });
+    this.setState({ numberOfItem: itemCount });
+    this.context.updateCartItemCount(this.props.productId, itemCount);
   };
 
   render() {

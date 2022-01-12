@@ -10,12 +10,20 @@ export class MiniCart extends Component {
     return (
       <section className="mini-cart">
         <h1>My bag, {this.context.cartItems.length} items</h1>
-        {this.context.cartItems.map((id) => {
-          return <CartItem key={id} productId={id} />;
-        })}
+        {this.context.cartItems.length > 0 ? (
+          this.context.cartItems.map((item) => {
+            const id = item.split(" ")[0];
+            return <CartItem key={id} productId={id} />;
+          })
+        ) : (
+          <h1>You cart is empty</h1>
+        )}
         <div>
           <h3>Total</h3>
-          <h3>I am total</h3>
+          <h3>
+            {this.context.currencyInUse}
+            {this.context.totalAmountOfAllItemsInCart}
+          </h3>
         </div>
         <div>
           <button onClick={this.context.toggleMiniCart}>
