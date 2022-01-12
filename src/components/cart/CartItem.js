@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AppContext } from "../../store/context";
 import CartItemCount from "./CartItemCount";
 import Attribute from "../Attribute";
+import SelectedAttributes from "../SelectedAttributes";
 import { productQuery } from "../../store/queries";
 import { clientClone } from "../../store/context";
 
@@ -71,9 +72,7 @@ export class CartItem extends Component {
                 {this.context.currencyInUse}
                 {this.state.productPrice}
               </h3>
-              {this.state.product.attributes.map((attribute, index) => {
-                return <Attribute key={index} attribute={attribute} />;
-              })}
+              <SelectedAttributes productId={this.state.product.id} />
             </article>
             <CartItemCount
               gallery={this.state.product.gallery}

@@ -3,26 +3,39 @@ import React, { Component } from "react";
 export class Attribute extends Component {
   render() {
     return (
-      <article className="attribute">
+      <article className="attribute-container">
         <h3 className="attribute-name">{this.props.attribute.name}:</h3>
-        <div className="attribute-item_set">
+        <div className="attribute-set">
           {this.props.attribute.items.map((item, index) => {
             return (
-              <button
-                key={index}
-                className={`attribute-item ${
-                  this.props.attribute.type === "swatch" &&
-                  "attribute-item__swatch"
-                }`}
+              <div
+                className="attribute"
+                key={item.id}
                 style={{
                   backgroundColor:
                     this.props.attribute.type === "swatch"
                       ? item.value
                       : "none",
                 }}
+                onClick={() =>
+                  this.props.setSelectedAttributes(
+                    this.props.attributeIndex,
+                    item.value,
+                    this.props.attribute.type
+                  )
+                }
               >
-                {this.props.attribute.type !== "swatch" && item.value}
-              </button>
+                <input
+                  type="radio"
+                  value={item.value}
+                  name={`${this.props.attribute.name}${this.props.productName}`}
+                  id={`${item.value}`}
+                  className="attribute-input"
+                />
+                <label className="attribute-label" htmlFor={`${item.value}`}>
+                  {this.props.attribute.type !== "swatch" && item.value}
+                </label>
+              </div>
             );
           })}
         </div>

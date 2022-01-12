@@ -84,10 +84,10 @@ export class ContextProvider extends Component {
     this.setState({ clickedProductId: productId });
   };
 
-  addToCartItems = (productId) => {
+  addToCartItems = (productId, selectedAttributes) => {
     if (this.state.cartItems.indexOf(productId) >= 0) return;
     const items = this.state.cartItems;
-    items.push(`${productId} 1`);
+    items.push(`${productId} 1 ${selectedAttributes}`);
     this.setState({ cartItems: items });
     localStorage.setItem("cartItem", items);
   };

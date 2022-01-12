@@ -18,6 +18,7 @@ export class ProductDetailsPage extends Component {
       otherNames: "",
       productPrice: 0,
       currencyInUse: null,
+      selectedAttributes: "",
     };
   }
 
@@ -59,6 +60,36 @@ export class ProductDetailsPage extends Component {
     this.setState({ productPrice: priceInSelectedCurrency });
   };
 
+  /**
+   * setSelectedAttributes also takes into account
+   * changing of selected attribute.
+   * @param {index of the attribute in the list of attributes} index
+   * @param {value of the selected attribute} value
+   */
+  setSelectedAttributes = (index, value, attributeType) => {
+    let selectedAttributesCopy = this.state.selectedAttributes;
+    let splittedSelectedAttributes = [];
+    if (selectedAttributesCopy !== "")
+      splittedSelectedAttributes = selectedAttributesCopy.split(" ");
+
+    const newAttribute = `${index}-${value}-${attributeType}`;
+
+    splittedSelectedAttributes = splittedSelectedAttributes.filter(
+      (attribute) => {
+        const attributeIndex = attribute.split("-")[0];
+        if (attributeIndex != index) return attribute;
+      }
+    );
+    selectedAttributesCopy = "";
+    splittedSelectedAttributes.forEach((attribute) => {
+      selectedAttributesCopy += attribute + " ";
+    });
+    selectedAttributesCopy.trim();
+    selectedAttributesCopy += newAttribute;
+
+    this.setState({ selectedAttributes: selectedAttributesCopy });
+  };
+
   render() {
     return (
       <section>
@@ -85,7 +116,14 @@ export class ProductDetailsPage extends Component {
                 <h3>{this.state.firstName}</h3>
                 <h5>{this.state.otherNames}</h5>
                 {this.state.product.attributes.map((attribute, index) => {
-                  return <Attribute key={index} attribute={attribute} />;
+                  return (
+                    <Attribute
+                      key={index}
+                      attribute={attribute}
+                      setSelectedAttributes={this.setSelectedAttributes}
+                      attributeIndex={index}
+                    />
+                  );
                 })}
                 <h3>Price:</h3>
                 <AppContext.Consumer>
@@ -99,7 +137,10 @@ export class ProductDetailsPage extends Component {
                 </AppContext.Consumer>
                 <button
                   onClick={() =>
-                    this.context.addToCartItems(this.state.product.id)
+                    this.context.addToCartItems(
+                      this.state.product.id,
+                      this.state.selectedAttributes
+                    )
                   }
                 >
                   <Link to="/cart">ADD TO CART</Link>
