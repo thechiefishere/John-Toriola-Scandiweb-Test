@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { AppContext } from "../../store/context";
 
 export class CartItemCount extends Component {
@@ -84,8 +83,16 @@ export class CartItemCount extends Component {
           <img src={this.state.productImageString} alt={this.props.name} />
           {this.state.imageCount > 1 && (
             <div>
-              <FaChevronLeft onClick={this.previousImage} />
-              <FaChevronRight onClick={this.nextImage} />
+              <img
+                onClick={this.previousImage}
+                src="/icons/leftArrow.svg"
+                alt="left-arrow"
+              />
+              <img
+                onClick={this.nextImage}
+                src="/icons/rightArrow.svg"
+                alt="right-arrow"
+              />
             </div>
           )}
         </div>

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import shoppingBag from "../shop-bag.jpg";
 import { AppContext } from "../store/context";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { BsCart2 } from "react-icons/bs";
 
 export class Header extends Component {
   static contextType = AppContext;
@@ -31,16 +29,28 @@ export class Header extends Component {
                 <div className="currency">
                   <p>{state.currencyInUse}</p>
                   {state.showingCurrencyTab ? (
-                    <FaChevronUp onClick={() => state.closeCurrencyTab()} />
+                    <img
+                      onClick={state.closeCurrencyTab}
+                      src="/icons/upArrow.svg"
+                      alt="up-arrow"
+                    />
                   ) : (
-                    <FaChevronDown onClick={() => state.openCurrencyTab()} />
+                    <img
+                      onClick={state.openCurrencyTab}
+                      src="/icons/downArrow.svg"
+                      alt="down-arrow"
+                    />
                   )}
                 </div>
               );
             }}
           </AppContext.Consumer>
           <div>
-            <BsCart2 onClick={this.context.toggleMiniCart} />
+            <img
+              onClick={this.context.toggleMiniCart}
+              src="/icons/cart.svg"
+              alt="cart-icon"
+            />
             <p>{this.context.cartItems.length}</p>
           </div>
         </div>
