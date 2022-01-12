@@ -34,7 +34,7 @@ export const productQuery = (productId) => {
       new Field("attributes", true)
         .addField("name")
         .addField("type")
-        .addField(new Field("items").addField("displayValue"))
+        .addField(new Field("items").addField("value").addField("id"))
     );
   return productQuery;
 };

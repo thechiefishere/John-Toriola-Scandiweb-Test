@@ -30,12 +30,14 @@ export class Header extends Component {
                   <p>{state.currencyInUse}</p>
                   {state.showingCurrencyTab ? (
                     <img
+                      className="icon"
                       onClick={state.closeCurrencyTab}
                       src="/icons/upArrow.svg"
                       alt="up-arrow"
                     />
                   ) : (
                     <img
+                      className="icon"
                       onClick={state.openCurrencyTab}
                       src="/icons/downArrow.svg"
                       alt="down-arrow"
@@ -47,6 +49,7 @@ export class Header extends Component {
           </AppContext.Consumer>
           <div>
             <img
+              className="icon"
               onClick={this.context.toggleMiniCart}
               src="/icons/cart.svg"
               alt="cart-icon"

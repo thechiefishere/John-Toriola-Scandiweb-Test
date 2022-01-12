@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AppContext } from "../store/context";
 
@@ -53,7 +52,7 @@ export class ProductTile extends Component {
         <div>
           {this.props.product.id === this.context.clickedProductId && (
             <Link to={`${this.props.product.id}`}>
-              <BsCart2 />
+              <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
             </Link>
           )}
         </div>

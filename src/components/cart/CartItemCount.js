@@ -84,11 +84,13 @@ export class CartItemCount extends Component {
           {this.state.imageCount > 1 && (
             <div>
               <img
+                className="icon"
                 onClick={this.previousImage}
                 src="/icons/leftArrow.svg"
                 alt="left-arrow"
               />
               <img
+                className="icon"
                 onClick={this.nextImage}
                 src="/icons/rightArrow.svg"
                 alt="right-arrow"

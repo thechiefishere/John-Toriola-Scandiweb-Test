@@ -47,6 +47,11 @@ ul li {
   margin: 0px 8px;
 }
 
+.icon {
+  width: 20px !important;
+  height: 20px !important;
+}
+
 .currencyTab {
   width: 70px;
   position: absolute;
