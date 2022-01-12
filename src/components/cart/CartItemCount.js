@@ -19,6 +19,13 @@ export class CartItemCount extends Component {
     this.setNumberOfItemFromContext();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    let itemCountInCart = this.context.getItemCountInCart(this.props.productId);
+    if (prevState.numberOfItem !== itemCountInCart) {
+      this.setNumberOfItemFromContext();
+    }
+  }
+
   setNumberOfItemFromContext = () => {
     let itemCountInCart = this.context.getItemCountInCart(this.props.productId);
     if (!itemCountInCart) return;
