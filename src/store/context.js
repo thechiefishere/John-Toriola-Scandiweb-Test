@@ -85,9 +85,36 @@ export class ContextProvider extends Component {
   };
 
   addToCartItems = (productId, selectedAttributes) => {
-    if (this.state.cartItems.indexOf(productId) >= 0) return;
+    const productToAdd = `${productId} 1 ${selectedAttributes}`;
     const items = this.state.cartItems;
-    items.push(`${productId} 1 ${selectedAttributes}`);
+    if (this.productIsInCart(productId, items)) {
+      this.updateProductInCart(productId, items, selectedAttributes);
+      return;
+    }
+    items.push(productToAdd);
+    this.setState({ cartItems: items });
+    localStorage.setItem("cartItem", items);
+  };
+
+  productIsInCart = (productId, cartItems) => {
+    const item = cartItems.find((item) => {
+      const itemId = item.split(" ")[0];
+      if (itemId === productId) return item;
+    });
+    if (item) return true;
+
+    return false;
+  };
+
+  updateProductInCart = (productId, cartItems, attributeToAdd) => {
+    const items = cartItems.map((item) => {
+      const itemId = item.split(" ")[0];
+      if (itemId === productId) {
+        const itemToAdd = `${item}${attributeToAdd}`;
+        return itemToAdd;
+      }
+      return item;
+    });
     this.setState({ cartItems: items });
     localStorage.setItem("cartItem", items);
   };

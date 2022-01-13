@@ -11,7 +11,7 @@ export class Cart extends Component {
         {this.context.cartItems.length > 0 ? (
           this.context.cartItems.map((item) => {
             const id = item.split(" ")[0];
-            return <CartItem key={id} productId={id} />;
+            return <CartItem key={item} productId={id} />;
           })
         ) : (
           <h1>Your cart is empty</h1>

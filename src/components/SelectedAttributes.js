@@ -31,8 +31,8 @@ export class SelectedAttributes extends Component {
     return (
       <article className="selected-attributes-set">
         {this.state.attributes.map((attribute, index) => {
-          const attributeValue = attribute.split("-")[1];
-          const attributeType = attribute.split("-")[2];
+          const attributeValue = attribute.split("-")[0];
+          const attributeType = attribute.split("-")[1];
           return (
             <div
               key={index}

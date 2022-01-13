@@ -6,7 +6,7 @@ export class Attribute extends Component {
       <article className="attribute-container">
         <h3 className="attribute-name">{this.props.attribute.name}:</h3>
         <div className="attribute-set">
-          {this.props.attribute.items.map((item, index) => {
+          {this.props.attribute.items.map((item) => {
             return (
               <div
                 className="attribute"
@@ -19,14 +19,13 @@ export class Attribute extends Component {
                 }}
                 onClick={() =>
                   this.props.setSelectedAttributes(
-                    this.props.attributeIndex,
                     item.value,
                     this.props.attribute.type
                   )
                 }
               >
                 <input
-                  type="radio"
+                  type="checkbox"
                   value={item.value}
                   name={`${this.props.attribute.name}${this.props.productName}`}
                   id={`${item.value}`}

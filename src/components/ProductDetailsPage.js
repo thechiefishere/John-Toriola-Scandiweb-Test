@@ -66,28 +66,19 @@ export class ProductDetailsPage extends Component {
    * @param {index of the attribute in the list of attributes} index
    * @param {value of the selected attribute} value
    */
-  setSelectedAttributes = (index, value, attributeType) => {
-    let selectedAttributesCopy = this.state.selectedAttributes;
-    let splittedSelectedAttributes = [];
-    if (selectedAttributesCopy !== "")
-      splittedSelectedAttributes = selectedAttributesCopy.split(" ");
-
-    const newAttribute = `${index}-${value}-${attributeType}`;
-
-    splittedSelectedAttributes = splittedSelectedAttributes.filter(
-      (attribute) => {
-        const attributeIndex = attribute.split("-")[0];
-        if (attributeIndex != index) return attribute;
-      }
-    );
-    selectedAttributesCopy = "";
-    splittedSelectedAttributes.forEach((attribute) => {
-      selectedAttributesCopy += attribute + " ";
-    });
-    selectedAttributesCopy.trim();
-    selectedAttributesCopy += newAttribute;
-
-    this.setState({ selectedAttributes: selectedAttributesCopy });
+  setSelectedAttributes = (attributeValue, attributeType) => {
+    let copyOfSelectedAttribute = this.state.selectedAttributes;
+    const attributeToAdd = `${attributeValue}-${attributeType} `;
+    if (copyOfSelectedAttribute.indexOf(attributeToAdd) >= 0) {
+      copyOfSelectedAttribute = copyOfSelectedAttribute.replace(
+        attributeToAdd,
+        ""
+      );
+      this.setState({ selectedAttributes: copyOfSelectedAttribute });
+      return;
+    }
+    copyOfSelectedAttribute += attributeToAdd;
+    this.setState({ selectedAttributes: copyOfSelectedAttribute });
   };
 
   render() {
@@ -121,7 +112,6 @@ export class ProductDetailsPage extends Component {
                       key={index}
                       attribute={attribute}
                       setSelectedAttributes={this.setSelectedAttributes}
-                      attributeIndex={index}
                     />
                   );
                 })}
@@ -155,7 +145,6 @@ export class ProductDetailsPage extends Component {
           </section>
         )}
       </section>
-      //   <div>Hello</div>
     );
   }
 }
