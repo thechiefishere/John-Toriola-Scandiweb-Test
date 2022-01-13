@@ -112,7 +112,7 @@ export class ContextProvider extends Component {
     const items = cartItems.map((item) => {
       const itemId = item.split(" ")[0];
       if (itemId === productId) {
-        const itemToAdd = `${item}${attributeToAdd}`;
+        const itemToAdd = `${item}_ ${attributeToAdd}`;
         return itemToAdd;
       }
       return item;
@@ -128,11 +128,10 @@ export class ContextProvider extends Component {
       let itemToArray = item.split(" ");
       if (itemToArray[0] === productId) {
         let attributeToChange = itemToArray[index + 2];
-        let stateIndex = attributeToChange.indexOf("UNCHECKED");
+        let stateIndex = attributeToChange.indexOf("REMOVE");
         if (stateIndex < 0)
-          attributeToChange = attributeToChange.replace("CHECKED", "UNCHECKED");
-        else
-          attributeToChange = attributeToChange.replace("UNCHECKED", "CHECKED");
+          attributeToChange = attributeToChange.replace("ADD", "REMOVE");
+        else attributeToChange = attributeToChange.replace("REMOVE", "ADD");
         itemToArray[index + 2] = attributeToChange;
         item = itemToArray.join(" ");
         return item;
@@ -194,21 +193,18 @@ export class ContextProvider extends Component {
 
   getTotalPriceForSingleProduct = (productId) => {
     const item = this.getProductFromCartItems(productId);
-    console.log("item", item);
-    const checkedAttributes = item.split(" ").filter((field) => {
-      if (field.indexOf("CHECKED") !== -1) return field;
-    });
-    console.log("checkedAttributes", checkedAttributes);
-    const list = this.getListOfNumberOfDifferentAttribute(checkedAttributes);
-    console.log("list", list);
-    const numberOfTheProduct =
-      this.getTotalNumberOfTheSingleProductInCart(list);
-    console.log("numberOfTheProduct", numberOfTheProduct);
+    const numberOfProduct = this.getNumberOfProductsFromCheckedAttribute(item);
     const priceOfProduct = this.getProductPriceInSelectedCurrency(productId);
-    console.log("priceOfProduct", priceOfProduct);
-    const totalPrice = priceOfProduct * numberOfTheProduct;
-
+    const totalPrice = numberOfProduct * priceOfProduct;
     return totalPrice;
+  };
+
+  getNumberOfProductsFromCheckedAttribute = (item) => {
+    let productCount = 0;
+    item.split("_ ").forEach((value) => {
+      if (value.indexOf("ADD") !== -1) productCount++;
+    });
+    return productCount++;
   };
 
   getProductPriceInSelectedCurrency = (productId) => {
@@ -218,7 +214,6 @@ export class ContextProvider extends Component {
       if (product.id === productId) {
         product.prices.map((price) => {
           if (price.currency.symbol === this.state.currencyInUse) {
-            console.log("price.amount", price.amount);
             value = price.amount;
             return price.amount;
           }
@@ -226,29 +221,6 @@ export class ContextProvider extends Component {
       }
     });
     return value;
-  };
-
-  getTotalNumberOfTheSingleProductInCart = (list) => {
-    let total = 1;
-    list.forEach((val) => (total *= val));
-    return total;
-  };
-
-  getListOfNumberOfDifferentAttribute = (checkedAttributes) => {
-    const list = [];
-    const visited = [];
-    for (let i = 0; i < checkedAttributes.length; i++) {
-      let count = 0;
-      const attributeIndex = checkedAttributes[i].split("-")[0];
-      if (visited.includes(attributeIndex)) continue;
-      visited.push(attributeIndex);
-      for (let j = 0; j < checkedAttributes.length; j++) {
-        const index = checkedAttributes[j].split("-")[0];
-        if (attributeIndex === index) count++;
-      }
-      list.push(count);
-    }
-    return list;
   };
 
   getProductFromCartItems = (productId) => {
@@ -260,23 +232,10 @@ export class ContextProvider extends Component {
   setTotalAmountOfAllItemsInCart = () => {
     let total = 0;
     const items = this.state.cartItems;
-    const products = this.state.allProducts;
-    if (items.length === 0) return total;
-    for (let i = 0; i < items.length; i++) {
-      const itemId = items[i].split(" ")[0];
-      const itemCount = parseInt(items[i].split(" ")[1]);
-      for (let j = 0; j < products.length; j++) {
-        const product = products[j];
-        if (itemId === product.id) {
-          product.prices.map((price) => {
-            if (price.currency.symbol === this.state.currencyInUse) {
-              const productTotalWithCount = price.amount * itemCount;
-              total += productTotalWithCount;
-            }
-          });
-        }
-      }
-    }
+    items.forEach((item) => {
+      const productId = item.split(" ")[0];
+      total += this.getTotalPriceForSingleProduct(productId);
+    });
     this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
   };
 

@@ -26,7 +26,7 @@ export class Attribute extends Component {
                 }
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   value={item.value}
                   name={`${this.props.attribute.name}${this.props.productName}`}
                   id={`${item.value}`}

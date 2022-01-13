@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export class MiniCart extends Component {
   static contextType = AppContext;
-
   render() {
     return (
       <section className="mini-cart">

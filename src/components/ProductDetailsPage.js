@@ -70,19 +70,24 @@ export class ProductDetailsPage extends Component {
     attributeIndex,
     attributeValue,
     attributeType,
-    attributeState = "CHECKED"
+    attributeState = "ADD"
   ) => {
     let copyOfSelectedAttribute = this.state.selectedAttributes;
-    const attributeToAdd = `${attributeIndex}-${attributeValue}-${attributeType}-${attributeState} `;
-    if (copyOfSelectedAttribute.indexOf(attributeToAdd) >= 0) {
-      copyOfSelectedAttribute = copyOfSelectedAttribute.replace(
-        attributeToAdd,
-        ""
-      );
-      this.setState({ selectedAttributes: copyOfSelectedAttribute });
-      return;
-    }
-    copyOfSelectedAttribute += attributeToAdd;
+    const attributeToAdd = ` ${attributeIndex}-${attributeValue}-${attributeType}-${attributeState} `;
+    copyOfSelectedAttribute = copyOfSelectedAttribute
+      .split(" ")
+      .filter((item) => {
+        const itemIndex = item.split("-")[0];
+        if (itemIndex != attributeIndex) {
+          return item;
+        }
+      });
+    copyOfSelectedAttribute = copyOfSelectedAttribute.join(" ");
+
+    copyOfSelectedAttribute = copyOfSelectedAttribute
+      .concat(attributeToAdd)
+      .trim();
+
     this.setState({ selectedAttributes: copyOfSelectedAttribute });
   };
 
