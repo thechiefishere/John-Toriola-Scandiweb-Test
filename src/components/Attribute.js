@@ -19,6 +19,7 @@ export class Attribute extends Component {
                 }}
                 onClick={() =>
                   this.props.setSelectedAttributes(
+                    this.props.attributeIndex,
                     item.value,
                     this.props.attribute.type
                   )

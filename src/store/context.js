@@ -31,11 +31,13 @@ export class ContextProvider extends Component {
       addToCartItems: this.addToCartItems,
       removeFromCart: this.removeFromCart,
       updateCartItemCount: this.updateCartItemCount,
+      updateCartItemAttributeState: this.updateCartItemAttributeState,
       getItemCountInCart: this.getItemCountInCart,
       showingMiniCart: false,
       toggleMiniCart: this.toggleMiniCart,
       allProducts: [],
       totalAmountOfAllItemsInCart: 0,
+      getTotalPriceForSingleProduct: this.getTotalPriceForSingleProduct,
     };
   }
 
@@ -119,6 +121,28 @@ export class ContextProvider extends Component {
     localStorage.setItem("cartItem", items);
   };
 
+  //TODO:Refactor
+  updateCartItemAttributeState = (productId, index) => {
+    let items = this.state.cartItems;
+    items = items.map((item) => {
+      let itemToArray = item.split(" ");
+      if (itemToArray[0] === productId) {
+        let attributeToChange = itemToArray[index + 2];
+        let stateIndex = attributeToChange.indexOf("UNCHECKED");
+        if (stateIndex < 0)
+          attributeToChange = attributeToChange.replace("CHECKED", "UNCHECKED");
+        else
+          attributeToChange = attributeToChange.replace("UNCHECKED", "CHECKED");
+        itemToArray[index + 2] = attributeToChange;
+        item = itemToArray.join(" ");
+        return item;
+      }
+      return item;
+    });
+    this.setState({ cartItems: items });
+    localStorage.setItem("cartItem", items);
+  };
+
   updateCartItemCount = (productId, count) => {
     let items = this.state.cartItems;
     items = items.map((item) => {
@@ -166,6 +190,71 @@ export class ContextProvider extends Component {
       showingMiniCart: !this.state.showingMiniCart,
       showingCurrencyTab: false,
     });
+  };
+
+  getTotalPriceForSingleProduct = (productId) => {
+    const item = this.getProductFromCartItems(productId);
+    console.log("item", item);
+    const checkedAttributes = item.split(" ").filter((field) => {
+      if (field.indexOf("CHECKED") !== -1) return field;
+    });
+    console.log("checkedAttributes", checkedAttributes);
+    const list = this.getListOfNumberOfDifferentAttribute(checkedAttributes);
+    console.log("list", list);
+    const numberOfTheProduct =
+      this.getTotalNumberOfTheSingleProductInCart(list);
+    console.log("numberOfTheProduct", numberOfTheProduct);
+    const priceOfProduct = this.getProductPriceInSelectedCurrency(productId);
+    console.log("priceOfProduct", priceOfProduct);
+    const totalPrice = priceOfProduct * numberOfTheProduct;
+
+    return totalPrice;
+  };
+
+  getProductPriceInSelectedCurrency = (productId) => {
+    const products = this.state.allProducts;
+    let value = "";
+    products.forEach((product) => {
+      if (product.id === productId) {
+        product.prices.map((price) => {
+          if (price.currency.symbol === this.state.currencyInUse) {
+            console.log("price.amount", price.amount);
+            value = price.amount;
+            return price.amount;
+          }
+        });
+      }
+    });
+    return value;
+  };
+
+  getTotalNumberOfTheSingleProductInCart = (list) => {
+    let total = 1;
+    list.forEach((val) => (total *= val));
+    return total;
+  };
+
+  getListOfNumberOfDifferentAttribute = (checkedAttributes) => {
+    const list = [];
+    const visited = [];
+    for (let i = 0; i < checkedAttributes.length; i++) {
+      let count = 0;
+      const attributeIndex = checkedAttributes[i].split("-")[0];
+      if (visited.includes(attributeIndex)) continue;
+      visited.push(attributeIndex);
+      for (let j = 0; j < checkedAttributes.length; j++) {
+        const index = checkedAttributes[j].split("-")[0];
+        if (attributeIndex === index) count++;
+      }
+      list.push(count);
+    }
+    return list;
+  };
+
+  getProductFromCartItems = (productId) => {
+    const items = this.state.cartItems;
+    const item = items.find((item) => item.indexOf(productId) !== -1);
+    return item;
   };
 
   setTotalAmountOfAllItemsInCart = () => {

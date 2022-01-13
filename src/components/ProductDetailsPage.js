@@ -66,9 +66,14 @@ export class ProductDetailsPage extends Component {
    * @param {index of the attribute in the list of attributes} index
    * @param {value of the selected attribute} value
    */
-  setSelectedAttributes = (attributeValue, attributeType) => {
+  setSelectedAttributes = (
+    attributeIndex,
+    attributeValue,
+    attributeType,
+    attributeState = "CHECKED"
+  ) => {
     let copyOfSelectedAttribute = this.state.selectedAttributes;
-    const attributeToAdd = `${attributeValue}-${attributeType} `;
+    const attributeToAdd = `${attributeIndex}-${attributeValue}-${attributeType}-${attributeState} `;
     if (copyOfSelectedAttribute.indexOf(attributeToAdd) >= 0) {
       copyOfSelectedAttribute = copyOfSelectedAttribute.replace(
         attributeToAdd,
@@ -112,6 +117,7 @@ export class ProductDetailsPage extends Component {
                       key={index}
                       attribute={attribute}
                       setSelectedAttributes={this.setSelectedAttributes}
+                      attributeIndex={index}
                     />
                   );
                 })}

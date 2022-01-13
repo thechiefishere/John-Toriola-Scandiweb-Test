@@ -15,6 +15,7 @@ export class SelectedAttributes extends Component {
   componentDidMount() {
     this.setAttributes();
   }
+
   setAttributes = () => {
     const items = this.context.cartItems;
     const item = items.find((item) => {
@@ -31,18 +32,27 @@ export class SelectedAttributes extends Component {
     return (
       <article className="selected-attributes-set">
         {this.state.attributes.map((attribute, index) => {
-          const attributeValue = attribute.split("-")[0];
-          const attributeType = attribute.split("-")[1];
+          const attributeValue = attribute.split("-")[1];
+          const attributeType = attribute.split("-")[2];
           return (
             <div
               key={index}
-              className="selected-attribute"
+              className="attribute"
               style={{
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,
               }}
+              onClick={() =>
+                this.context.updateCartItemAttributeState(
+                  this.props.productId,
+                  index
+                )
+              }
             >
-              {attributeType === "text" && attributeValue}
+              <input type="checkbox" className="attribute-input" />
+              <label className="attribute-label">
+                {attributeType === "text" && attributeValue}
+              </label>
             </div>
           );
         })}

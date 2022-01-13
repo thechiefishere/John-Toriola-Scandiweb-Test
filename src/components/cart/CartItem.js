@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { AppContext } from "../../store/context";
 import CartItemCount from "./CartItemCount";
-import Attribute from "../Attribute";
 import SelectedAttributes from "../SelectedAttributes";
 import { productQuery } from "../../store/queries";
 import { clientClone } from "../../store/context";
@@ -53,11 +52,15 @@ export class CartItem extends Component {
   };
 
   setPriceInSelectedCurrency = (product) => {
-    if (product === null || this.state.currencyInUse === null) return;
-    const priceInSelectedCurrency = product.prices.find(
-      (price) => this.context.currencyInUse === price.currency.symbol
-    ).amount;
-    this.setState({ productPrice: priceInSelectedCurrency });
+    // if (product === null || this.state.currencyInUse === null) return;
+    // const priceInSelectedCurrency = product.prices.find(
+    //   (price) => this.context.currencyInUse === price.currency.symbol
+    // ).amount;
+    // this.setState({ productPrice: priceInSelectedCurrency });
+    const productTotalPrice = this.context.getTotalPriceForSingleProduct(
+      this.props.productId
+    );
+    this.setState({ productPrice: productTotalPrice });
   };
 
   render() {
