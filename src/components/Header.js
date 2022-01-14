@@ -1,43 +1,31 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import shoppingBag from "../shop-bag.jpg";
 import { AppContext } from "../store/context";
+import Navbar from "./Navbar";
 
 export class Header extends Component {
   static contextType = AppContext;
   render() {
     return (
       <header className="header">
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">ALL</NavLink>
-            </li>
-            <li>
-              <NavLink to="/clothes">CLOTHES</NavLink>
-            </li>
-            <li>
-              <NavLink to="/tech">TECH</NavLink>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
         <img src={shoppingBag} alt="shop-bag" className="bag" />
         <div className="header-end">
           <AppContext.Consumer>
             {(state) => {
               return (
                 <div className="currency">
-                  <p>{state.currencyInUse}</p>
+                  <p className="currency-in-use">{state.currencyInUse}</p>
                   {state.showingCurrencyTab ? (
                     <img
-                      className="icon"
+                      className="icon icon--toggle"
                       onClick={state.closeCurrencyTab}
                       src="/icons/upArrow.svg"
                       alt="up-arrow"
                     />
                   ) : (
                     <img
-                      className="icon"
+                      className="icon icon--toggle"
                       onClick={state.openCurrencyTab}
                       src="/icons/downArrow.svg"
                       alt="down-arrow"
@@ -47,14 +35,14 @@ export class Header extends Component {
               );
             }}
           </AppContext.Consumer>
-          <div>
+          <div className="cart-icon">
             <img
               className="icon"
               onClick={this.context.toggleMiniCart}
               src="/icons/cart.svg"
               alt="cart-icon"
             />
-            <p>{this.context.cartItems.length}</p>
+            <p className="item-count">{this.context.cartItems.length}</p>
           </div>
         </div>
       </header>
