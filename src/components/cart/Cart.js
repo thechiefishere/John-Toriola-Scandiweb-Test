@@ -8,6 +8,7 @@ export class Cart extends Component {
   render() {
     return (
       <section className="cart">
+        <h1 className="cart__title">cart</h1>
         {this.context.cartItems.length > 0 ? (
           this.context.cartItems.map((item) => {
             const id = item.split(" ")[0];

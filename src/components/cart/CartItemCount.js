@@ -73,24 +73,40 @@ export class CartItemCount extends Component {
 
   render() {
     return (
-      <article className="cart__item__count">
-        <div>
-          <button onClick={this.increaseNumberOfItem}>+</button>
-          <p>{this.state.numberOfItem}</p>
-          <button onClick={this.decreaseNumberOfItem}>-</button>
+      <article className="cart-count">
+        <div className="cart-count__btn-grp">
+          <button
+            className="cart-count__btn"
+            onClick={this.increaseNumberOfItem}
+          >
+            +
+          </button>
+          <p className="cart-count__num">{this.state.numberOfItem}</p>
+          <button
+            className="cart-count__btn"
+            onClick={this.decreaseNumberOfItem}
+          >
+            -
+          </button>
         </div>
-        <div>
-          <img src={this.state.productImageString} alt={this.props.name} />
+        <div className="cart-count__img-switcher">
+          <div className="cart-count__img-container">
+            <img
+              className="cart-count__img"
+              src={this.state.productImageString}
+              alt={this.props.name}
+            />
+          </div>
           {this.state.imageCount > 1 && (
-            <div>
+            <div className="cart-count__icon-container">
               <img
-                className="icon"
+                className="cart-count__icon"
                 onClick={this.previousImage}
                 src="/icons/leftArrow.svg"
                 alt="left-arrow"
               />
               <img
-                className="icon"
+                className="cart-count__icon"
                 onClick={this.nextImage}
                 src="/icons/rightArrow.svg"
                 alt="right-arrow"

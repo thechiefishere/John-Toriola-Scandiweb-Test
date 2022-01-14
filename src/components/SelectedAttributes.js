@@ -67,13 +67,13 @@ export class SelectedAttributes extends Component {
             >
               <input
                 type="checkbox"
-                className="attribute-input"
+                className="attribute__input"
                 defaultChecked={this.state.attributeState[index]}
                 onChange={() => {
                   this.handleOnChange(index);
                 }}
               />
-              <label className="attribute-label">
+              <label className="attribute__label">
                 {attributeType === "text" && attributeValue}
               </label>
             </div>

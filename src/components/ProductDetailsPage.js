@@ -114,8 +114,8 @@ export class ProductDetailsPage extends Component {
                 alt={this.state.product.name}
               />
               <article className="pdp__details__description">
-                <h3 className="pdp__firstname">{this.state.firstName}</h3>
-                <h5 className="pdp__othernames">{this.state.otherNames}</h5>
+                <h3 className="firstname">{this.state.firstName}</h3>
+                <h5 className="othernames">{this.state.otherNames}</h5>
                 {this.state.product.attributes.map((attribute, index) => {
                   return (
                     <Attribute
@@ -130,7 +130,7 @@ export class ProductDetailsPage extends Component {
                 <AppContext.Consumer>
                   {(state) => {
                     return (
-                      <h1 className="pdp__price-value">
+                      <h1 className="price-value">
                         {state.currencyInUse} {this.state.productPrice}
                       </h1>
                     );

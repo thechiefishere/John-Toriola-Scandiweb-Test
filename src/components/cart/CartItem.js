@@ -68,11 +68,11 @@ export class CartItem extends Component {
     return (
       <section>
         {this.state.product !== null && (
-          <section className="cart__item">
-            <article>
-              <h3>{this.state.firstName}</h3>
-              <h5>{this.state.otherNames}</h5>
-              <h3>
+          <section className="cart-item">
+            <article className="cart-item__details">
+              <h3 className="firstname">{this.state.firstName}</h3>
+              <h5 className="othernames">{this.state.otherNames}</h5>
+              <h3 className="price-value">
                 {this.context.currencyInUse}
                 {this.state.productPrice}
               </h3>
