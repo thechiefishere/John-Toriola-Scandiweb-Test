@@ -8,6 +8,7 @@
 body {
   position: relative;
   font-family: "Raleway", sans-serif;
+  color: #1d1f22;
 }
 
 a {
@@ -45,7 +46,6 @@ ul {
 
 .nav a {
   text-decoration: none;
-  color: #000;
 }
 .nav a.active {
   color: #5ece7b;
@@ -95,7 +95,6 @@ ul {
   font-weight: 500;
   line-height: 28px;
   font-size: 18px;
-  color: #1d1f22;
 }
 .header-end .cart-icon {
   position: relative;
@@ -127,14 +126,12 @@ ul {
 
 .currencyType {
   cursor: pointer;
-  color: #1d1f22;
   font-weight: 500;
   margin: 10px 0px 10px 10px;
 }
 
 .category__name {
   margin-bottom: 30px;
-  color: #1d1f22;
   font-weight: 400;
   font-size: 2.5em;
   line-height: 4em;
@@ -161,7 +158,6 @@ ul {
   height: 85%;
 }
 .product-tile__name {
-  color: #1d1f22;
   font-weight: 300;
   font-size: 18px;
   margin-bottom: 5px;
@@ -192,32 +188,76 @@ ul {
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 
-.category-name::first-letter {
-  text-transform: uppercase;
-}
-
 .pdp {
   position: relative;
   display: flex;
+  margin-top: 70px;
 }
-.pdp-other_images {
+.pdp__all-images {
   display: flex;
   flex-direction: column;
+  margin-right: 25px;
+  width: 8vw;
 }
-.pdp-other_images img {
+.pdp__all-images img {
   width: 8vw;
   height: 12vh;
+  margin-bottom: 10px;
 }
-.pdp-image {
-  width: 100%;
-  height: 70vh;
-}
-.pdp-details {
+.pdp__details {
+  width: 70vw;
   display: flex;
+}
+.pdp__details__image {
+  width: 60%;
+  height: 70vh;
+  margin-right: 10%;
+}
+.pdp__details__description .pdp__firstname {
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 27px;
+  margin-bottom: 5px;
+}
+.pdp__details__description .pdp__othernames {
+  font-weight: 400;
+  font-size: 2em;
+  line-height: 27px;
+  margin-bottom: 30px;
+}
+.pdp__details__description .pdp__price-title {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.pdp__details__description .pdp__price-value {
+  font-weight: 700;
+  font-size: 1.5em;
+  margin-bottom: 25px;
+}
+.pdp__details__description .pdp__btn {
+  width: 100%;
+  height: 45px;
+  background-color: #5ece7b;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.pdp__details__description .pdp__btn__link {
+  color: #fff;
+}
+.pdp__details__description .pdp__description {
+  font-family: "Roboto", sans-serif;
+  font-weight: 40;
+  line-height: 25px;
 }
 
 .attribute-set {
   display: flex;
+  margin-bottom: 30px;
+}
+.attribute-set__name {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
 }
 
 .attribute {
@@ -228,7 +268,7 @@ ul {
   text-align: center;
   border: 0.5px solid #000;
 }
-.attribute-input {
+.attribute__input {
   position: absolute;
   top: 0;
   left: 0;
@@ -236,7 +276,7 @@ ul {
   height: 100%;
   opacity: 0;
 }
-.attribute-label {
+.attribute__label {
   display: block;
   width: 100%;
   height: 100%;

@@ -4,7 +4,7 @@ export class Attribute extends Component {
   render() {
     return (
       <article className="attribute-container">
-        <h3 className="attribute-name">{this.props.attribute.name}:</h3>
+        <h3 className="attribute-set__name">{this.props.attribute.name}:</h3>
         <div className="attribute-set">
           {this.props.attribute.items.map((item) => {
             return (
@@ -30,9 +30,9 @@ export class Attribute extends Component {
                   value={item.value}
                   name={`${this.props.attribute.name}${this.props.productName}`}
                   id={`${item.value}`}
-                  className="attribute-input"
+                  className="attribute__input"
                 />
-                <label className="attribute-label" htmlFor={`${item.value}`}>
+                <label className="attribute__label" htmlFor={`${item.value}`}>
                   {this.props.attribute.type !== "swatch" && item.value}
                 </label>
               </div>

@@ -16,6 +16,7 @@ $secondary-color: #1d1f22;
 body {
   position: relative;
   font-family: $raleway-font;
+  color: $secondary-color;
 }
 
 a {
@@ -39,7 +40,6 @@ ul {
 .container {
   width: 90%;
   margin: 0px auto;
-  // background-color: red;
 }
 
 .header {
@@ -52,10 +52,8 @@ ul {
 }
 
 .nav {
-  // flex-grow: 1;
   a {
     text-decoration: none;
-    color: #000;
   }
   a.active {
     color: $primary-color;
@@ -104,7 +102,6 @@ ul {
       font-weight: 500;
       line-height: 28px;
       font-size: 18px;
-      color: $secondary-color;
     }
   }
   .cart-icon {
@@ -137,7 +134,6 @@ ul {
 
 .currencyType {
   cursor: pointer;
-  color: $secondary-color;
   font-weight: 500;
   margin: 10px 0px 10px 10px;
 }
@@ -145,7 +141,6 @@ ul {
 .category {
   &__name {
     margin-bottom: 30px;
-    color: $secondary-color;
     font-weight: 400;
     font-size: 2.5em;
     line-height: 4em;
@@ -172,7 +167,6 @@ ul {
     height: 85%;
   }
   &__name {
-    color: $secondary-color;
     font-weight: 300;
     font-size: 18px;
     margin-bottom: 5px;
@@ -204,43 +198,88 @@ ul {
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 
-.category-name::first-letter {
-  text-transform: uppercase;
-}
-
 .pdp {
   position: relative;
   display: flex;
-  &-other_images {
+  margin-top: 70px;
+  &__all-images {
     display: flex;
     flex-direction: column;
+    margin-right: 25px;
+    width: 8vw;
     img {
       width: 8vw;
       height: 12vh;
+      margin-bottom: 10px;
     }
   }
-  &-image {
-    width: 100%;
-    height: 70vh;
-  }
-  &-details {
+  &__details {
+    width: 70vw;
     display: flex;
+    &__image {
+      width: 60%;
+      height: 70vh;
+      margin-right: 10%;
+    }
+    &__description {
+      .pdp__firstname {
+        font-weight: 600;
+        font-size: 2em;
+        line-height: 27px;
+        margin-bottom: 5px;
+      }
+      .pdp__othernames {
+        font-weight: 400;
+        font-size: 2em;
+        line-height: 27px;
+        margin-bottom: 30px;
+      }
+      .pdp__price-title {
+        font-family: $roboto-condensed-font;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .pdp__price-value {
+        font-weight: 700;
+        font-size: 1.5em;
+        margin-bottom: 25px;
+      }
+      .pdp__btn {
+        width: 100%;
+        height: 45px;
+        background-color: $primary-color;
+        font-weight: 600;
+        margin-bottom: 30px;
+        &__link {
+          color: #fff;
+        }
+      }
+      .pdp__description {
+        font-family: $roboto-font;
+        font-weight: 40;
+        line-height: 25px;
+      }
+    }
   }
 }
 
 .attribute-set {
   display: flex;
+  margin-bottom: 30px;
+  &__name {
+    font-family: $roboto-condensed-font;
+    font-weight: 700;
+  }
 }
 
 .attribute {
-  // background-color: red;
   margin: 2px;
   width: 50px;
   height: 35px;
   position: relative;
   text-align: center;
   border: 0.5px solid #000;
-  &-input {
+  &__input {
     position: absolute;
     top: 0;
     left: 0;
@@ -248,7 +287,7 @@ ul {
     height: 100%;
     opacity: 0;
   }
-  &-label {
+  &__label {
     display: block;
     width: 100%;
     height: 100%;

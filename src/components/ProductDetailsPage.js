@@ -96,7 +96,7 @@ export class ProductDetailsPage extends Component {
       <section>
         {this.state.product !== null && (
           <section className="pdp">
-            <article className="pdp-other_images">
+            <article className="pdp__all-images">
               {this.state.product.gallery.map((pictureLink, index) => {
                 return (
                   <img
@@ -107,15 +107,15 @@ export class ProductDetailsPage extends Component {
                 );
               })}
             </article>
-            <section className="pdp-details">
+            <section className="pdp__details">
               <img
-                className="pdp-image"
+                className="pdp__details__image"
                 src={this.state.product.gallery[0]}
                 alt={this.state.product.name}
               />
-              <article>
-                <h3>{this.state.firstName}</h3>
-                <h5>{this.state.otherNames}</h5>
+              <article className="pdp__details__description">
+                <h3 className="pdp__firstname">{this.state.firstName}</h3>
+                <h5 className="pdp__othernames">{this.state.otherNames}</h5>
                 {this.state.product.attributes.map((attribute, index) => {
                   return (
                     <Attribute
@@ -126,17 +126,18 @@ export class ProductDetailsPage extends Component {
                     />
                   );
                 })}
-                <h3>Price:</h3>
+                <h3 className="pdp__price-title">Price:</h3>
                 <AppContext.Consumer>
                   {(state) => {
                     return (
-                      <h1>
+                      <h1 className="pdp__price-value">
                         {state.currencyInUse} {this.state.productPrice}
                       </h1>
                     );
                   }}
                 </AppContext.Consumer>
                 <button
+                  className="pdp__btn"
                   onClick={() =>
                     this.context.addToCartItems(
                       this.state.product.id,
@@ -144,9 +145,12 @@ export class ProductDetailsPage extends Component {
                     )
                   }
                 >
-                  <Link to="/cart">ADD TO CART</Link>
+                  <Link className="pdp__btn__link" to="/cart">
+                    ADD TO CART
+                  </Link>
                 </button>
                 <div
+                  className="pdp__description"
                   dangerouslySetInnerHTML={{
                     __html: this.state.product.description,
                   }}
