@@ -147,7 +147,10 @@ export class ContextProvider extends Component {
     items = items.map((item) => {
       let key = item.split(" ")[0];
       if (key === productId) {
-        item = `${productId} ${count}`;
+        let itemToArray = item.split(" ");
+        itemToArray.splice(1, 1);
+        itemToArray.splice(1, 0, count);
+        item = itemToArray.join(" ");
         return item;
       }
       return item;

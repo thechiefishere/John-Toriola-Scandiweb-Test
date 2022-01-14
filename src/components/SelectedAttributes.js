@@ -7,17 +7,19 @@ export class SelectedAttributes extends Component {
 
     this.state = {
       attributes: [],
+      attributeState: [],
     };
   }
 
   static contextType = AppContext;
 
   componentDidMount() {
-    this.setAttributes();
+    // console.log("i mounted selectedAttributes");
+    const items = this.context.cartItems;
+    this.setAttributes(items);
   }
 
-  setAttributes = () => {
-    const items = this.context.cartItems;
+  setAttributes = (items) => {
     const item = items.find((item) => {
       const productId = item.split(" ")[0];
       if (productId === this.props.productId) return item;
@@ -25,7 +27,20 @@ export class SelectedAttributes extends Component {
     let itemArray = item.trim().split(" ");
     itemArray.shift();
     itemArray.shift();
+    this.setAttributeState(itemArray);
     this.setState({ attributes: itemArray });
+  };
+
+  setAttributeState = (itemArray) => {
+    const initialState = [];
+    itemArray.forEach((item) => initialState.push(true));
+    this.setState({ attributeState: initialState });
+  };
+
+  handleOnChange = (index) => {
+    let attributeState = this.state.attributeState;
+    attributeState[index] = !attributeState[index];
+    this.setState({ attributeState: attributeState });
   };
 
   render() {
@@ -42,14 +57,22 @@ export class SelectedAttributes extends Component {
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,
               }}
-              onClick={() =>
+              onClick={(e) => {
+                e.preventDefault();
                 this.context.updateCartItemAttributeState(
                   this.props.productId,
                   index
-                )
-              }
+                );
+              }}
             >
-              <input type="checkbox" className="attribute-input" />
+              <input
+                type="checkbox"
+                className="attribute-input"
+                defaultChecked={this.state.attributeState[index]}
+                onChange={() => {
+                  this.handleOnChange(index);
+                }}
+              />
               <label className="attribute-label">
                 {attributeType === "text" && attributeValue}
               </label>

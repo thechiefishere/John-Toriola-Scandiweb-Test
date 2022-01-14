@@ -22,6 +22,7 @@ export class CartItem extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
+    // console.log("I mounted cartItems");
     this.setProduct();
     this.splitName(this.state.product);
     this.setState({ currencyInUse: null });
