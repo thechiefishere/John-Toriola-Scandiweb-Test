@@ -26,9 +26,9 @@ export class Home extends Component {
   };
   render() {
     return (
-      <section className="home">
-        <h1 className="category-name">category name</h1>
-        <section className="products">
+      <section className="category">
+        <h1 className="category__name">category name</h1>
+        <section className="category__products">
           {this.state.allProducts.map((product) => {
             return <ProductTile key={product.id} product={product} />;
           })}

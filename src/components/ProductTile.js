@@ -40,25 +40,30 @@ export class ProductTile extends Component {
       <article
         className={
           this.props.product.id === this.context.clickedProductId
-            ? "productTile clickedProduct"
-            : "productTile"
+            ? "product-tile clickedProduct"
+            : "product-tile"
         }
         onClick={() => this.context.setClickedProductId(this.props.product.id)}
       >
         <img
+          className="product-tile__img"
           src={this.props.product.gallery[0]}
           alt={this.props.product.name}
         />
+        {this.props.product.id === this.context.clickedProductId && (
+          <Link to={`${this.props.product.id}`}>
+            <div className="product-tile__icon-container">
+              <img
+                className="icon product-tile__cart-icon"
+                src="/icons/cart.svg"
+                alt="cart-icon"
+              />
+            </div>
+          </Link>
+        )}
         <div>
-          {this.props.product.id === this.context.clickedProductId && (
-            <Link to={`${this.props.product.id}`}>
-              <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
-            </Link>
-          )}
-        </div>
-        <div>
-          <h4>{this.props.product.name}</h4>
-          <h4>
+          <h4 className="product-tile__name">{this.props.product.name}</h4>
+          <h4 className="product-tile__price">
             {this.context.currencyInUse}
             {this.state.productPrice}
           </h4>

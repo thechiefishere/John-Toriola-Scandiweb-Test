@@ -28,9 +28,9 @@ export class Clothes extends Component {
   };
   render() {
     return (
-      <section className="clothes">
-        <h1 className="category-name">{this.state.categoryName}</h1>
-        <section className="products">
+      <section className="category">
+        <h1 className="category__name">{this.state.categoryName}</h1>
+        <section className="category__products">
           {this.state.clothes.map((product) => {
             return <ProductTile key={product.id} product={product} />;
           })}
