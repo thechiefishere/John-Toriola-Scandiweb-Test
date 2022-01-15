@@ -37,7 +37,6 @@ export class ContextProvider extends Component {
       toggleMiniCart: this.toggleMiniCart,
       allProducts: [],
       totalAmountOfAllItemsInCart: 0,
-      getTotalPriceForSingleProduct: this.getTotalPriceForSingleProduct,
     };
   }
 
@@ -195,54 +194,6 @@ export class ContextProvider extends Component {
       showingCurrencyTab: false,
     });
   };
-
-  getTotalPriceForSingleProduct = (productId) => {
-    const item = this.getProductFromCartItems(productId);
-    const numberOfProduct = this.getNumberOfProductsFromCheckedAttribute(item);
-    const priceOfProduct = this.getProductPriceInSelectedCurrency(productId);
-    const totalPrice = numberOfProduct * priceOfProduct;
-    return totalPrice;
-  };
-
-  getNumberOfProductsFromCheckedAttribute = (item) => {
-    let productCount = 0;
-    item.split("_ ").forEach((value) => {
-      if (value.indexOf("ADD") !== -1) productCount++;
-    });
-    return productCount++;
-  };
-
-  getProductPriceInSelectedCurrency = (productId) => {
-    const products = this.state.allProducts;
-    let value = "";
-    products.forEach((product) => {
-      if (product.id === productId) {
-        product.prices.map((price) => {
-          if (price.currency.symbol === this.state.currencyInUse) {
-            value = price.amount;
-            return price.amount;
-          }
-        });
-      }
-    });
-    return value;
-  };
-
-  getProductFromCartItems = (productId) => {
-    const items = this.state.cartItems;
-    const item = items.find((item) => item.indexOf(productId) !== -1);
-    return item;
-  };
-
-  // setTotalAmountOfAllItemsInCart = () => {
-  // let total = 0;
-  // const items = this.state.cartItems;
-  // items.forEach((item) => {
-  //   const productId = item.split(" ")[0];
-  //   total += this.getTotalPriceForSingleProduct(productId);
-  // });
-  // this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
-  // };
 
   setTotalAmountOfAllItemsInCart = () => {
     let total = 0;
