@@ -310,6 +310,8 @@ ul {
   position: relative;
   text-align: center;
   border: 0.5px solid #000;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
 }
 .attribute__input {
   position: absolute;
@@ -338,6 +340,9 @@ input:checked + label {
 }
 .selected-attributes-set .attribute--selected {
   padding: 8px;
+}
+.selected-attributes-set .shade {
+  background-color: #a6a6a6;
 }
 
 .cart__title {

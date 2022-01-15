@@ -57,7 +57,9 @@ export class SelectedAttributes extends Component {
           return (
             <div
               key={index}
-              className="attribute attribute--selected"
+              className={`attribute attribute--selected ${
+                index === this.state.attributes.length - 1 && "shade"
+              }`}
               style={{
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,
