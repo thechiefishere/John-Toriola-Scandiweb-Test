@@ -53,26 +53,36 @@ export class CartItem extends Component {
   };
 
   setPriceInSelectedCurrency = (product) => {
-    // if (product === null || this.state.currencyInUse === null) return;
-    // const priceInSelectedCurrency = product.prices.find(
-    //   (price) => this.context.currencyInUse === price.currency.symbol
-    // ).amount;
-    // this.setState({ productPrice: priceInSelectedCurrency });
-    const productTotalPrice = this.context.getTotalPriceForSingleProduct(
-      this.props.productId
-    );
-    this.setState({ productPrice: productTotalPrice });
+    if (product === null || this.state.currencyInUse === null) return;
+    const priceInSelectedCurrency = product.prices.find(
+      (price) => this.context.currencyInUse === price.currency.symbol
+    ).amount;
+    this.setState({ productPrice: priceInSelectedCurrency });
   };
 
   render() {
     return (
       <section>
         {this.state.product !== null && (
-          <section className="cart-item">
+          <section
+            className={
+              this.props.mini ? "cart-item cart-item--mini" : "cart-item"
+            }
+          >
             <article className="cart-item__details">
-              <h3 className="firstname">{this.state.firstName}</h3>
-              <h5 className="othernames">{this.state.otherNames}</h5>
-              <h3 className="price-value">
+              <h3 className={this.props.mini ? "firstname--mini" : "firstname"}>
+                {this.state.firstName}
+              </h3>
+              <h5
+                className={this.props.mini ? "othernames--mini" : "othernames"}
+              >
+                {this.state.otherNames}
+              </h5>
+              <h3
+                className={
+                  this.props.mini ? "price-value--mini" : "price-value"
+                }
+              >
                 {this.context.currencyInUse}
                 {this.state.productPrice}
               </h3>
@@ -82,6 +92,7 @@ export class CartItem extends Component {
               gallery={this.state.product.gallery}
               name={this.state.product.name}
               productId={this.state.product.id}
+              mini={this.props.mini}
             />
           </section>
         )}

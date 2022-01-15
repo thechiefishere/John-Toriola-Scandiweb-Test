@@ -18,7 +18,8 @@ export class ProductDetailsPage extends Component {
       otherNames: "",
       productPrice: 0,
       currencyInUse: null,
-      selectedAttributes: "",
+      selectedAttributes: null,
+      error: false,
     };
   }
 
@@ -41,6 +42,7 @@ export class ProductDetailsPage extends Component {
     const { productId } = this.props.params;
     const response = await client.post(productQuery(productId));
     this.setState({ product: response.product });
+    this.initSelectedAttributes(response.product);
     this.splitName(response.product);
   };
 
@@ -60,35 +62,37 @@ export class ProductDetailsPage extends Component {
     this.setState({ productPrice: priceInSelectedCurrency });
   };
 
+  initSelectedAttributes = (product) => {
+    let numOfAttributes = product.attributes.length;
+    let array = [];
+    for (let i = 0; i < numOfAttributes; i++) {
+      array.push("");
+    }
+    this.setState({ selectedAttributes: array });
+  };
+
   /**
    * setSelectedAttributes also takes into account
    * changing of selected attribute.
    * @param {index of the attribute in the list of attributes} index
    * @param {value of the selected attribute} value
    */
-  setSelectedAttributes = (
-    attributeIndex,
-    attributeValue,
-    attributeType,
-    attributeState = "ADD"
-  ) => {
+  setSelectedAttributes = (attributeIndex, attributeValue, attributeType) => {
     let copyOfSelectedAttribute = this.state.selectedAttributes;
-    const attributeToAdd = ` ${attributeIndex}-${attributeValue}-${attributeType}-${attributeState} `;
-    copyOfSelectedAttribute = copyOfSelectedAttribute
-      .split(" ")
-      .filter((item) => {
-        const itemIndex = item.split("-")[0];
-        if (itemIndex != attributeIndex) {
-          return item;
-        }
-      });
-    copyOfSelectedAttribute = copyOfSelectedAttribute.join(" ");
-
-    copyOfSelectedAttribute = copyOfSelectedAttribute
-      .concat(attributeToAdd)
-      .trim();
-
+    const attributeToAdd = `${attributeValue}-${attributeType}`;
+    copyOfSelectedAttribute[attributeIndex] = attributeToAdd;
     this.setState({ selectedAttributes: copyOfSelectedAttribute });
+  };
+
+  handleAddToCart = () => {
+    let copyOfSelectedAttribute = this.state.selectedAttributes;
+    if (copyOfSelectedAttribute.indexOf("") != -1) {
+      this.setState({ error: true });
+      return;
+    }
+    copyOfSelectedAttribute = copyOfSelectedAttribute.join("_");
+    this.context.addToCartItems(this.state.product.id, copyOfSelectedAttribute);
+    this.props.navigate("/cart");
   };
 
   render() {
@@ -126,6 +130,15 @@ export class ProductDetailsPage extends Component {
                     />
                   );
                 })}
+                <p
+                  className={
+                    this.state.error
+                      ? "pdp__error pdp__show-error"
+                      : "pdp__error"
+                  }
+                >
+                  Please select from all specs field
+                </p>
                 <h3 className="pdp__price-title">Price:</h3>
                 <AppContext.Consumer>
                   {(state) => {
@@ -138,16 +151,9 @@ export class ProductDetailsPage extends Component {
                 </AppContext.Consumer>
                 <button
                   className="pdp__btn"
-                  onClick={() =>
-                    this.context.addToCartItems(
-                      this.state.product.id,
-                      this.state.selectedAttributes
-                    )
-                  }
+                  onClick={() => this.handleAddToCart()}
                 >
-                  <Link className="pdp__btn__link" to="/cart">
-                    ADD TO CART
-                  </Link>
+                  ADD TO CART
                 </button>
                 <div
                   className="pdp__description"

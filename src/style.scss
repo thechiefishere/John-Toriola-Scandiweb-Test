@@ -32,6 +32,21 @@ ul {
   margin: 0px auto;
 }
 
+.btn {
+  width: 20%;
+  height: 5vh;
+  &--checkout {
+    background-color: $primary-color;
+    color: #fff;
+  }
+  &--bag {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid $secondary-color;
+    padding: 5px 32px;
+  }
+}
+
 .icon {
   width: 20px;
   height: 20px;
@@ -48,15 +63,30 @@ ul {
   line-height: 27px;
   margin-bottom: 5px;
 }
+.firstname--mini {
+  font-weight: 300;
+  font-size: 1em;
+  margin-bottom: 5px;
+}
 .othernames {
   font-weight: 400;
   font-size: 2em;
   line-height: 27px;
   margin-bottom: 30px;
 }
+.othernames--mini {
+  font-weight: 300;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
 .price-value {
   font-weight: 700;
   font-size: 1.5em;
+  margin-bottom: 25px;
+}
+.price-value--mini {
+  font-weight: 500;
+  font-size: 1em;
   margin-bottom: 25px;
 }
 
@@ -251,14 +281,21 @@ ul {
         background-color: $primary-color;
         font-weight: 600;
         margin-bottom: 30px;
-        &__link {
-          color: #fff;
-        }
+        color: #fff;
       }
       .pdp__description {
         font-family: $roboto-font;
         font-weight: 40;
         line-height: 25px;
+      }
+      .pdp__error {
+        text-align: center;
+        color: rgb(240, 76, 76);
+        margin-bottom: 20px;
+        visibility: hidden;
+      }
+      .pdp__show-error {
+        visibility: visible;
       }
     }
   }
@@ -266,7 +303,7 @@ ul {
 
 .attribute-set {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   &__name {
     font-family: $roboto-condensed-font;
     font-weight: 700;
@@ -304,14 +341,10 @@ input:checked + label {
 
 .selected-attributes-set {
   display: flex;
-}
-.selected-attribute {
-  margin: 2px;
-  width: 50px;
-  height: 35px;
-  text-align: center;
-  border: 0.5px solid #000;
-  padding-top: 8px;
+  flex-wrap: wrap;
+  .attribute--selected {
+    padding: 8px;
+  }
 }
 
 .cart {
@@ -326,23 +359,39 @@ input:checked + label {
 .cart-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   min-height: 25vh;
   width: 85%;
   border-top: 0.1px solid #e5e5e5;
-  padding: 8px 0;
+
   &__details {
-    width: 30%;
+    flex: 5;
+  }
+}
+.cart-item--mini {
+  border: none;
+  width: 100%;
+  &__details {
+    flex: 1;
+  }
+  .cart-count {
+    flex: 4.5;
+    margin-left: 20px;
   }
 }
 .cart-count {
   display: flex;
-  width: 20%;
+  justify-content: space-between;
+  height: 23vh;
+  flex: 1;
   &__btn-grp {
     height: 100%;
-    position: relative;
+    width: 18%;
+    flex-direction: column;
+    align-content: space-between;
     text-align: center;
-    margin-right: 10px;
     font-size: 1.2em;
+    position: relative;
     .cart-count__btn {
       width: 35px;
       height: 35px;
@@ -351,26 +400,25 @@ input:checked + label {
       font-size: 1.2em;
       &--1 {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 0px;
+        left: 0px;
       }
       &--2 {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: 0px;
+        left: 0px;
       }
     }
     .cart-count__num {
-      font-weight: 500;
       position: absolute;
-      right: 50%;
       top: 50%;
-      transform: translate(-130%, -50%);
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
   &__img-switcher {
     position: relative;
-    width: 70%;
+    width: 75%;
     .cart-count__img-container {
       width: 100%;
       height: 100%;
@@ -414,21 +462,55 @@ input:checked + label {
   top: 80px;
   left: 0px;
   transition: 0.5s ease-out;
+  z-index: 20;
 }
 .overlay {
   background-color: #777;
   width: 100%;
   height: 100vh;
   opacity: 0.3;
-  z-index: -1;
+  z-index: 1000;
 }
 .mini-cart {
   background-color: #fff;
   position: absolute;
   top: 0px;
   right: 3%;
-  width: 30%;
+  width: 25%;
+  padding: 10px;
   z-index: 5;
+  &__heading {
+    font-weight: 700;
+    line-height: 25px;
+    margin-bottom: 20px;
+    span {
+      font-weight: 500;
+    }
+  }
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0px;
+    &__holder {
+      font-family: $roboto-font;
+      font-weight: 500;
+      line-height: 18px;
+    }
+    &__value {
+      font-weight: 700;
+      line-height: 25px;
+    }
+  }
+  &__btn-grp {
+    display: flex;
+    justify-content: space-between;
+    &__btn {
+      width: 45%;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
 }
 .show-cart-overlay {
   height: 94vh;

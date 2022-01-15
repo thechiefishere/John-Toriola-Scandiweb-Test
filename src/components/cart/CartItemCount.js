@@ -74,6 +74,7 @@ export class CartItemCount extends Component {
   render() {
     return (
       <article className="cart-count">
+        {/* <h2>Hello</h2> */}
         <div className="cart-count__btn-grp">
           <button
             className="cart-count__btn cart-count__btn--1"
@@ -97,7 +98,7 @@ export class CartItemCount extends Component {
               alt={this.props.name}
             />
           </div>
-          {this.state.imageCount > 1 && (
+          {!this.props.mini && (
             <div className="cart-count__icon-container">
               <img
                 className="cart-count__icon"

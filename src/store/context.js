@@ -112,8 +112,10 @@ export class ContextProvider extends Component {
     const items = cartItems.map((item) => {
       const itemId = item.split(" ")[0];
       if (itemId === productId) {
-        const itemToAdd = `${item}_ ${attributeToAdd}`;
-        return itemToAdd;
+        item = item.split(" ").filter((value) => value !== attributeToAdd);
+        item = item.join(" ");
+        item = item.concat(` ${attributeToAdd}`);
+        return item;
       }
       return item;
     });
@@ -232,13 +234,36 @@ export class ContextProvider extends Component {
     return item;
   };
 
+  // setTotalAmountOfAllItemsInCart = () => {
+  // let total = 0;
+  // const items = this.state.cartItems;
+  // items.forEach((item) => {
+  //   const productId = item.split(" ")[0];
+  //   total += this.getTotalPriceForSingleProduct(productId);
+  // });
+  // this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
+  // };
+
   setTotalAmountOfAllItemsInCart = () => {
     let total = 0;
     const items = this.state.cartItems;
-    items.forEach((item) => {
-      const productId = item.split(" ")[0];
-      total += this.getTotalPriceForSingleProduct(productId);
-    });
+    const products = this.state.allProducts;
+    if (items.length === 0) return total;
+    for (let i = 0; i < items.length; i++) {
+      const itemId = items[i].split(" ")[0];
+      const itemCount = parseInt(items[i].split(" ")[1]);
+      for (let j = 0; j < products.length; j++) {
+        const product = products[j];
+        if (itemId === product.id) {
+          product.prices.map((price) => {
+            if (price.currency.symbol === this.state.currencyInUse) {
+              const productTotalWithCount = price.amount * itemCount;
+              total += productTotalWithCount;
+            }
+          });
+        }
+      }
+    }
     this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
   };
 

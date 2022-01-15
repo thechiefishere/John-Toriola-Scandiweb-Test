@@ -8,27 +8,38 @@ export class MiniCart extends Component {
   render() {
     return (
       <section className="mini-cart">
-        <h1>My bag, {this.context.cartItems.length} items</h1>
+        <h1 className="mini-cart__heading">
+          My bag,{" "}
+          <span>
+            {this.context.cartItems.length}{" "}
+            {this.context.cartItems.length > 1 ? "items" : "item"}
+          </span>
+        </h1>
         {this.context.cartItems.length > 0 ? (
           this.context.cartItems.map((item) => {
             const id = item.split(" ")[0];
-            return <CartItem key={item} productId={id} />;
+            return <CartItem key={item} productId={id} mini={true} />;
           })
         ) : (
           <h1>You cart is empty</h1>
         )}
-        <div>
-          <h3>Total</h3>
-          <h3>
+        <div className="mini-cart__total">
+          <h3 className="mini-cart__total__holder">Total</h3>
+          <h3 className="mini-cart__total__value">
             {this.context.currencyInUse}
             {this.context.totalAmountOfAllItemsInCart}
           </h3>
         </div>
-        <div>
-          <button onClick={this.context.toggleMiniCart}>
+        <div className="mini-cart__btn-grp">
+          <button
+            className="btn mini-cart__btn-grp__btn btn--bag"
+            onClick={this.context.toggleMiniCart}
+          >
             <Link to="/cart">View Bag</Link>
           </button>
-          <button>Checkout</button>
+          <button className="btn mini-cart__btn-grp__btn btn--checkout">
+            Checkout
+          </button>
         </div>
       </section>
     );

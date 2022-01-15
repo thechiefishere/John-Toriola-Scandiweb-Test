@@ -14,7 +14,6 @@ export class SelectedAttributes extends Component {
   static contextType = AppContext;
 
   componentDidMount() {
-    // console.log("i mounted selectedAttributes");
     const items = this.context.cartItems;
     this.setAttributes(items);
   }
@@ -24,16 +23,22 @@ export class SelectedAttributes extends Component {
       const productId = item.split(" ")[0];
       if (productId === this.props.productId) return item;
     });
-    let itemArray = item.trim().split(" ");
-    itemArray.shift();
-    itemArray.shift();
-    this.setAttributeState(itemArray);
-    this.setState({ attributes: itemArray });
+    let itemToArray = item.split(" ");
+    itemToArray.shift();
+    itemToArray.shift();
+    let allAttribute = [];
+    itemToArray.map((attributeSet) => {
+      attributeSet
+        .split("_")
+        .forEach((attribute) => allAttribute.push(attribute));
+    });
+    // this.setAttributeState(itemToArray);
+    this.setState({ attributes: allAttribute });
   };
 
-  setAttributeState = (itemArray) => {
+  setAttributeState = (itemToArray) => {
     const initialState = [];
-    itemArray.forEach((item) => initialState.push(true));
+    itemToArray.forEach((item) => initialState.push(true));
     this.setState({ attributeState: initialState });
   };
 
@@ -47,12 +52,12 @@ export class SelectedAttributes extends Component {
     return (
       <article className="selected-attributes-set">
         {this.state.attributes.map((attribute, index) => {
-          const attributeValue = attribute.split("-")[1];
-          const attributeType = attribute.split("-")[2];
+          const attributeValue = attribute.split("-")[0];
+          const attributeType = attribute.split("-")[1];
           return (
             <div
               key={index}
-              className="attribute"
+              className="attribute attribute--selected"
               style={{
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,
@@ -65,17 +70,7 @@ export class SelectedAttributes extends Component {
                 );
               }}
             >
-              <input
-                type="checkbox"
-                className="attribute__input"
-                defaultChecked={this.state.attributeState[index]}
-                onChange={() => {
-                  this.handleOnChange(index);
-                }}
-              />
-              <label className="attribute__label">
-                {attributeType === "text" && attributeValue}
-              </label>
+              {attributeType === "text" && attributeValue}
             </div>
           );
         })}
