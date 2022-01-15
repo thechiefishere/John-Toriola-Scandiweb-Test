@@ -455,7 +455,7 @@ input:checked + label {
   width: 100%;
   height: 0px;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
   top: 80px;
   left: 0px;
   transition: 0.5s ease-out;
@@ -465,9 +465,13 @@ input:checked + label {
 .overlay {
   background-color: #777;
   width: 100%;
-  height: 100vh;
+  min-height: 0px;
   opacity: 0.3;
-  z-index: 1000;
+  z-index: 1;
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  transition: 0.5s ease-out;
 }
 
 .mini-cart {
@@ -513,7 +517,7 @@ input:checked + label {
 }
 
 .show-cart-overlay {
-  height: 94vh;
+  min-height: 100%;
 }
 
 /*# sourceMappingURL=index.css.map */

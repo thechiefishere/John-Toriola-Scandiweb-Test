@@ -21,7 +21,7 @@ export class MiniCart extends Component {
             return <CartItem key={item} productId={id} mini={true} />;
           })
         ) : (
-          <h1>You cart is empty</h1>
+          <h1>Your cart is empty</h1>
         )}
         <div className="mini-cart__total">
           <h3 className="mini-cart__total__holder">Total</h3>

@@ -133,27 +133,6 @@ export class ContextProvider extends Component {
     localStorage.setItem("cartItem", items);
   };
 
-  //TODO:Refactor
-  updateCartItemAttributeState = (productId, index) => {
-    let items = this.state.cartItems;
-    items = items.map((item) => {
-      let itemToArray = item.split(" ");
-      if (itemToArray[0] === productId) {
-        let attributeToChange = itemToArray[index + 2];
-        let stateIndex = attributeToChange.indexOf("REMOVE");
-        if (stateIndex < 0)
-          attributeToChange = attributeToChange.replace("ADD", "REMOVE");
-        else attributeToChange = attributeToChange.replace("REMOVE", "ADD");
-        itemToArray[index + 2] = attributeToChange;
-        item = itemToArray.join(" ");
-        return item;
-      }
-      return item;
-    });
-    this.setState({ cartItems: items });
-    localStorage.setItem("cartItem", items);
-  };
-
   updateCartItemCount = (productId, count) => {
     let items = this.state.cartItems;
     items = items.map((item) => {

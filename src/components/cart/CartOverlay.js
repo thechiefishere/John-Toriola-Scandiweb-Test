@@ -13,7 +13,13 @@ export class CartOverlay extends Component {
             : "cart-overlay"
         }
       >
-        <div className="overlay"></div>
+        <div
+          className={
+            this.context.showingMiniCart
+              ? "overlay show-cart-overlay"
+              : "overlay"
+          }
+        ></div>
         <MiniCart />
       </section>
     );
