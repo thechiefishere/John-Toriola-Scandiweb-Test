@@ -326,16 +326,12 @@ input:checked + label {
 .cart-item {
   display: flex;
   justify-content: space-between;
-  // align-items: center;
-  // margin-bottom: 20px;
   min-height: 25vh;
   width: 85%;
   border-top: 0.1px solid #e5e5e5;
-  // border-bottom: 1px solid $secondary-color;
   padding: 8px 0;
   &__details {
     width: 30%;
-    // background-color: red;
   }
 }
 .cart-count {
