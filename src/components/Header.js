@@ -11,30 +11,26 @@ export class Header extends Component {
         <Navbar />
         <img src={shoppingBag} alt="shop-bag" className="bag" />
         <div className="header-end">
-          <AppContext.Consumer>
-            {(state) => {
-              return (
-                <div className="currency">
-                  <p className="currency-in-use">{state.currencyInUse}</p>
-                  {state.showingCurrencyTab ? (
-                    <img
-                      className="icon icon--toggle"
-                      onClick={state.closeCurrencyTab}
-                      src="/icons/upArrow.svg"
-                      alt="up-arrow"
-                    />
-                  ) : (
-                    <img
-                      className="icon icon--toggle"
-                      onClick={state.openCurrencyTab}
-                      src="/icons/downArrow.svg"
-                      alt="down-arrow"
-                    />
-                  )}
-                </div>
-              );
-            }}
-          </AppContext.Consumer>
+          {this.context.currencyInUse !== null && (
+            <div className="currency">
+              <p className="currency-in-use">{this.context.currencyInUse}</p>
+              {this.context.showingCurrencyTab ? (
+                <img
+                  className="icon icon--toggle"
+                  onClick={this.context.closeCurrencyTab}
+                  src="/icons/upArrow.svg"
+                  alt="up-arrow"
+                />
+              ) : (
+                <img
+                  className="icon icon--toggle"
+                  onClick={this.context.openCurrencyTab}
+                  src="/icons/downArrow.svg"
+                  alt="down-arrow"
+                />
+              )}
+            </div>
+          )}
           <div className="cart-icon">
             <img
               className="icon"

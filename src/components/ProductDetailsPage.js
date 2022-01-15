@@ -140,15 +140,11 @@ export class ProductDetailsPage extends Component {
                   Please select from all specs field
                 </p>
                 <h3 className="pdp__price-title">Price:</h3>
-                <AppContext.Consumer>
-                  {(state) => {
-                    return (
-                      <h1 className="price-value">
-                        {state.currencyInUse} {this.state.productPrice}
-                      </h1>
-                    );
-                  }}
-                </AppContext.Consumer>
+                {this.context.currencyInUse !== null && (
+                  <h1 className="price-value">
+                    {this.context.currencyInUse} {this.state.productPrice}
+                  </h1>
+                )}
                 <button
                   className="pdp__btn"
                   onClick={() => this.handleAddToCart()}

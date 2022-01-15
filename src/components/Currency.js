@@ -2,33 +2,34 @@ import React, { Component } from "react";
 import { AppContext } from "../store/context";
 
 export class Currency extends Component {
+  static contextType = AppContext;
   render() {
     return (
-      <AppContext.Consumer>
-        {(state) => {
-          return (
-            <article
-              className={
-                state.showingCurrencyTab
-                  ? "currencyTab show-currencyTab"
-                  : "currencyTab"
-              }
-            >
-              {state.currencies.map((currency, index) => {
-                return (
-                  <p
-                    key={index}
-                    className="currencyType"
-                    onClick={() => state.changeCurrencyInUse(currency.symbol)}
-                  >
-                    {currency.symbol} {currency.label}
-                  </p>
-                );
-              })}
-            </article>
-          );
-        }}
-      </AppContext.Consumer>
+      <div>
+        {this.context.currency !== null && (
+          <article
+            className={
+              this.context.showingCurrencyTab
+                ? "currencyTab show-currencyTab"
+                : "currencyTab"
+            }
+          >
+            {this.context.currencies.map((currency, index) => {
+              return (
+                <p
+                  key={index}
+                  className="currencyType"
+                  onClick={() =>
+                    this.context.changeCurrencyInUse(currency.symbol)
+                  }
+                >
+                  {currency.symbol} {currency.label}
+                </p>
+              );
+            })}
+          </article>
+        )}
+      </div>
     );
   }
 }

@@ -74,7 +74,6 @@ export class CartItemCount extends Component {
   render() {
     return (
       <article className="cart-count">
-        {/* <h2>Hello</h2> */}
         <div className="cart-count__btn-grp">
           <button
             className="cart-count__btn cart-count__btn--1"
