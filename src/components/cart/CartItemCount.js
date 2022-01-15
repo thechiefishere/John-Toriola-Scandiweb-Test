@@ -76,14 +76,14 @@ export class CartItemCount extends Component {
       <article className="cart-count">
         <div className="cart-count__btn-grp">
           <button
-            className="cart-count__btn"
+            className="cart-count__btn cart-count__btn--1"
             onClick={this.increaseNumberOfItem}
           >
             +
           </button>
           <p className="cart-count__num">{this.state.numberOfItem}</p>
           <button
-            className="cart-count__btn"
+            className="cart-count__btn cart-count__btn--2"
             onClick={this.decreaseNumberOfItem}
           >
             -
