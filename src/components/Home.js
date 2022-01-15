@@ -12,28 +12,40 @@ export class Home extends Component {
 
     this.state = {
       allProducts: [],
+      categories: [],
     };
   }
 
   static contextType = AppContext;
   componentDidMount() {
-    this.setAllProduct();
+    this.setState({ categories: [] });
   }
 
-  setAllProduct = async () => {
-    const response = await client.post(categoryQuery("all"));
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.categories !== this.context.categories) {
+      this.setState({ categories: this.context.categories });
+      this.setAllProduct(this.context.categories[0]);
+    }
+  }
+
+  setAllProduct = async (category) => {
+    const response = await client.post(categoryQuery(category));
     this.setState({ allProducts: response.category.products });
   };
   render() {
     return (
-      <section className="category">
-        <h1 className="category__name">category name</h1>
-        <section className="category__products">
-          {this.state.allProducts.map((product) => {
-            return <ProductTile key={product.id} product={product} />;
-          })}
-        </section>
-      </section>
+      <div>
+        {this.state.allProducts !== null && (
+          <section className="category">
+            <h1 className="category__name">category name</h1>
+            <section className="category__products">
+              {this.state.allProducts.map((product) => {
+                return <ProductTile key={product.id} product={product} />;
+              })}
+            </section>
+          </section>
+        )}
+      </div>
     );
   }
 }

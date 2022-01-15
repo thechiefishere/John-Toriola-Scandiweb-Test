@@ -1,5 +1,9 @@
 import { Field, Query } from "@tilework/opus";
 
+export const categoryNamesQuery = new Query("categories", true).addField(
+  "name"
+);
+
 export const categoryQuery = (category) => {
   const allProductsQuery = new Query("category", true)
     .addArgument("input", "CategoryInput", { title: category })

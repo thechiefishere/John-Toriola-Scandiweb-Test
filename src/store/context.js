@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery, categoryQuery } from "./queries";
+import { currenciesQuery, categoryQuery, categoryNamesQuery } from "./queries";
 
 export const AppContext = React.createContext();
 
@@ -36,6 +36,7 @@ export class ContextProvider extends Component {
       showingMiniCart: false,
       toggleMiniCart: this.toggleMiniCart,
       allProducts: [],
+      categories: [],
       totalAmountOfAllItemsInCart: 0,
     };
   }
@@ -43,6 +44,7 @@ export class ContextProvider extends Component {
   componentDidMount() {
     this.setCurrencies();
     this.setAllProducts();
+    this.setCategoryNames();
     this.setTotalAmountOfAllItemsInCart();
     this.getCartItemsFromLocalStorage();
   }
@@ -67,6 +69,15 @@ export class ContextProvider extends Component {
   setAllProducts = async () => {
     const response = await client.post(categoryQuery("all"));
     this.setState({ allProducts: response.category.products });
+  };
+
+  setCategoryNames = async () => {
+    const response = await client.post(categoryNamesQuery);
+    let allCategories = [];
+    response.categories.forEach((category) =>
+      allCategories.push(category.name)
+    );
+    this.setState({ categories: allCategories });
   };
 
   openCurrencyTab = () => {
