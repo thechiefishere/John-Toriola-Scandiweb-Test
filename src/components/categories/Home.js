@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { AppContext } from "../store/context";
-import ProductTile from "./ProductTile";
-import { clientClone } from "../store/context";
-import { categoryQuery } from "../store/queries";
+import { AppContext } from "../../store/context";
+import ProductTile from "../ProductTile";
+import { clientClone } from "../../store/context";
+import { categoryQuery } from "../../store/queries";
 
 const client = clientClone();
 
-export class Clothes extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      clothes: [],
+      allProducts: [],
       categories: [],
     };
   }
@@ -24,22 +24,22 @@ export class Clothes extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.categories !== this.context.categories) {
       this.setState({ categories: this.context.categories });
-      this.setClothes(this.context.categories[1]);
+      this.setAllProduct(this.context.categories[0]);
     }
   }
 
-  setClothes = async (category) => {
+  setAllProduct = async (category) => {
     const response = await client.post(categoryQuery(category));
-    this.setState({ clothes: response.category.products });
+    this.setState({ allProducts: response.category.products });
   };
   render() {
     return (
       <div>
-        {this.state.clothes !== null && (
+        {this.state.allProducts !== null && (
           <section className="category">
-            <h1 className="category__name">{this.context.categories[1]}</h1>
+            <h1 className="category__name">category name</h1>
             <section className="category__products">
-              {this.state.clothes.map((product) => {
+              {this.state.allProducts.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
               })}
             </section>
@@ -50,4 +50,4 @@ export class Clothes extends Component {
   }
 }
 
-export default Clothes;
+export default Home;

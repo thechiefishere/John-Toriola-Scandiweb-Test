@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { AppContext } from "../store/context";
-import ProductTile from "./ProductTile";
-import { clientClone } from "../store/context";
-import { categoryQuery } from "../store/queries";
+import { AppContext } from "../../store/context";
+import ProductTile from "../ProductTile";
+import { clientClone } from "../../store/context";
+import { categoryQuery } from "../../store/queries";
 
 const client = clientClone();
 
-export class Home extends Component {
+export class Clothes extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      allProducts: [],
+      clothes: [],
       categories: [],
     };
   }
@@ -24,22 +24,22 @@ export class Home extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.categories !== this.context.categories) {
       this.setState({ categories: this.context.categories });
-      this.setAllProduct(this.context.categories[0]);
+      this.setClothes(this.context.categories[1]);
     }
   }
 
-  setAllProduct = async (category) => {
+  setClothes = async (category) => {
     const response = await client.post(categoryQuery(category));
-    this.setState({ allProducts: response.category.products });
+    this.setState({ clothes: response.category.products });
   };
   render() {
     return (
       <div>
-        {this.state.allProducts !== null && (
+        {this.state.clothes !== null && (
           <section className="category">
-            <h1 className="category__name">category name</h1>
+            <h1 className="category__name">{this.context.categories[1]}</h1>
             <section className="category__products">
-              {this.state.allProducts.map((product) => {
+              {this.state.clothes.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
               })}
             </section>
@@ -50,4 +50,4 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+export default Clothes;

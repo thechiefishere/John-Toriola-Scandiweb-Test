@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { AppContext } from "../store/context";
-import ProductTile from "./ProductTile";
-import { clientClone } from "../store/context";
-import { categoryQuery } from "../store/queries";
+import { AppContext } from "../../store/context";
+import ProductTile from "../ProductTile";
+import { clientClone } from "../../store/context";
+import { categoryQuery } from "../../store/queries";
 
 const client = clientClone();
 
