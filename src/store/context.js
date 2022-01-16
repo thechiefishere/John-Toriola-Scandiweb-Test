@@ -38,6 +38,8 @@ export class ContextProvider extends Component {
       allProducts: [],
       categories: [],
       totalAmountOfAllItemsInCart: 0,
+      activeLink: "",
+      setActiveLink: this.setActiveLink,
     };
   }
 
@@ -207,6 +209,10 @@ export class ContextProvider extends Component {
       }
     }
     this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
+  };
+
+  setActiveLink = (link) => {
+    this.setState({ activeLink: link });
   };
 
   render() {
