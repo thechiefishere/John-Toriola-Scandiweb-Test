@@ -507,7 +507,7 @@ ul {
   z-index: 5;
   overflow: auto;
   min-height: 30vh;
-  max-height: 60vh;
+  max-height: 75vh;
 }
 .mini-cart__heading {
   font-weight: 700;

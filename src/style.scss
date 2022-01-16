@@ -526,10 +526,8 @@ ul {
   padding: 10px;
   z-index: 5;
   overflow: auto;
-  // min-height: 30%;
-  // max-height: 60%;
   min-height: 30vh;
-  max-height: 60vh;
+  max-height: 75vh;
   &__heading {
     font-weight: 700;
     line-height: 25px;
