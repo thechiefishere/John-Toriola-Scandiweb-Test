@@ -8,6 +8,7 @@ export class SelectedAttributes extends Component {
     this.state = {
       attributes: [],
       attributeState: [],
+      numberOfAttributes: 0,
     };
   }
 
@@ -27,12 +28,14 @@ export class SelectedAttributes extends Component {
     itemToArray.shift();
     itemToArray.shift();
     let allAttribute = [];
+    let numOfAttributes = 0;
     itemToArray.map((attributeSet) => {
+      numOfAttributes = attributeSet.split("_").length;
       attributeSet
         .split("_")
         .forEach((attribute) => allAttribute.push(attribute));
     });
-    // this.setAttributeState(itemToArray);
+    this.setState({ numberOfAttributes: numOfAttributes });
     this.setState({ attributes: allAttribute });
   };
 
@@ -58,8 +61,28 @@ export class SelectedAttributes extends Component {
             <div
               key={index}
               className={`attribute attribute--selected ${
-                index === this.state.attributes.length - 1 && "shade"
-              }`}
+                index >=
+                  this.state.attributes.length -
+                    this.state.numberOfAttributes &&
+                attributeType !== "swatch" &&
+                !this.props.mini &&
+                "attribute--clicked"
+              }
+              ${
+                index >=
+                  this.state.attributes.length -
+                    this.state.numberOfAttributes &&
+                attributeType !== "swatch" &&
+                this.props.mini &&
+                "attribute--clicked--mini"
+              }
+               ${
+                 index >=
+                   this.state.attributes.length -
+                     this.state.numberOfAttributes &&
+                 attributeType === "swatch" &&
+                 "attribute--color"
+               }`}
               style={{
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,

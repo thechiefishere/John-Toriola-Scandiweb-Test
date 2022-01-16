@@ -86,7 +86,10 @@ export class CartItem extends Component {
                 {this.context.currencyInUse}
                 {this.state.productPrice}
               </h3>
-              <SelectedAttributes productId={this.state.product.id} />
+              <SelectedAttributes
+                productId={this.state.product.id}
+                mini={this.props.mini}
+              />
             </article>
             <CartItemCount
               gallery={this.state.product.gallery}

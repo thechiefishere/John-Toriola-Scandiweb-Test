@@ -350,8 +350,11 @@ ul {
   font-weight: 400;
 }
 .attribute--clicked {
-  background-color: #000;
+  background-color: #1d1f22;
   color: #fff;
+}
+.attribute--clicked--mini {
+  background-color: #a6a6a6;
 }
 .attribute--color {
   border-radius: 50%;
@@ -364,28 +367,10 @@ ul {
   height: 100%;
   opacity: 0;
 }
-.attribute__label {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding-top: 8px;
-  cursor: pointer;
-}
-
-input:checked + label {
-  background-color: #000 !important;
-  color: #fff;
-}
 
 .selected-attributes-set {
   display: flex;
   flex-wrap: wrap;
-}
-.selected-attributes-set .attribute--selected {
-  padding: 8px;
-}
-.selected-attributes-set .shade {
-  background-color: #a6a6a6;
 }
 
 .cart__title {
