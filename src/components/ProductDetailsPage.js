@@ -20,6 +20,7 @@ export class ProductDetailsPage extends Component {
       currencyInUse: null,
       selectedAttributes: null,
       error: false,
+      pictureIndex: 0,
     };
   }
 
@@ -107,6 +108,9 @@ export class ProductDetailsPage extends Component {
                     key={index}
                     src={pictureLink}
                     alt={this.state.product.name}
+                    onClick={() => {
+                      this.setState({ pictureIndex: index });
+                    }}
                   />
                 );
               })}
@@ -114,7 +118,7 @@ export class ProductDetailsPage extends Component {
             <section className="pdp__details">
               <img
                 className="pdp__details__image"
-                src={this.state.product.gallery[0]}
+                src={this.state.product.gallery[this.state.pictureIndex]}
                 alt={this.state.product.name}
               />
               <article className="pdp__details__description">
