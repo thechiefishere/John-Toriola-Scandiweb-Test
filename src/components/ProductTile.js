@@ -43,13 +43,21 @@ export class ProductTile extends Component {
             ? "product-tile clickedProduct"
             : "product-tile"
         }
-        onClick={() => this.context.setClickedProductId(this.props.product.id)}
+        onClick={() =>
+          this.props.product.inStock &&
+          this.context.setClickedProductId(this.props.product.id)
+        }
       >
-        <img
-          className="product-tile__img"
-          src={this.props.product.gallery[0]}
-          alt={this.props.product.name}
-        />
+        <div className="product-tile__img-container">
+          <img
+            className="product-tile__img"
+            src={this.props.product.gallery[0]}
+            alt={this.props.product.name}
+          />
+          {!this.props.product.inStock && (
+            <p className="product-tile__stock-msg">OUT OF STOCK</p>
+          )}
+        </div>
         {this.props.product.id === this.context.clickedProductId && (
           <Link to={`${this.props.product.id}`}>
             <div className="product-tile__icon-container">
@@ -62,8 +70,22 @@ export class ProductTile extends Component {
           </Link>
         )}
         <div>
-          <h4 className="product-tile__name">{this.props.product.name}</h4>
-          <h4 className="product-tile__price">
+          <h4
+            className={
+              this.props.product.inStock
+                ? "product-tile__name"
+                : "product-tile__name product-tile__name--no-stock"
+            }
+          >
+            {this.props.product.name}
+          </h4>
+          <h4
+            className={
+              this.props.product.inStock
+                ? "product-tile__price"
+                : "product-tile__price product-tile__price--no-stock"
+            }
+          >
             {this.context.currencyInUse}
             {this.state.productPrice}
           </h4>
