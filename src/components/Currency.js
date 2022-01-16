@@ -13,6 +13,11 @@ export class Currency extends Component {
                 ? "currencyTab show-currencyTab"
                 : "currencyTab"
             }
+            style={{
+              height:
+                this.context.showingCurrencyTab &&
+                `${this.context.currencies.length * 30}px`,
+            }}
           >
             {this.context.currencies.map((currency, index) => {
               return (
