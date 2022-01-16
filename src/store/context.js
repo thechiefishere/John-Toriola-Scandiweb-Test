@@ -105,6 +105,7 @@ export class ContextProvider extends Component {
     }
     items.unshift(productToAdd);
     this.setState({ cartItems: items });
+    this.setTotalAmountOfAllItemsInCart();
     localStorage.setItem("cartItem", items);
   };
 
