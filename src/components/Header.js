@@ -31,13 +31,8 @@ export class Header extends Component {
               )}
             </div>
           )}
-          <div className="cart-icon">
-            <img
-              className="icon"
-              onClick={this.context.toggleMiniCart}
-              src="/icons/cart.svg"
-              alt="cart-icon"
-            />
+          <div className="cart-icon" onClick={this.context.toggleMiniCart}>
+            <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
             <p className="item-count">{this.context.cartItems.length}</p>
           </div>
         </div>
