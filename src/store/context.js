@@ -103,7 +103,7 @@ export class ContextProvider extends Component {
       this.updateProductInCart(productId, items, selectedAttributes);
       return;
     }
-    items.push(productToAdd);
+    items.unshift(productToAdd);
     this.setState({ cartItems: items });
     localStorage.setItem("cartItem", items);
   };
