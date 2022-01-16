@@ -29,6 +29,7 @@ export class Tech extends Component {
   }
 
   setTech = async (category) => {
+    if (category == null) return;
     const response = await client.post(categoryQuery(category));
     this.setState({ tech: response.category.products });
   };

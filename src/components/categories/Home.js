@@ -29,6 +29,7 @@ export class Home extends Component {
   }
 
   setAllProduct = async (category) => {
+    if (category == null) return;
     const response = await client.post(categoryQuery(category));
     this.setState({ allProducts: response.category.products });
   };

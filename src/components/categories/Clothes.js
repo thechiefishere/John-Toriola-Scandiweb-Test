@@ -29,6 +29,7 @@ export class Clothes extends Component {
   }
 
   setClothes = async (category) => {
+    if (category == null) return;
     const response = await client.post(categoryQuery(category));
     this.setState({ clothes: response.category.products });
   };
