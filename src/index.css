@@ -344,9 +344,17 @@ ul {
   height: 35px;
   position: relative;
   text-align: center;
+  padding-top: 8px;
   border: 0.5px solid #000;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
+}
+.attribute--clicked {
+  background-color: #000;
+  color: #fff;
+}
+.attribute--color {
+  border-radius: 50%;
 }
 .attribute__input {
   position: absolute;

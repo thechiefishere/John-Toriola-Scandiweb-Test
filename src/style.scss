@@ -358,9 +358,17 @@ ul {
   height: 35px;
   position: relative;
   text-align: center;
+  padding-top: 8px;
   border: 0.5px solid #000;
   font-family: $sans-pro-font;
   font-weight: 400;
+  &--clicked {
+    background-color: #000;
+    color: #fff;
+  }
+  &--color {
+    border-radius: 50%;
+  }
   &__input {
     position: absolute;
     top: 0;
