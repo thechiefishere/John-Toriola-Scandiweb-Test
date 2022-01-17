@@ -65,8 +65,7 @@ ul {
 .firstname {
   font-weight: 600;
   font-size: 2em;
-  line-height: 27px;
-  margin-bottom: 5px;
+  line-height: 1.5em;
 }
 .firstname--mini {
   font-weight: 300;
@@ -76,7 +75,7 @@ ul {
 .othernames {
   font-weight: 400;
   font-size: 2em;
-  line-height: 27px;
+  line-height: 1.5em;
   margin-bottom: 30px;
 }
 .othernames--mini {
@@ -120,6 +119,7 @@ ul {
 }
 
 .nav {
+  flex: 1;
   a {
     text-decoration: none;
   }
@@ -141,8 +141,9 @@ ul {
   ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
     li {
-      margin-right: 20px;
+      margin-right: 10%;
       font-family: $raleway-font;
       font-weight: 400;
       font-size: 1em;
@@ -153,11 +154,14 @@ ul {
 .bag {
   display: inline-block;
   width: 30px;
-  height: 28px;
+  // width: 3%;
+  height: 40px;
   margin-right: 15%;
 }
 
 .header-end {
+  flex: 1;
+  justify-content: flex-end;
   display: flex;
   margin-top: 7px;
   .currency {
@@ -225,7 +229,8 @@ ul {
 }
 
 .product-tile {
-  width: 31.5%;
+  // width: 31.5%;
+  width: 100%;
   height: 70vh;
   padding: 1em;
   background-color: #fff;
@@ -296,16 +301,16 @@ ul {
   &__all-images {
     display: flex;
     flex-direction: column;
-    margin-right: 25px;
+    margin-right: 3%;
     width: 8vw;
     img {
-      width: 8vw;
+      width: 100%;
       height: 12vh;
       margin-bottom: 10px;
     }
   }
   &__details {
-    width: 70vw;
+    width: 70%;
     display: flex;
     &__image {
       width: 60%;
@@ -313,6 +318,7 @@ ul {
       margin-right: 10%;
     }
     &__description {
+      width: 30%;
       .pdp__price-title {
         font-family: $roboto-condensed-font;
         font-weight: 700;
@@ -562,4 +568,16 @@ ul {
 .show-cart-overlay {
   // height: 290%;
   height: 250vh;
+}
+
+@media (min-width: "600px") {
+  .product-tile {
+    width: 48%;
+  }
+}
+
+@media (min-width: "1000px") {
+  .product-tile {
+    width: 32%;
+  }
 }
