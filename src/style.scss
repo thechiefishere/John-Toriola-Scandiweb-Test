@@ -307,6 +307,9 @@ ul {
       height: 12vh;
       margin-bottom: 10px;
     }
+    &__shade {
+      box-shadow: 2px 4px 5px $secondary-color;
+    }
   }
   &__details {
     width: 70%;

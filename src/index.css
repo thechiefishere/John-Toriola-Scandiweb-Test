@@ -299,6 +299,9 @@ ul {
   height: 12vh;
   margin-bottom: 10px;
 }
+.pdp__all-images__shade {
+  box-shadow: 2px 4px 5px #1d1f22;
+}
 .pdp__details {
   width: 70%;
   display: flex;

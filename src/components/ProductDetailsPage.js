@@ -107,6 +107,9 @@ export class ProductDetailsPage extends Component {
                     onClick={() => {
                       this.setState({ pictureIndex: index });
                     }}
+                    className={`${
+                      index === pictureIndex && "pdp__all-images__shade"
+                    }`}
                   />
                 );
               })}
