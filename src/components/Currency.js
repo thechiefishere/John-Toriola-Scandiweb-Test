@@ -3,30 +3,32 @@ import { AppContext } from "../store/context";
 
 export class Currency extends Component {
   static contextType = AppContext;
+
   render() {
+    const currency = this.context.currency;
+    const showingCurrencyTab = this.context.showingCurrencyTab;
+    const currencies = this.context.currencies;
+    const changeCurrencyInUse = this.context.changeCurrencyInUse;
+
     return (
       <div>
-        {this.context.currency !== null && (
+        {currency !== null && (
           <article
             className={
-              this.context.showingCurrencyTab
+              showingCurrencyTab
                 ? "currencyTab show-currencyTab"
                 : "currencyTab"
             }
             style={{
-              height:
-                this.context.showingCurrencyTab &&
-                `${this.context.currencies.length * 30}px`,
+              height: showingCurrencyTab && `${currencies.length * 30}px`,
             }}
           >
-            {this.context.currencies.map((currency, index) => {
+            {currencies.map((currency, index) => {
               return (
                 <p
                   key={index}
                   className="currencyType"
-                  onClick={() =>
-                    this.context.changeCurrencyInUse(currency.symbol)
-                  }
+                  onClick={() => changeCurrencyInUse(currency.symbol)}
                 >
                   {currency.symbol} {currency.label}
                 </p>

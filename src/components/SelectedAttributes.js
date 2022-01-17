@@ -24,9 +24,7 @@ export class SelectedAttributes extends Component {
       const productId = item.split(" ")[0];
       if (productId === this.props.productId) return item;
     });
-    let itemToArray = item.split(" ");
-    itemToArray.shift();
-    itemToArray.shift();
+    let itemToArray = item.split(" ").filter((val, index) => index > 1);
     let allAttribute = [];
     let numOfAttributes = 0;
     itemToArray.map((attributeSet) => {
@@ -39,60 +37,39 @@ export class SelectedAttributes extends Component {
     this.setState({ attributes: allAttribute });
   };
 
-  setAttributeState = (itemToArray) => {
-    const initialState = [];
-    itemToArray.forEach((item) => initialState.push(true));
-    this.setState({ attributeState: initialState });
-  };
-
-  handleOnChange = (index) => {
-    let attributeState = this.state.attributeState;
-    attributeState[index] = !attributeState[index];
-    this.setState({ attributeState: attributeState });
-  };
-
   render() {
+    const attributes = this.state.attributes;
+    const numberOfAttributes = this.state.numberOfAttributes;
+    const mini = this.props.mini;
+
     return (
       <article className="selected-attributes-set">
-        {this.state.attributes.map((attribute, index) => {
+        {attributes.map((attribute, index) => {
           const attributeValue = attribute.split("-")[0];
           const attributeType = attribute.split("-")[1];
           return (
             <div
               key={index}
               className={`attribute attribute--selected ${
-                index >=
-                  this.state.attributes.length -
-                    this.state.numberOfAttributes &&
+                index >= attributes.length - numberOfAttributes &&
                 attributeType !== "swatch" &&
-                !this.props.mini &&
+                !mini &&
                 "attribute--clicked"
               }
               ${
-                index >=
-                  this.state.attributes.length -
-                    this.state.numberOfAttributes &&
+                index >= attributes.length - numberOfAttributes &&
                 attributeType !== "swatch" &&
-                this.props.mini &&
+                mini &&
                 "attribute--clicked--mini"
               }
                ${
-                 index >=
-                   this.state.attributes.length -
-                     this.state.numberOfAttributes &&
+                 index >= attributes.length - numberOfAttributes &&
                  attributeType === "swatch" &&
                  "attribute--color"
                }`}
               style={{
                 backgroundColor:
                   attributeType === "swatch" && `${attributeValue}`,
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                this.context.updateCartItemAttributeState(
-                  this.props.productId,
-                  index
-                );
               }}
             >
               {attributeType === "text" && attributeValue}

@@ -4,25 +4,29 @@ import { AppContext } from "../store/context";
 
 export class Navbar extends Component {
   static contextType = AppContext;
+
   render() {
+    const setActiveLink = this.context.setActiveLink;
+    const activeLink = this.context.activeLink;
+
     return (
       <nav className="nav">
         <ul>
           <li
-            onClick={() => this.context.setActiveLink("/")}
-            className={this.context.activeLink === "/" ? "active" : ""}
+            onClick={() => setActiveLink("/")}
+            className={activeLink === "/" ? "active" : ""}
           >
             <NavLink to="/">ALL</NavLink>
           </li>
           <li
-            onClick={() => this.context.setActiveLink("/clothes")}
-            className={this.context.activeLink === "/clothes" ? "active" : ""}
+            onClick={() => setActiveLink("/clothes")}
+            className={activeLink === "/clothes" ? "active" : ""}
           >
             <NavLink to="/clothes">CLOTHES</NavLink>
           </li>
           <li
-            onClick={() => this.context.setActiveLink("/tech")}
-            className={this.context.activeLink === "/tech" ? "active" : ""}
+            onClick={() => setActiveLink("/tech")}
+            className={activeLink === "/tech" ? "active" : ""}
           >
             <NavLink to="/tech">TECH</NavLink>
           </li>

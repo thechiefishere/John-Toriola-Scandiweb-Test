@@ -72,6 +72,11 @@ export class CartItemCount extends Component {
   };
 
   render() {
+    const productImageString = this.state.productImageString;
+    const name = this.props.name;
+    const mini = this.props.mini;
+    const numberOfItem = this.state.numberOfItem;
+
     return (
       <article className="cart-count">
         <div className="cart-count__btn-grp">
@@ -81,7 +86,7 @@ export class CartItemCount extends Component {
           >
             +
           </button>
-          <p className="cart-count__num">{this.state.numberOfItem}</p>
+          <p className="cart-count__num">{numberOfItem}</p>
           <button
             className="cart-count__btn cart-count__btn--2"
             onClick={this.decreaseNumberOfItem}
@@ -93,11 +98,11 @@ export class CartItemCount extends Component {
           <div className="cart-count__img-container">
             <img
               className="cart-count__img"
-              src={this.state.productImageString}
-              alt={this.props.name}
+              src={productImageString}
+              alt={name}
             />
           </div>
-          {!this.props.mini && (
+          {!mini && (
             <div className="cart-count__icon-container">
               <img
                 className="cart-count__icon"

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../store/context";
+import { getPriceInSelectedCurrency } from "../util/functions";
 
 export class ProductTile extends Component {
   constructor(props) {
@@ -14,52 +15,49 @@ export class ProductTile extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
-    this.setPriceInSelectedCurrency();
     this.setState({ currencyInUse: null });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
-      this.setPriceInSelectedCurrency(this.state.product);
+      const priceInSelectedCurrency = getPriceInSelectedCurrency(
+        this.props.product,
+        this.state.currencyInUse
+      );
+      this.setState({ productPrice: priceInSelectedCurrency });
       this.setState({ currencyInUse: this.context.currencyInUse });
     }
   }
 
-  setPriceInSelectedCurrency = () => {
-    if (this.props.product === null || this.state.currencyInUse === null)
-      return;
-    const priceInSelectedCurrency = this.props.product.prices.find(
-      (price) => this.context.currencyInUse === price.currency.symbol
-    ).amount;
-    this.setState({ productPrice: priceInSelectedCurrency });
-  };
-
   render() {
+    const product = this.props.product;
+    const clickedProductId = this.context.clickedProductId;
+    const setClickedProductId = this.context.setClickedProductId;
+    const currencyInUse = this.context.currencyInUse;
+    const productPrice = this.state.productPrice;
+
     return (
       <article
         className={
-          this.props.product.id === this.context.clickedProductId
+          product.id === clickedProductId
             ? "product-tile clickedProduct"
             : "product-tile"
         }
-        onClick={() =>
-          this.props.product.inStock &&
-          this.context.setClickedProductId(this.props.product.id)
-        }
+        onClick={() => product.inStock && setClickedProductId(product.id)}
       >
         <div className="product-tile__img-container">
           <img
             className="product-tile__img"
-            src={this.props.product.gallery[0]}
-            alt={this.props.product.name}
+            src={product.gallery[0]}
+            alt={product.name}
           />
-          {!this.props.product.inStock && (
+          {!product.inStock && (
             <p className="product-tile__stock-msg">OUT OF STOCK</p>
           )}
         </div>
-        {this.props.product.id === this.context.clickedProductId && (
-          <Link to={`${this.props.product.id}`}>
+        {product.id === clickedProductId && (
+          <Link to={`${product.id}`}>
             <div className="product-tile__icon-container">
               <img
                 className="icon product-tile__cart-icon"
@@ -72,22 +70,22 @@ export class ProductTile extends Component {
         <div>
           <h4
             className={
-              this.props.product.inStock
+              product.inStock
                 ? "product-tile__name"
                 : "product-tile__name product-tile__name--no-stock"
             }
           >
-            {this.props.product.name}
+            {product.name}
           </h4>
           <h4
             className={
-              this.props.product.inStock
+              product.inStock
                 ? "product-tile__price"
                 : "product-tile__price product-tile__price--no-stock"
             }
           >
-            {this.context.currencyInUse}
-            {this.state.productPrice}
+            {currencyInUse}
+            {productPrice}
           </h4>
         </div>
       </article>

@@ -35,13 +35,16 @@ export class Tech extends Component {
   };
 
   render() {
+    const categories = this.context.categories;
+    const tech = this.state.tech;
+
     return (
       <div>
         {this.state.tech !== null && (
           <section className="category">
-            <h1 className="category__name">{this.context.categories[2]}</h1>
+            <h1 className="category__name">{categories[2]}</h1>
             <section className="category__products">
-              {this.state.tech.map((product) => {
+              {tech.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
               })}
             </section>

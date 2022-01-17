@@ -5,12 +5,12 @@ import MiniCart from "./MiniCart";
 export class CartOverlay extends Component {
   static contextType = AppContext;
   render() {
+    const showingMiniCart = this.context.showingMiniCart;
+
     return (
       <section
         className={
-          this.context.showingMiniCart
-            ? "cart-overlay show-cart-overlay"
-            : "cart-overlay"
+          showingMiniCart ? "cart-overlay show-cart-overlay" : "cart-overlay"
         }
       >
         <div className="cover"></div>

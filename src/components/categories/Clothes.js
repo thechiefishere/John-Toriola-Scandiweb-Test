@@ -33,14 +33,18 @@ export class Clothes extends Component {
     const response = await client.post(categoryQuery(category));
     this.setState({ clothes: response.category.products });
   };
+
   render() {
+    const categories = this.context.categories;
+    const clothes = this.state.clothes;
+
     return (
       <div>
         {this.state.clothes !== null && (
           <section className="category">
-            <h1 className="category__name">{this.context.categories[1]}</h1>
+            <h1 className="category__name">{categories[1]}</h1>
             <section className="category__products">
-              {this.state.clothes.map((product) => {
+              {clothes.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
               })}
             </section>

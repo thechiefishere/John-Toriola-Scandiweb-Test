@@ -10,43 +10,47 @@ export class Attribute extends Component {
   }
 
   render() {
+    const attribute = this.props.attribute;
+    const clickedItem = this.state.clickedItem;
+    const setSelectedAttributes = this.props.setSelectedAttributes;
+    const attributeIndex = this.props.attributeIndex;
+    const productName = this.props.productName;
+
     return (
       <article className="attribute-container">
-        <h3 className="attribute-set__name">{this.props.attribute.name}:</h3>
+        <h3 className="attribute-set__name">{attribute.name}:</h3>
         <div className="attribute-set">
-          {this.props.attribute.items.map((item, index) => {
+          {attribute.items.map((item, index) => {
             return (
               <div
                 className={`attribute ${
-                  this.state.clickedItem === index &&
-                  this.props.attribute.type !== "swatch" &&
+                  clickedItem === index &&
+                  attribute.type !== "swatch" &&
                   "attribute--clicked"
                 } ${
-                  this.state.clickedItem === index &&
-                  this.props.attribute.type === "swatch" &&
+                  clickedItem === index &&
+                  attribute.type === "swatch" &&
                   "attribute--color"
                 } `}
                 key={item.id}
                 style={{
                   backgroundColor:
-                    this.props.attribute.type === "swatch"
-                      ? item.value
-                      : "none",
+                    attribute.type === "swatch" ? item.value : "none",
                 }}
                 onClick={() => {
                   this.setState({ clickedItem: index });
-                  this.props.setSelectedAttributes(
-                    this.props.attributeIndex,
+                  setSelectedAttributes(
+                    attributeIndex,
                     item.value,
-                    this.props.attribute.type
+                    attribute.type
                   );
                 }}
               >
-                {this.props.attribute.type !== "swatch" && item.value}
+                {attribute.type !== "swatch" && item.value}
                 <input
                   type="radio"
                   value={item.value}
-                  name={`${this.props.attribute.name}${this.props.productName}`}
+                  name={`${attribute.name}${productName}`}
                   id={`${item.value}`}
                   className="attribute__input"
                 />

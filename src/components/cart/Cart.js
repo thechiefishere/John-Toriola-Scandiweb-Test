@@ -6,16 +6,18 @@ export class Cart extends Component {
   static contextType = AppContext;
 
   render() {
+    const cartItems = this.context.cartItems;
+
     return (
       <section className="cart">
         <h1 className="cart__title">cart</h1>
-        {this.context.cartItems.length > 0 ? (
-          this.context.cartItems.map((item) => {
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => {
             const id = item.split(" ")[0];
             return <CartItem key={item} productId={id} mini={false} />;
           })
         ) : (
-          <h1>Your cart is empty</h1>
+          <h1 className="cart__empty">Your cart is empty</h1>
         )}
       </section>
     );

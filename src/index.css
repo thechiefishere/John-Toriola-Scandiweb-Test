@@ -186,6 +186,7 @@ ul {
   overflow: hidden;
   transition: 0.5s ease-out;
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  z-index: 10;
 }
 
 .show-currencyTab {
@@ -280,6 +281,7 @@ ul {
   position: relative;
   display: flex;
   margin-top: 70px;
+  z-index: 1;
 }
 .pdp__all-images {
   display: flex;
@@ -380,6 +382,9 @@ ul {
   font-size: 2em;
   line-height: 40px;
 }
+.cart__empty {
+  text-align: center;
+}
 
 .cart-item {
   display: flex;
@@ -439,7 +444,7 @@ ul {
 }
 .cart-count__btn-grp .cart-count__num {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translateX(-50%);
 }

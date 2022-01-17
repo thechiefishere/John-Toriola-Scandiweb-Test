@@ -5,35 +5,43 @@ import Navbar from "./Navbar";
 
 export class Header extends Component {
   static contextType = AppContext;
+
   render() {
+    const currencyInUse = this.context.currencyInUse;
+    const showingCurrencyTab = this.context.showingCurrencyTab;
+    const closeCurrencyTab = this.context.closeCurrencyTab;
+    const openCurrencyTab = this.context.openCurrencyTab;
+    const toggleMiniCart = this.context.toggleMiniCart;
+    const cartItems = this.context.cartItems;
+
     return (
       <header className="header">
         <Navbar />
         <img src={shoppingBag} alt="shop-bag" className="bag" />
         <div className="header-end">
-          {this.context.currencyInUse !== null && (
+          {currencyInUse !== null && (
             <div className="currency">
-              <p className="currency-in-use">{this.context.currencyInUse}</p>
-              {this.context.showingCurrencyTab ? (
+              <p className="currency-in-use">{currencyInUse}</p>
+              {showingCurrencyTab ? (
                 <img
                   className="icon icon--toggle"
-                  onClick={this.context.closeCurrencyTab}
+                  onClick={closeCurrencyTab}
                   src="/icons/upArrow.svg"
                   alt="up-arrow"
                 />
               ) : (
                 <img
                   className="icon icon--toggle"
-                  onClick={this.context.openCurrencyTab}
+                  onClick={openCurrencyTab}
                   src="/icons/downArrow.svg"
                   alt="down-arrow"
                 />
               )}
             </div>
           )}
-          <div className="cart-icon" onClick={this.context.toggleMiniCart}>
+          <div className="cart-icon" onClick={toggleMiniCart}>
             <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
-            <p className="item-count">{this.context.cartItems.length}</p>
+            <p className="item-count">{cartItems.length}</p>
           </div>
         </div>
       </header>

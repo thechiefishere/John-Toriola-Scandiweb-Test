@@ -4,6 +4,7 @@ import CartItemCount from "./CartItemCount";
 import SelectedAttributes from "../SelectedAttributes";
 import { productQuery } from "../../store/queries";
 import { clientClone } from "../../store/context";
+import { splitName, getPriceInSelectedCurrency } from "../../util/functions";
 
 const client = clientClone();
 
@@ -22,20 +23,26 @@ export class CartItem extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
-    // console.log("I mounted cartItems");
     this.setProduct();
-    this.splitName(this.state.product);
     this.setState({ currencyInUse: null });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
-      this.setPriceInSelectedCurrency(this.state.product);
+      const priceInSelectedCurrency = getPriceInSelectedCurrency(
+        this.state.product,
+        this.state.currencyInUse
+      );
+      this.setState({ productPrice: priceInSelectedCurrency });
       this.setState({ currencyInUse: this.context.currencyInUse });
     }
     if (prevState.product !== this.state.product) {
-      this.splitName(this.state.product);
+      const splittedNames = splitName(this.state.product);
+      this.setState({
+        firstName: splittedNames[0].firstName,
+        otherNames: splittedNames[0].otherNames,
+      });
     }
   }
 
@@ -44,58 +51,35 @@ export class CartItem extends Component {
     this.setState({ product: response.product });
   };
 
-  splitName = (product) => {
-    if (product === null) return;
-    const splittedName = product.name.split(" ");
-    this.setState({ firstName: splittedName.shift() });
-    if (splittedName.length <= 0) return;
-    this.setState({ otherNames: splittedName.join(" ") });
-  };
-
-  setPriceInSelectedCurrency = (product) => {
-    if (product === null || this.state.currencyInUse === null) return;
-    const priceInSelectedCurrency = product.prices.find(
-      (price) => this.context.currencyInUse === price.currency.symbol
-    ).amount;
-    this.setState({ productPrice: priceInSelectedCurrency });
-  };
-
   render() {
+    const product = this.state.product;
+    const mini = this.props.mini;
+    const firstName = this.state.firstName;
+    const otherNames = this.state.otherNames;
+    const currencyInUse = this.context.currencyInUse;
+    const productPrice = this.state.productPrice;
     return (
       <section>
         {this.state.product !== null && (
-          <section
-            className={
-              this.props.mini ? "cart-item cart-item--mini" : "cart-item"
-            }
-          >
+          <section className={mini ? "cart-item cart-item--mini" : "cart-item"}>
             <article className="cart-item__details">
-              <h3 className={this.props.mini ? "firstname--mini" : "firstname"}>
-                {this.state.firstName}
+              <h3 className={mini ? "firstname--mini" : "firstname"}>
+                {firstName}
               </h3>
-              <h5
-                className={this.props.mini ? "othernames--mini" : "othernames"}
-              >
-                {this.state.otherNames}
+              <h5 className={mini ? "othernames--mini" : "othernames"}>
+                {otherNames}
               </h5>
-              <h3
-                className={
-                  this.props.mini ? "price-value--mini" : "price-value"
-                }
-              >
-                {this.context.currencyInUse}
-                {this.state.productPrice}
+              <h3 className={mini ? "price-value--mini" : "price-value"}>
+                {currencyInUse}
+                {productPrice}
               </h3>
-              <SelectedAttributes
-                productId={this.state.product.id}
-                mini={this.props.mini}
-              />
+              <SelectedAttributes productId={product.id} mini={mini} />
             </article>
             <CartItemCount
-              gallery={this.state.product.gallery}
-              name={this.state.product.name}
-              productId={this.state.product.id}
-              mini={this.props.mini}
+              gallery={product.gallery}
+              name={product.name}
+              productId={product.id}
+              mini={mini}
             />
           </section>
         )}

@@ -4,19 +4,39 @@ import { AppContext } from "../../store/context";
 import { Link } from "react-router-dom";
 
 export class MiniCart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalPrice: 0,
+    };
+  }
   static contextType = AppContext;
+  componentDidMount() {
+    this.setState({ totalPrice: 0 });
+  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevState.totalPrice !== this.context.totalAmountOfAllItemsInCart) {
+  //     this.setState({totalPrice: this.context.totalAmountOfAllItemsInCart});
+  //   }
+  // }
+
   render() {
+    const cartItems = this.context.cartItems;
+    const currencyInUse = this.context.currencyInUse;
+    const totalAmountOfAllItemsInCart =
+      this.context.totalAmountOfAllItemsInCart;
+    const toggleMiniCart = this.context.toggleMiniCart;
+
     return (
       <section className="mini-cart">
         <h1 className="mini-cart__heading">
           My bag,{" "}
           <span>
-            {this.context.cartItems.length}{" "}
-            {this.context.cartItems.length > 1 ? "items" : "item"}
+            {cartItems.length} {cartItems.length > 1 ? "items" : "item"}
           </span>
         </h1>
-        {this.context.cartItems.length > 0 ? (
-          this.context.cartItems.map((item) => {
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => {
             const id = item.split(" ")[0];
             return <CartItem key={item} productId={id} mini={true} />;
           })
@@ -26,14 +46,14 @@ export class MiniCart extends Component {
         <div className="mini-cart__total">
           <h3 className="mini-cart__total__holder">Total</h3>
           <h3 className="mini-cart__total__value">
-            {this.context.currencyInUse}
-            {this.context.totalAmountOfAllItemsInCart}
+            {currencyInUse}
+            {totalAmountOfAllItemsInCart}
           </h3>
         </div>
         <div className="mini-cart__btn-grp">
           <button
             className="btn mini-cart__btn-grp__btn btn--bag"
-            onClick={this.context.toggleMiniCart}
+            onClick={toggleMiniCart}
           >
             <Link to="/cart">View Bag</Link>
           </button>
