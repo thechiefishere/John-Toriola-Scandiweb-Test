@@ -69,6 +69,7 @@ export class ContextProvider extends Component {
     const data = response.currencies;
     this.setState({ currencies: data });
     this.setState({ currencyInUse: this.state.currencies[0].symbol });
+    this.getCurrencyInUseFromLocalStorage();
   };
 
   setAllProducts = async () => {
@@ -95,6 +96,7 @@ export class ContextProvider extends Component {
 
   changeCurrencyInUse = (newCurrency) => {
     this.setState({ currencyInUse: newCurrency, showingCurrencyTab: false });
+    localStorage.setItem("currencyInUse", newCurrency);
   };
 
   setClickedProductId = (productId) => {
@@ -155,6 +157,21 @@ export class ContextProvider extends Component {
     ) {
       const storedString = localStorage.getItem("cartItem").split(",");
       this.setState({ cartItems: storedString });
+    }
+  };
+
+  /**
+   * Gets currencyInUse that have been previously
+   * stored on localStorage if not found uses
+   * the first currency in currencies
+   */
+  getCurrencyInUseFromLocalStorage = () => {
+    if (
+      localStorage.getItem("currencyInUse") !== null &&
+      localStorage.getItem("currencyInUse") !== ""
+    ) {
+      const storedCurrency = localStorage.getItem("currencyInUse");
+      this.setState({ currencyInUse: storedCurrency });
     }
   };
 
