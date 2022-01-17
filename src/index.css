@@ -557,7 +557,7 @@ ul {
 }
 
 .show-cart-overlay {
-  height: 250vh;
+  height: 150%;
 }
 
 @media (min-width: 600px) {
