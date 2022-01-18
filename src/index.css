@@ -190,15 +190,16 @@ ul li {
 }
 
 .currencyTab {
-  width: 85px;
+  width: 105px;
   position: absolute;
   top: 60px;
-  right: 4%;
+  right: 4.5%;
   height: 0px;
   overflow: hidden;
   transition: 0.5s ease-out;
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
   z-index: 10;
+  padding: 5px;
 }
 
 .show-currencyTab {
@@ -208,7 +209,7 @@ ul li {
 .currencyType {
   cursor: pointer;
   font-weight: 500;
-  margin: 10px 0px 10px 10px;
+  margin: 14px 0px 14px 10px;
 }
 
 .category__name {
