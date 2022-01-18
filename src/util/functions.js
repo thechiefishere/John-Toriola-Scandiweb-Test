@@ -20,7 +20,8 @@ export const splitName = (product) => {
  * @returns
  */
 export const getPriceInSelectedCurrency = (product, currencyInUse) => {
-  if (product === null || currencyInUse === null) return;
+  if (product === null || currencyInUse === "" || currencyInUse === null)
+    return;
   const priceInSelectedCurrency = product.prices.find(
     (price) => currencyInUse === price.currency.symbol
   ).amount;

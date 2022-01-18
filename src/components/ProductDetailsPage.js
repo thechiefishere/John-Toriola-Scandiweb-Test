@@ -80,6 +80,7 @@ export class ProductDetailsPage extends Component {
       return;
     }
     copyOfSelectedAttribute = copyOfSelectedAttribute.join("_");
+    console.log("copyOfSelectedAttribute", copyOfSelectedAttribute);
     this.context.addToCartItems(this.state.product.id, copyOfSelectedAttribute);
     this.props.navigate("/cart");
   };

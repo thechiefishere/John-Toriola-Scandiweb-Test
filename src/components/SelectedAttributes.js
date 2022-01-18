@@ -24,7 +24,10 @@ export class SelectedAttributes extends Component {
       const productId = item.split(" ")[0];
       if (productId === this.props.productId) return item;
     });
-    let itemToArray = item.split(" ").filter((val, index) => index > 1);
+    let itemToArray = item
+      .split(" ")
+      .filter((val, index) => index > 1)
+      .filter((val) => val !== "");
     let allAttribute = [];
     let numOfAttributes = 0;
     itemToArray.map((attributeSet) => {
