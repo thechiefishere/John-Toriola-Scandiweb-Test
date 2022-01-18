@@ -13,11 +13,6 @@ $secondary-color: #1d1f22;
   line-height: 1em;
 }
 
-// html {
-//   height: 110%;
-//   margin-bottom: 0.01em;
-// }
-
 body {
   position: relative;
   font-family: $raleway-font;
@@ -154,7 +149,6 @@ ul {
 .bag {
   display: inline-block;
   width: 30px;
-  // width: 3%;
   height: 40px;
   margin-right: 15%;
 }
@@ -441,7 +435,6 @@ ul {
     width: 18%;
     flex-direction: column;
     align-content: space-between;
-    text-align: center;
     font-size: 1.2em;
     position: relative;
     .cart-count__btn {
@@ -450,16 +443,22 @@ ul {
       background-color: #fff;
       border: 1px solid $secondary-color;
       font-size: 1.2em;
-      text-align: center;
+      position: relative;
+      &__val {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
       &--1 {
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 0%;
+        left: 0%;
       }
       &--2 {
         position: absolute;
-        bottom: 0px;
-        left: 0px;
+        bottom: 0%;
+        left: 0%;
       }
     }
     .cart-count__num {
@@ -534,7 +533,13 @@ ul {
   z-index: 5;
   overflow: auto;
   min-height: 30vh;
-  max-height: 75vh;
+  max-height: 102vh;
+  &__heading-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-bottom: 10px;
+  }
   &__heading {
     font-weight: 700;
     line-height: 25px;
@@ -542,6 +547,12 @@ ul {
     span {
       font-weight: 500;
     }
+  }
+  &__cancel {
+    width: 8%;
+    height: 30px;
+    filter: invert(11%) sepia(96%) saturate(7314%) hue-rotate(2deg)
+      brightness(101%) contrast(110%);
   }
   &__total {
     display: flex;
@@ -569,8 +580,6 @@ ul {
   }
 }
 .show-cart-overlay {
-  // height: 290%;
-  // height: 250vh;
   height: 150%;
 }
 

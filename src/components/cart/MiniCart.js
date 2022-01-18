@@ -14,11 +14,6 @@ export class MiniCart extends Component {
   componentDidMount() {
     this.setState({ totalPrice: 0 });
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if(prevState.totalPrice !== this.context.totalAmountOfAllItemsInCart) {
-  //     this.setState({totalPrice: this.context.totalAmountOfAllItemsInCart});
-  //   }
-  // }
 
   render() {
     const cartItems = this.context.cartItems;
@@ -29,12 +24,20 @@ export class MiniCart extends Component {
 
     return (
       <section className="mini-cart">
-        <h1 className="mini-cart__heading">
-          My bag,{" "}
-          <span>
-            {cartItems.length} {cartItems.length > 1 ? "items" : "item"}
-          </span>
-        </h1>
+        <div className="mini-cart__heading-container">
+          <h1 className="mini-cart__heading">
+            My bag,{" "}
+            <span>
+              {cartItems.length} {cartItems.length > 1 ? "items" : "item"}
+            </span>
+          </h1>
+          <img
+            src={"/icons/cancel.svg"}
+            alt="Cancel"
+            className="mini-cart__cancel"
+            onClick={toggleMiniCart}
+          />
+        </div>
         {cartItems.length > 0 ? (
           cartItems.map((item) => {
             const id = item.split(" ")[0];

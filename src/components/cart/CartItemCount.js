@@ -84,14 +84,14 @@ export class CartItemCount extends Component {
             className="cart-count__btn cart-count__btn--1"
             onClick={this.increaseNumberOfItem}
           >
-            +
+            <p className="cart-count__btn__val">+</p>
           </button>
           <p className="cart-count__num">{numberOfItem}</p>
           <button
             className="cart-count__btn cart-count__btn--2"
             onClick={this.decreaseNumberOfItem}
           >
-            -
+            <p className="cart-count__btn__val">-</p>
           </button>
         </div>
         <div className="cart-count__img-switcher">
