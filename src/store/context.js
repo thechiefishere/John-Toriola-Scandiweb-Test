@@ -25,7 +25,7 @@ export class ContextProvider extends Component {
 
     this.state = {
       currencies: [],
-      currencyInUse: null,
+      currencyInUse: "",
       showingCurrencyTab: false,
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,

@@ -9,6 +9,7 @@ export class CartOverlay extends Component {
 
     return (
       <section
+        data-testid="cartOverlay"
         className={
           showingMiniCart ? "cart-overlay show-cart-overlay" : "cart-overlay"
         }

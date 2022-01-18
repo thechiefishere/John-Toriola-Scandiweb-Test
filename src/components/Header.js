@@ -24,6 +24,7 @@ export class Header extends Component {
               <p className="currency-in-use">{currencyInUse}</p>
               {showingCurrencyTab ? (
                 <img
+                  data-testid="arrowUp"
                   className="icon icon--toggle"
                   onClick={closeCurrencyTab}
                   src="/icons/upArrow.svg"
@@ -31,6 +32,7 @@ export class Header extends Component {
                 />
               ) : (
                 <img
+                  data-testid="arrowDown"
                   className="icon icon--toggle"
                   onClick={openCurrencyTab}
                   src="/icons/downArrow.svg"
@@ -39,7 +41,11 @@ export class Header extends Component {
               )}
             </div>
           )}
-          <div className="cart-icon" onClick={toggleMiniCart}>
+          <div
+            data-testid="cartLogo"
+            className="cart-icon"
+            onClick={toggleMiniCart}
+          >
             <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
             <p className="item-count">{cartItems.length}</p>
           </div>

@@ -153,14 +153,15 @@ ul {
 
 .header-end {
   flex: 1;
-  justify-content: flex-end;
   display: flex;
+  justify-content: flex-end;
   margin-top: 7px;
 }
 .header-end .currency {
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .header-end .currency .currency-in-use {
   width: 12px;
@@ -168,6 +169,7 @@ ul {
   font-weight: 500;
   line-height: 28px;
   font-size: 18px;
+  margin-right: 7px;
 }
 .header-end .cart-icon {
   position: relative;
@@ -192,6 +194,7 @@ ul {
   transition: 0.5s ease-out;
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
   z-index: 10;
+  background-color: red;
 }
 
 .show-currencyTab {

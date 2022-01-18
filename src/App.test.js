@@ -1,8 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
-import { createMemoryHistory } from "history";
 import App from "./App";
 
 describe("what happens in <App />", () => {
@@ -14,5 +12,11 @@ describe("what happens in <App />", () => {
     expect(
       screen.getByRole("heading", { name: /category name/i })
     ).toBeInTheDocument();
+  });
+
+  test("that currencyTab toggles", () => {
+    expect(screen.getByTestId("arrowDown")).toBeInTheDocument();
+    userEvent.click(screen.getByTestId("arrowDown"));
+    expect(screen.getByTestId("arrowUp")).toBeInTheDocument();
   });
 });
