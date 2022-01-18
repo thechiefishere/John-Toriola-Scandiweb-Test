@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Currency from "./components/Currency";
 import Home from "./components/categories/Home";
@@ -14,20 +14,25 @@ export class App extends Component {
   render() {
     return (
       <ContextProvider>
-        <main className="container">
-          <Header />
-          <Currency />
-          <CartOverlay />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/clothes" element={<Clothes />} />
-            <Route path="/tech" element={<Tech />} />
-            <Route path="/:productId" element={<ProductDetailsPage />} />
-            <Route path="clothes/:productId" element={<ProductDetailsPage />} />
-            <Route path="tech/:productId" element={<ProductDetailsPage />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </main>
+        <Router>
+          <main className="container">
+            <Header />
+            <Currency />
+            <CartOverlay />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/clothes" element={<Clothes />} />
+              <Route path="/tech" element={<Tech />} />
+              <Route path="/:productId" element={<ProductDetailsPage />} />
+              <Route
+                path="clothes/:productId"
+                element={<ProductDetailsPage />}
+              />
+              <Route path="tech/:productId" element={<ProductDetailsPage />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+          </main>
+        </Router>
       </ContextProvider>
     );
   }

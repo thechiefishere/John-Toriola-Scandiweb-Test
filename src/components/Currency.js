@@ -11,7 +11,7 @@ export class Currency extends Component {
     const changeCurrencyInUse = this.context.changeCurrencyInUse;
 
     return (
-      <div>
+      <article>
         {currency !== null && (
           <article
             className={
@@ -36,7 +36,7 @@ export class Currency extends Component {
             })}
           </article>
         )}
-      </div>
+      </article>
     );
   }
 }
