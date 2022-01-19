@@ -513,7 +513,7 @@ ul li {
   width: 100%;
   height: 0px;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   top: 80px;
   left: 0px;
   transition: 0.4s linear;
@@ -537,7 +537,7 @@ ul li {
   z-index: 5;
   overflow: auto;
   min-height: 30vh;
-  max-height: 102vh;
+  max-height: 85vh;
 }
 .mini-cart__heading-container {
   display: flex;
@@ -584,7 +584,7 @@ ul li {
 }
 
 .show-cart-overlay {
-  height: 280%;
+  height: 100%;
 }
 
 @media (min-width: 600px) {
