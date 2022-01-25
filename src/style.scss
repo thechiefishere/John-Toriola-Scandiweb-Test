@@ -242,6 +242,7 @@ ul {
   background-color: #fff;
   position: relative;
   margin: 0px 5px;
+  transition: 0.4s ease-in;
 
   &__img-container {
     width: 100%;
@@ -286,16 +287,22 @@ ul {
   }
   &__icon-container {
     background-color: $primary-color !important;
-    width: 40px;
-    height: 35px;
-    padding: 3px 6px;
+    width: 0px;
+    height: 0px;
+    // padding: 3px 6px;
     position: absolute;
     bottom: 14%;
     right: 10%;
     border-radius: 50%;
+    transition: 0.4s ease-in;
+  }
+  &__show-icon-container {
+    width: 40px;
+    height: 35px;
+    padding: 3px 6px;
   }
 }
-.clickedProduct {
+.hoveredProduct {
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 

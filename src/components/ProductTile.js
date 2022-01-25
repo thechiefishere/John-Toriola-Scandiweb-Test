@@ -10,6 +10,7 @@ export class ProductTile extends Component {
     this.state = {
       productPrice: 0,
       currencyInUse: null,
+      beingHovered: false,
     };
   }
 
@@ -32,19 +33,17 @@ export class ProductTile extends Component {
 
   render() {
     const product = this.props.product;
-    const clickedProductId = this.context.clickedProductId;
+    // const clickedProductId = this.context.clickedProductId;
+    const hover = this.state.beingHovered;
     const setClickedProductId = this.context.setClickedProductId;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
 
     return (
       <article
-        className={
-          product.id === clickedProductId
-            ? "product-tile clickedProduct"
-            : "product-tile"
-        }
-        onClick={() => setClickedProductId(product.id)}
+        className={`product-tile ${hover && "hoveredProduct"}`}
+        onMouseOver={() => this.setState({ beingHovered: true })}
+        onMouseOut={() => this.setState({ beingHovered: false })}
       >
         <div className="product-tile__img-container">
           <img
@@ -56,17 +55,17 @@ export class ProductTile extends Component {
             <p className="product-tile__stock-msg">OUT OF STOCK</p>
           )}
         </div>
-        {product.id === clickedProductId && (
-          <Link to={`${product.id}`}>
-            <div className="product-tile__icon-container">
-              <img
-                className="icon product-tile__cart-icon"
-                src="/icons/cart.svg"
-                alt="cart-icon"
-              />
-            </div>
-          </Link>
-        )}
+        <div
+          className={`product-tile__icon-container ${
+            hover && "product-tile__show-icon-container"
+          }`}
+        >
+          <img
+            className="icon product-tile__cart-icon"
+            src="/icons/cart.svg"
+            alt="cart-icon"
+          />
+        </div>
         <div>
           <h4
             className={
