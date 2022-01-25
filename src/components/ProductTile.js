@@ -33,9 +33,7 @@ export class ProductTile extends Component {
 
   render() {
     const product = this.props.product;
-    // const clickedProductId = this.context.clickedProductId;
     const hover = this.state.beingHovered;
-    const setClickedProductId = this.context.setClickedProductId;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
 
@@ -45,47 +43,51 @@ export class ProductTile extends Component {
         onMouseOver={() => this.setState({ beingHovered: true })}
         onMouseOut={() => this.setState({ beingHovered: false })}
       >
-        <div className="product-tile__img-container">
-          <img
-            className="product-tile__img"
-            src={product.gallery[0]}
-            alt={product.name}
-          />
-          {!product.inStock && (
-            <p className="product-tile__stock-msg">OUT OF STOCK</p>
-          )}
-        </div>
+        <Link to={`/${product.id}`}>
+          <div className="product-tile__img-container">
+            <img
+              className="product-tile__img"
+              src={product.gallery[0]}
+              alt={product.name}
+            />
+            {!product.inStock && (
+              <p className="product-tile__stock-msg">OUT OF STOCK</p>
+            )}
+          </div>
+
+          <div>
+            <h4
+              className={
+                product.inStock
+                  ? "product-tile__name"
+                  : "product-tile__name product-tile__name--no-stock"
+              }
+            >
+              {product.name}
+            </h4>
+            <h4
+              className={
+                product.inStock
+                  ? "product-tile__price"
+                  : "product-tile__price product-tile__price--no-stock"
+              }
+            >
+              {currencyInUse}
+              {productPrice}
+            </h4>
+          </div>
+        </Link>
         <div
           className={`product-tile__icon-container ${
             hover && "product-tile__show-icon-container"
           }`}
+          onClick={() => console.log("Hallelujah")}
         >
           <img
             className="icon product-tile__cart-icon"
             src="/icons/cart.svg"
             alt="cart-icon"
           />
-        </div>
-        <div>
-          <h4
-            className={
-              product.inStock
-                ? "product-tile__name"
-                : "product-tile__name product-tile__name--no-stock"
-            }
-          >
-            {product.name}
-          </h4>
-          <h4
-            className={
-              product.inStock
-                ? "product-tile__price"
-                : "product-tile__price product-tile__price--no-stock"
-            }
-          >
-            {currencyInUse}
-            {productPrice}
-          </h4>
         </div>
       </article>
     );

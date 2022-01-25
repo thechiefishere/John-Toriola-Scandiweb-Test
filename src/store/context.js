@@ -30,8 +30,6 @@ export class ContextProvider extends Component {
       openCurrencyTab: this.openCurrencyTab,
       closeCurrencyTab: this.closeCurrencyTab,
       changeCurrencyInUse: this.changeCurrencyInUse,
-      clickedProductId: "",
-      setClickedProductId: this.setClickedProductId,
       cartItems: [],
       addToCartItems: this.addToCartItems,
       removeFromCart: this.removeFromCart,
@@ -99,10 +97,6 @@ export class ContextProvider extends Component {
   changeCurrencyInUse = (newCurrency) => {
     this.setState({ currencyInUse: newCurrency, showingCurrencyTab: false });
     localStorage.setItem("currencyInUse", newCurrency);
-  };
-
-  setClickedProductId = (productId) => {
-    this.setState({ clickedProductId: productId });
   };
 
   openMiniCart = () => {
