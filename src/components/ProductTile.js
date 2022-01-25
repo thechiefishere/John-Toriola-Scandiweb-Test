@@ -44,7 +44,7 @@ export class ProductTile extends Component {
             ? "product-tile clickedProduct"
             : "product-tile"
         }
-        onClick={() => product.inStock && setClickedProductId(product.id)}
+        onClick={() => setClickedProductId(product.id)}
       >
         <div className="product-tile__img-container">
           <img

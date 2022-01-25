@@ -147,10 +147,12 @@ export class ProductDetailsPage extends Component {
                   </h1>
                 )}
                 <button
-                  className="pdp__btn"
+                  className={`pdp__btn ${
+                    product.inStock && "pdp__btn-instock"
+                  }`}
                   onClick={() => this.handleAddToCart()}
                 >
-                  ADD TO CART
+                  {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
                 </button>
                 <div
                   className="pdp__description"

@@ -336,10 +336,13 @@ ul {
       .pdp__btn {
         width: 100%;
         height: 45px;
-        background-color: $primary-color;
         font-weight: 600;
         margin-bottom: 30px;
+        background-color: #a6a6a6;
         color: #fff;
+        &-instock {
+          background-color: $primary-color;
+        }
       }
       .pdp__description {
         font-family: $roboto-font;

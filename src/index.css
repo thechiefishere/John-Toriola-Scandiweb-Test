@@ -338,10 +338,13 @@ ul li {
 .pdp__details__description .pdp__btn {
   width: 100%;
   height: 45px;
-  background-color: #5ece7b;
   font-weight: 600;
   margin-bottom: 30px;
+  background-color: #a6a6a6;
   color: #fff;
+}
+.pdp__details__description .pdp__btn-instock {
+  background-color: #5ece7b;
 }
 .pdp__details__description .pdp__description {
   font-family: "Roboto", sans-serif;
