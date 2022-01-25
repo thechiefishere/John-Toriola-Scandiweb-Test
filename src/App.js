@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Currency from "./components/Currency";
 import Home from "./components/categories/Home";
-import Clothes from "./components/categories/Clothes";
-import Tech from "./components/categories/Tech";
 import ProductDetailsPage from "./components/ProductDetailsPage";
 import Cart from "./components/cart/Cart";
 import CartOverlay from "./components/cart/CartOverlay";
