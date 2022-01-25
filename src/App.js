@@ -26,8 +26,8 @@ export class App extends Component {
           <CartOverlay />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/clothes" element={<Clothes />} />
-            <Route path="/tech" element={<Tech />} />
+            <Route path="/clothes" element={<Home />} />
+            <Route path="/tech" element={<Home />} />
             <Route path="/:productId" element={<ProductDetailsPage />} />
             <Route path="clothes/:productId" element={<ProductDetailsPage />} />
             <Route path="tech/:productId" element={<ProductDetailsPage />} />

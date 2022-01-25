@@ -19,20 +19,31 @@ export class Home extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
-    // const location = this.props.location;
-    console.log("loc", this.props.location.pathname);
+    // console.log("am in home cdm");
+    const category = this.props.location.pathname.slice(1);
+    // console.log("loc", this.props.location.pathname);
+    // console.log("cate", category);
     this.setState({ categories: [] });
+    this.setAllProduct(category);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.categories !== this.context.categories) {
-      this.setState({ categories: this.context.categories });
-      this.setAllProduct(this.context.categories[0]);
+    // console.log("am in home cdu");
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      const category = this.props.location.pathname.slice(1);
+      // console.log("loc", this.props.location.pathname);
+      // console.log("cate", category);
+      this.setState({ categories: [] });
+      this.setAllProduct(category);
     }
+    // if (prevState.categories !== this.context.categories) {
+    //   this.setState({ categories: this.context.categories });
+    //   this.setAllProduct(this.context.categories[0]);
+    // }
   }
 
   setAllProduct = async (category) => {
-    if (category == null) return;
+    // if (category == null) return;
     const response = await client.post(categoryQuery(category));
     this.setState({ allProducts: response.category.products });
   };

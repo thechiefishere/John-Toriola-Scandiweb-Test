@@ -22,7 +22,6 @@ export class Navbar extends Component {
   setCategoryNames = async () => {
     const response = await client.post(categoryNamesQuery);
     const allCategories = response.categories.map((category) => category.name);
-    console.log("cate", allCategories);
     this.setState({ categories: allCategories });
   };
 
