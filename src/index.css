@@ -213,6 +213,10 @@ ul li {
   margin: 14px 0px 14px 10px;
 }
 
+.currencyType:hover {
+  box-shadow: 1px 3px 10px #555;
+}
+
 .category {
   transition: 0.5s ease-out;
 }
