@@ -3,6 +3,7 @@ import { AppContext } from "../../store/context";
 import ProductTile from "../ProductTile";
 import { clientClone } from "../../store/context";
 import { categoryQuery } from "../../store/queries";
+import { withRouter } from "../../util/withRouter";
 
 const client = clientClone();
 
@@ -11,31 +12,31 @@ export class Home extends Component {
     super(props);
 
     this.state = {
-      allProducts: [],
+      products: [],
       categories: [],
     };
   }
 
   static contextType = AppContext;
   componentDidMount() {
-    this.setState({ categories: [] });
+    const category = this.props.location.pathname.slice(1);
+    this.setProducts(category);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.categories !== this.context.categories) {
-      this.setState({ categories: this.context.categories });
-      this.setAllProduct(this.context.categories[0]);
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      const category = this.props.location.pathname.slice(1);
+      this.setProducts(category);
     }
   }
 
-  setAllProduct = async (category) => {
-    if (category == null) return;
+  setProducts = async (category) => {
     const response = await client.post(categoryQuery(category));
-    this.setState({ allProducts: response.category.products });
+    this.setState({ products: response.category.products });
   };
 
   render() {
-    const allProducts = this.state.allProducts;
+    const products = this.state.products;
 
     return (
       <div>
@@ -43,7 +44,7 @@ export class Home extends Component {
           <section className="category">
             <h1 className="category__name">category name</h1>
             <section className="category__products">
-              {allProducts.map((product) => {
+              {products.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
               })}
             </section>
@@ -54,4 +55,4 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
