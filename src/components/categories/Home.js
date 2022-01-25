@@ -3,6 +3,7 @@ import { AppContext } from "../../store/context";
 import ProductTile from "../ProductTile";
 import { clientClone } from "../../store/context";
 import { categoryQuery } from "../../store/queries";
+import { withRouter } from "../../util/withRouter";
 
 const client = clientClone();
 
@@ -18,6 +19,8 @@ export class Home extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
+    // const location = this.props.location;
+    console.log("loc", this.props.location.pathname);
     this.setState({ categories: [] });
   }
 
@@ -54,4 +57,4 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

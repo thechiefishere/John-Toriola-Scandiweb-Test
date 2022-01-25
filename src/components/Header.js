@@ -6,16 +6,28 @@ import Navbar from "./Navbar";
 export class Header extends Component {
   static contextType = AppContext;
 
+  handleMiniCartToggle = () => {
+    if (this.context.showingMiniCart) {
+      return this.context.closeMiniCart;
+    }
+    return this.context.openMiniCart;
+  };
+
+  toggleMiniCart = () => {
+    if (this.context.showingMiniCart) {
+      return this.context.closeMiniCart;
+    }
+  };
+
   render() {
     const currencyInUse = this.context.currencyInUse;
     const showingCurrencyTab = this.context.showingCurrencyTab;
     const closeCurrencyTab = this.context.closeCurrencyTab;
     const openCurrencyTab = this.context.openCurrencyTab;
-    const toggleMiniCart = this.context.toggleMiniCart;
     const cartItems = this.context.cartItems;
 
     return (
-      <header className="header">
+      <header className="header" onClick={this.toggleMiniCart()}>
         <Navbar />
         <img src={shoppingBag} alt="shop-bag" className="bag" />
         <div className="header-end">
@@ -44,7 +56,7 @@ export class Header extends Component {
           <div
             data-testid="cartLogo"
             className="cart-icon"
-            onClick={toggleMiniCart}
+            onClick={this.handleMiniCartToggle()}
           >
             <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
             <p className="item-count">{cartItems.length}</p>

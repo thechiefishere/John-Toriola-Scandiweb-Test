@@ -214,6 +214,7 @@ ul {
 }
 
 .category {
+  transition: 0.5s ease-out;
   &__name {
     margin-bottom: 30px;
     font-weight: 400;

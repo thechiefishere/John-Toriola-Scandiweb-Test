@@ -38,7 +38,9 @@ export class ContextProvider extends Component {
       updateCartItemCount: this.updateCartItemCount,
       getItemCountInCart: this.getItemCountInCart,
       showingMiniCart: false,
-      toggleMiniCart: this.toggleMiniCart,
+      // toggleMiniCart: this.toggleMiniCart,
+      openMiniCart: this.openMiniCart,
+      closeMiniCart: this.closeMiniCart,
       allProducts: [],
       categories: [],
       totalAmountOfAllItemsInCart: 0,
@@ -103,12 +105,20 @@ export class ContextProvider extends Component {
     this.setState({ clickedProductId: productId });
   };
 
-  toggleMiniCart = () => {
-    this.setState({
-      showingMiniCart: !this.state.showingMiniCart,
-      showingCurrencyTab: false,
-    });
+  openMiniCart = () => {
+    this.setState({ showingMiniCart: true });
   };
+
+  closeMiniCart = () => {
+    this.setState({ showingMiniCart: false });
+  };
+
+  // toggleMiniCart = () => {
+  //   this.setState({
+  //     showingMiniCart: !this.state.showingMiniCart,
+  //     showingCurrencyTab: false,
+  //   });
+  // };
 
   setActiveLink = (link) => {
     this.setState({ activeLink: link });

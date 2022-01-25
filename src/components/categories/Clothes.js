@@ -3,13 +3,14 @@ import { AppContext } from "../../store/context";
 import ProductTile from "../ProductTile";
 import { clientClone } from "../../store/context";
 import { categoryQuery } from "../../store/queries";
+import { withRouter } from "../../util/withRouter";
 
 const client = clientClone();
 
 export class Clothes extends Component {
   constructor(props) {
     super(props);
-
+    console.log("loc", this.props.location);
     this.state = {
       clothes: [],
       categories: [],
@@ -55,4 +56,4 @@ export class Clothes extends Component {
   }
 }
 
-export default Clothes;
+export default withRouter(Clothes);

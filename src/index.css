@@ -212,6 +212,9 @@ ul li {
   margin: 14px 0px 14px 10px;
 }
 
+.category {
+  transition: 0.5s ease-out;
+}
 .category__name {
   margin-bottom: 30px;
   font-weight: 400;
