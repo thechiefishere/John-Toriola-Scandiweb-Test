@@ -6,6 +6,13 @@ import Navbar from "./Navbar";
 export class Header extends Component {
   static contextType = AppContext;
 
+  handleCurrencyToggle = () => {
+    if (this.context.showingCurrencyTab) {
+      return this.context.closeCurrencyTab;
+    }
+    return this.context.openCurrencyTab;
+  };
+
   handleMiniCartToggle = () => {
     if (this.context.showingMiniCart) {
       return this.context.closeMiniCart;
@@ -32,13 +39,12 @@ export class Header extends Component {
         <img src={shoppingBag} alt="shop-bag" className="bag" />
         <div className="header-end">
           {currencyInUse !== null && (
-            <div className="currency">
+            <div className="currency" onClick={this.handleCurrencyToggle()}>
               <p className="currency-in-use">{currencyInUse}</p>
               {showingCurrencyTab ? (
                 <img
                   data-testid="arrowUp"
                   className="icon icon--toggle"
-                  onClick={closeCurrencyTab}
                   src="/icons/upArrow.svg"
                   alt="up-arrow"
                 />
@@ -46,7 +52,6 @@ export class Header extends Component {
                 <img
                   data-testid="arrowDown"
                   className="icon icon--toggle"
-                  onClick={openCurrencyTab}
                   src="/icons/downArrow.svg"
                   alt="down-arrow"
                 />
