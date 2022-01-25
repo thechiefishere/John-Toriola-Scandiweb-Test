@@ -151,6 +151,7 @@ export class ProductDetailsPage extends Component {
                     product.inStock && "pdp__btn-instock"
                   }`}
                   onClick={() => this.handleAddToCart()}
+                  disabled={!product.inStock ? true : false}
                 >
                   {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
                 </button>
