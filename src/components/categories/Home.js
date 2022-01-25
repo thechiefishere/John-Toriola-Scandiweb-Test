@@ -13,19 +13,21 @@ export class Home extends Component {
 
     this.state = {
       products: [],
-      categories: [],
+      categoryName: "",
     };
   }
 
   static contextType = AppContext;
   componentDidMount() {
     const category = this.props.location.pathname.slice(1);
+    this.setState({ categoryName: category });
     this.setProducts(category);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       const category = this.props.location.pathname.slice(1);
+      this.setState({ categoryName: category });
       this.setProducts(category);
     }
   }
@@ -42,7 +44,9 @@ export class Home extends Component {
       <div>
         {this.state.allProducts !== null && (
           <section className="category">
-            <h1 className="category__name">category name</h1>
+            <h1 className="category__name">
+              {this.state.categoryName || "All"}
+            </h1>
             <section className="category__products">
               {products.map((product) => {
                 return <ProductTile key={product.id} product={product} />;
