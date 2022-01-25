@@ -34,10 +34,11 @@ export const getPriceInSelectedCurrency = (product, currencyInUse) => {
  * @param {all items in cart} cartItems
  * @returns
  */
-export const isProductInCart = (productId, cartItems) => {
+export const isProductInCart = (productId, cartItems, attributes) => {
   const item = cartItems.find((item) => {
     const itemId = item.split(" ")[0];
-    if (itemId === productId) return item;
+    const itemAttributes = item.split(" ")[2];
+    if (itemId === productId && attributes === itemAttributes) return item;
   });
   if (item) return true;
 
@@ -54,10 +55,13 @@ export const isProductInCart = (productId, cartItems) => {
 export const getUpdatedCartItems = (productId, cartItems, attributeToAdd) => {
   const items = cartItems.map((item) => {
     const itemId = item.split(" ")[0];
-    if (itemId === productId) {
-      item = item.split(" ").filter((value) => value !== attributeToAdd);
+    const itemAttributes = item.split(" ")[2];
+    if (itemId === productId && attributeToAdd === itemAttributes) {
+      item = item.split(" ").map((val, index) => {
+        if (index === 1) val = parseInt(val) + 1;
+        return val;
+      });
       item = item.join(" ");
-      item = item.concat(` ${attributeToAdd}`);
       return item;
     }
     return item;
@@ -126,4 +130,11 @@ export const getTotalAmountOfAllItemsInCart = (
   }, 0);
 
   return total;
+};
+
+export const defaultAttributes = (product) => {
+  const defaults = product.attributes.map((attribute) => {
+    return attribute.items[0].value + "-" + attribute.type;
+  });
+  return defaults;
 };

@@ -58,6 +58,7 @@ export class CartItem extends Component {
     const otherNames = this.state.otherNames;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
+
     return (
       <section>
         {this.state.product !== null && (

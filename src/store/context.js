@@ -36,7 +36,6 @@ export class ContextProvider extends Component {
       updateCartItemCount: this.updateCartItemCount,
       getItemCountInCart: this.getItemCountInCart,
       showingMiniCart: false,
-      // toggleMiniCart: this.toggleMiniCart,
       openMiniCart: this.openMiniCart,
       closeMiniCart: this.closeMiniCart,
       allProducts: [],
@@ -121,7 +120,7 @@ export class ContextProvider extends Component {
   addToCartItems = (productId, selectedAttributes) => {
     const productToAdd = `${productId} 1 ${selectedAttributes}`;
     const items = this.state.cartItems;
-    if (isProductInCart(productId, items)) {
+    if (isProductInCart(productId, items, selectedAttributes)) {
       const updatedCartItems = getUpdatedCartItems(
         productId,
         items,

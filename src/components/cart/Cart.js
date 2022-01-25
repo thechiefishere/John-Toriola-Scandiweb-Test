@@ -12,9 +12,10 @@ export class Cart extends Component {
       <section className="cart">
         <h1 className="cart__title">cart</h1>
         {cartItems.length > 0 ? (
-          cartItems.map((item) => {
+          cartItems.map((item, index) => {
             const id = item.split(" ")[0];
-            return <CartItem key={item} productId={id} mini={false} />;
+            const key = id.concat(index);
+            return <CartItem key={key} productId={id} mini={false} />;
           })
         ) : (
           <h1 className="cart__empty">Your cart is empty</h1>

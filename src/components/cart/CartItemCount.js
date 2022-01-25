@@ -71,6 +71,8 @@ export class CartItemCount extends Component {
     this.context.updateCartItemCount(this.props.productId, itemCount);
   };
 
+  updateCartItem = () => {};
+
   render() {
     const productImageString = this.state.productImageString;
     const name = this.props.name;

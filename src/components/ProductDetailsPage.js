@@ -4,7 +4,11 @@ import { clientClone } from "../store/context";
 import { withRouter } from "../util/withRouter";
 import Attribute from "./Attribute";
 import { AppContext } from "../store/context";
-import { splitName, getPriceInSelectedCurrency } from "../util/functions";
+import {
+  splitName,
+  getPriceInSelectedCurrency,
+  defaultAttributes,
+} from "../util/functions";
 
 const client = clientClone();
 
@@ -56,8 +60,8 @@ export class ProductDetailsPage extends Component {
   };
 
   initSelectedAttributes = (product) => {
-    const array = product.attributes.map((attribute) => "");
-    this.setState({ selectedAttributes: array });
+    const defaultAttribute = defaultAttributes(product);
+    this.setState({ selectedAttributes: defaultAttribute });
   };
 
   /**
@@ -75,10 +79,6 @@ export class ProductDetailsPage extends Component {
 
   handleAddToCart = () => {
     let copyOfSelectedAttribute = this.state.selectedAttributes;
-    if (copyOfSelectedAttribute.indexOf("") != -1) {
-      this.setState({ error: true });
-      return;
-    }
     copyOfSelectedAttribute = copyOfSelectedAttribute.join("_");
     this.context.addToCartItems(this.state.product.id, copyOfSelectedAttribute);
     this.props.navigate("/cart");
