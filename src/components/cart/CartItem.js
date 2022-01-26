@@ -58,6 +58,7 @@ export class CartItem extends Component {
     const otherNames = this.state.otherNames;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
+    const position = this.props.position;
 
     return (
       <section>
@@ -74,13 +75,18 @@ export class CartItem extends Component {
                 {currencyInUse}
                 {productPrice}
               </h3>
-              <SelectedAttributes productId={product.id} mini={mini} />
+              <SelectedAttributes
+                productId={product.id}
+                mini={mini}
+                position={position}
+              />
             </article>
             <CartItemCount
               gallery={product.gallery}
               name={product.name}
               productId={product.id}
               mini={mini}
+              position={position}
             />
           </section>
         )}

@@ -20,8 +20,12 @@ export class SelectedAttributes extends Component {
   }
 
   setAttributes = (items) => {
-    const item = items.find((item) => {
-      if (item.productId === this.props.productId) return item;
+    const item = items.find((item, index) => {
+      if (
+        item.productId === this.props.productId &&
+        index === this.props.position
+      )
+        return item;
     });
     let numOfAttributes = item.productAttributes.length;
     const allAttribute = item.productAttributes.map((attribute) => attribute);

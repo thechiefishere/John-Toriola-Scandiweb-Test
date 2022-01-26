@@ -19,14 +19,20 @@ export class CartItemCount extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let itemCountInCart = this.context.getItemCountInCart(this.props.productId);
+    let itemCountInCart = this.context.getItemCountInCart(
+      this.props.productId,
+      this.props.position
+    );
     if (prevState.numberOfItem !== itemCountInCart) {
       this.setNumberOfItemFromContext();
     }
   }
 
   setNumberOfItemFromContext = () => {
-    let itemCountInCart = this.context.getItemCountInCart(this.props.productId);
+    let itemCountInCart = this.context.getItemCountInCart(
+      this.props.productId,
+      this.props.position
+    );
     if (!itemCountInCart) return;
     this.setState({ numberOfItem: itemCountInCart });
   };
@@ -58,17 +64,25 @@ export class CartItemCount extends Component {
   increaseNumberOfItem = () => {
     let itemCount = this.state.numberOfItem + 1;
     this.setState({ numberOfItem: itemCount });
-    this.context.updateCartItemCount(this.props.productId, itemCount);
+    this.context.updateCartItemCount(
+      this.props.productId,
+      this.props.position,
+      itemCount
+    );
   };
 
   decreaseNumberOfItem = () => {
     let itemCount = this.state.numberOfItem - 1;
     if (itemCount === 0) {
-      this.context.removeFromCart(this.props.productId);
+      this.context.removeFromCart(this.props.productId, this.props.position);
       return;
     }
     this.setState({ numberOfItem: itemCount });
-    this.context.updateCartItemCount(this.props.productId, itemCount);
+    this.context.updateCartItemCount(
+      this.props.productId,
+      this.props.position,
+      itemCount
+    );
   };
 
   updateCartItem = () => {};

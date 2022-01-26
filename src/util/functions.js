@@ -76,9 +76,10 @@ export const getUpdatedCartItems = (productId, cartItems, attributeToAdd) => {
  * @param {new value of the product count} count
  * @returns
  */
-export const getUpdatedCartItemsCount = (productId, items, count) => {
-  items = items.map((item) => {
-    if (item.productId === productId) item.productCount = count;
+export const getUpdatedCartItemsCount = (productId, position, items, count) => {
+  items = items.map((item, index) => {
+    if (item.productId === productId && index === position)
+      item.productCount = count;
     return item;
   });
 
@@ -91,33 +92,12 @@ export const getUpdatedCartItemsCount = (productId, items, count) => {
  * @param {all items in the cart} items
  * @returns
  */
-export const removeFromCart = (productId, items) => {
-  items = items.filter((item) => {
+export const removeFromCart = (productId, position, items) => {
+  items = items.filter((item, index) => {
     if (item.productId !== productId) return item;
+    if (item.productId === productId && position !== index) return item;
   });
   return items;
-};
-
-/**
- * Returns the sum of all the items in cart
- * @param {all items in cart} items
- * @param {all products} products
- * @param {currency in use} currencyInUse
- * @returns
- */
-export const getTotalAmountOfAllItemsInCart = (
-  items,
-  products,
-  currencyInUse
-) => {
-  if (products === null || products === undefined) return;
-  const total = items.reduce((total, item) => {
-    const product = products.find((product) => item.productId === product.id);
-    const itemPrice = getPriceInSelectedCurrency(product, currencyInUse);
-    return total + itemPrice * item.productCount;
-  }, 0);
-
-  return total;
 };
 
 /**
@@ -145,6 +125,16 @@ export const totalItems = (items) => {
   return total;
 };
 
+export const getProductPrices = (product) => {
+  const prices = product.prices.map((val) => {
+    return {
+      currency: val.currency.symbol,
+      amount: val.amount,
+    };
+  });
+  return prices;
+};
+
 /**
  * Returns true if all element in
  * b are in a
@@ -152,9 +142,9 @@ export const totalItems = (items) => {
  * @param {second array} b
  * @returns
  */
-function checkEveryElement(a, b) {
+const checkEveryElement = (a, b) => {
   return a.every((v, i) => v === b[i]);
-}
+};
 
 /**
  * Returns true if both array are
@@ -162,7 +152,7 @@ function checkEveryElement(a, b) {
  * @param {first array} a
  * @param {second array} b
  */
-function arrayEquality(a, b) {
+export const arrayEquality = (a, b) => {
   if (a.length === b.length && checkEveryElement(a, b)) return true;
   return false;
-}
+};

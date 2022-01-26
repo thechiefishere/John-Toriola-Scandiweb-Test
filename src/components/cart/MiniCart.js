@@ -8,12 +8,39 @@ export class MiniCart extends Component {
     super(props);
     this.state = {
       totalPrice: 0,
+      cartItems: null,
+      currencyInUse: "",
     };
   }
+
   static contextType = AppContext;
   componentDidMount() {
-    this.setState({ totalPrice: 0 });
+    this.setState({ cartItems: this.context.cartItems });
+    this.setState({ currencyInUse: this.context.currencyInUse });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.cartItems !== this.context.cartItems ||
+      prevState.currencyInUse !== this.context.currencyInUse
+    ) {
+      const total = this.setTotalPrice(this.context.cartItems);
+      this.setState({ cartItems: this.context.cartItems });
+      this.setState({ currencyInUse: this.context.currencyInUse });
+      this.setState({ totalPrice: total });
+    }
+  }
+
+  setTotalPrice = (items) => {
+    if (this.context.currencyInUse === "") return;
+    const total = items.reduce((currentTotal, item) => {
+      const val = item.productPrices.find((price) => {
+        if (price.currency === this.context.currencyInUse) return price;
+      });
+      return (currentTotal += val.amount * item.productCount);
+    }, 0);
+    return total.toFixed(2);
+  };
 
   render() {
     const cartItems = this.context.cartItems;
@@ -40,9 +67,14 @@ export class MiniCart extends Component {
         </div>
         {cartItems.length > 0 ? (
           cartItems.map((item, index) => {
-            const key = item.productId.concat(index);
+            const key = item.productId.concat(item.productAttributes.join());
             return (
-              <CartItem key={key} productId={item.productId} mini={true} />
+              <CartItem
+                key={key}
+                productId={item.productId}
+                mini={true}
+                position={index}
+              />
             );
           })
         ) : (
@@ -52,7 +84,7 @@ export class MiniCart extends Component {
           <h3 className="mini-cart__total__holder">Total</h3>
           <h3 className="mini-cart__total__value">
             {currencyInUse}
-            {totalAmountOfAllItemsInCart}
+            {this.state.totalPrice}
           </h3>
         </div>
         <div className="mini-cart__btn-grp">

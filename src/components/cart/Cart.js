@@ -13,9 +13,14 @@ export class Cart extends Component {
         <h1 className="cart__title">cart</h1>
         {cartItems.length > 0 ? (
           cartItems.map((item, index) => {
-            const key = item.productId.concat(index);
+            const key = item.productId.concat(item.productAttributes.join());
             return (
-              <CartItem key={key} productId={item.productId} mini={false} />
+              <CartItem
+                key={key}
+                productId={item.productId}
+                mini={false}
+                position={index}
+              />
             );
           })
         ) : (

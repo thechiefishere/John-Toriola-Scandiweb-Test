@@ -8,6 +8,7 @@ import {
   splitName,
   getPriceInSelectedCurrency,
   defaultAttributes,
+  getProductPrices,
 } from "../util/functions";
 
 const client = clientClone();
@@ -78,11 +79,12 @@ export class ProductDetailsPage extends Component {
   };
 
   handleAddToCart = () => {
+    const productPrices = getProductPrices(this.state.product);
     let copyOfSelectedAttribute = this.state.selectedAttributes;
     this.context.addToCartItems(
       this.state.product.id,
       copyOfSelectedAttribute,
-      this.state.productPrice
+      productPrices
     );
     this.props.navigate("/cart");
   };

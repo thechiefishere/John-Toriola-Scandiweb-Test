@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery, categoryQuery, categoryNamesQuery } from "./queries";
+import { currenciesQuery, categoryNamesQuery } from "./queries";
 import {
   isProductInCart,
   getUpdatedCartItems,
   getUpdatedCartItemsCount,
   removeFromCart,
-  getTotalAmountOfAllItemsInCart,
 } from "../util/functions";
 
 export const AppContext = React.createContext();
@@ -38,9 +37,7 @@ export class ContextProvider extends Component {
       showingMiniCart: false,
       openMiniCart: this.openMiniCart,
       closeMiniCart: this.closeMiniCart,
-      allProducts: [],
       categories: [],
-      totalAmountOfAllItemsInCart: 0,
       activeLink: "",
       setActiveLink: this.setActiveLink,
     };
@@ -48,19 +45,8 @@ export class ContextProvider extends Component {
 
   componentDidMount() {
     this.setCurrencies();
-    this.setAllProducts();
     this.setCategoryNames();
     this.getCartItemsFromLocalStorage();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.currencyInUse !== this.state.currencyInUse ||
-      prevState.cartItems !== this.state.cartItems ||
-      prevState.allProducts !== this.state.allProducts
-    ) {
-      this.setTotalAmountOfAllItemsInCart();
-    }
   }
 
   setCurrencies = async () => {
@@ -71,17 +57,9 @@ export class ContextProvider extends Component {
     this.getCurrencyInUseFromLocalStorage();
   };
 
-  setAllProducts = async () => {
-    const response = await client.post(categoryQuery("all"));
-    this.setState({ allProducts: response.category.products });
-  };
-
   setCategoryNames = async () => {
     const response = await client.post(categoryNamesQuery);
-    let allCategories = [];
-    response.categories.forEach((category) =>
-      allCategories.push(category.name)
-    );
+    const allCategories = response.categories.map((category) => category.name);
     this.setState({ categories: allCategories });
   };
 
@@ -110,15 +88,14 @@ export class ContextProvider extends Component {
     this.setState({ activeLink: link });
   };
 
-  addToCartItems = (productId, productAttributes, productPrice) => {
-    // const productToAdd = `${productId} 1 ${selectedAttributes}`;
+  addToCartItems = (productId, productAttributes, productPrices) => {
     const productToAdd = {
       productId,
       productCount: 1,
-      productPrice,
+      productPrices,
       productAttributes,
     };
-    const items = this.state.cartItems;
+    let items = this.state.cartItems;
     if (isProductInCart(productId, items, productAttributes)) {
       const updatedCartItems = getUpdatedCartItems(
         productId,
@@ -129,21 +106,29 @@ export class ContextProvider extends Component {
       localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
       return;
     }
-    items.unshift(productToAdd);
+    items = [productToAdd, ...items];
     this.setState({ cartItems: items });
-    this.setTotalAmountOfAllItemsInCart();
     localStorage.setItem("cartItem", JSON.stringify(items));
   };
 
-  updateCartItemCount = (productId, count) => {
+  updateCartItemCount = (productId, position, count) => {
     let items = this.state.cartItems;
-    const updatedCartItems = getUpdatedCartItemsCount(productId, items, count);
+    const updatedCartItems = getUpdatedCartItemsCount(
+      productId,
+      position,
+      items,
+      count
+    );
     this.setState({ cartItems: updatedCartItems });
     localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
   };
 
-  removeFromCart = (productId) => {
-    const updatedItems = removeFromCart(productId, this.state.cartItems);
+  removeFromCart = (productId, position) => {
+    const updatedItems = removeFromCart(
+      productId,
+      position,
+      this.state.cartItems
+    );
     this.setState({ cartItems: updatedItems });
     localStorage.setItem("cartItem", JSON.stringify(updatedItems));
   };
@@ -182,24 +167,13 @@ export class ContextProvider extends Component {
    * @param {id of the product} productId
    * @returns
    */
-  getItemCountInCart = (productId) => {
+  getItemCountInCart = (productId, position) => {
     let items = this.state.cartItems;
-    let item = items.find((item) => {
-      // const key = item.split(" ")[0];
-      if (item.productId === productId) return item;
+    let item = items.find((item, index) => {
+      if (item.productId === productId && index === position) return item;
     });
     if (!item) return;
-    return parseInt(item.productCount);
-  };
-
-  setTotalAmountOfAllItemsInCart = () => {
-    if (this.state.allProducts.length === 0) return;
-    const total = getTotalAmountOfAllItemsInCart(
-      this.state.cartItems,
-      this.state.allProducts,
-      this.state.currencyInUse
-    );
-    this.setState({ totalAmountOfAllItemsInCart: total.toFixed(2) });
+    return item.productCount;
   };
 
   render() {
