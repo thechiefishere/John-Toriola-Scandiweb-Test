@@ -19,6 +19,12 @@ export const categoryQuery = (category) => {
             .addField("amount")
             .addField(new Field("currency").addField("symbol"))
         )
+        .addField(
+          new Field("attributes", true)
+            .addField("name")
+            .addField("type")
+            .addField(new Field("items").addField("value").addField("id"))
+        )
     );
   return allProductsQuery;
 };

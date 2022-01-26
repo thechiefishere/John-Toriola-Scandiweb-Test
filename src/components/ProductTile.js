@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../store/context";
-import { getPriceInSelectedCurrency } from "../util/functions";
+import {
+  getPriceInSelectedCurrency,
+  defaultAttributes,
+  getProductPrices,
+} from "../util/functions";
 
 export class ProductTile extends Component {
   constructor(props) {
@@ -30,6 +34,16 @@ export class ProductTile extends Component {
       this.setState({ currencyInUse: this.context.currencyInUse });
     }
   }
+
+  addToCart = () => {
+    const selectedAttributes = defaultAttributes(this.props.product);
+    const productPrices = getProductPrices(this.props.product);
+    this.context.addToCartItems(
+      this.props.product.id,
+      selectedAttributes,
+      productPrices
+    );
+  };
 
   render() {
     const product = this.props.product;
@@ -77,18 +91,19 @@ export class ProductTile extends Component {
             </h4>
           </div>
         </Link>
-        <div
+        <button
           className={`product-tile__icon-container ${
             hover && "product-tile__show-icon-container"
           }`}
-          onClick={() => console.log("Hallelujah")}
+          onClick={() => this.addToCart()}
+          disabled={!product.inStock ? true : false}
         >
           <img
             className="icon product-tile__cart-icon"
             src="/icons/cart.svg"
             alt="cart-icon"
           />
-        </div>
+        </button>
       </article>
     );
   }
