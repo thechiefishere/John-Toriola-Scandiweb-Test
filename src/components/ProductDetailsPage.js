@@ -79,8 +79,11 @@ export class ProductDetailsPage extends Component {
 
   handleAddToCart = () => {
     let copyOfSelectedAttribute = this.state.selectedAttributes;
-    copyOfSelectedAttribute = copyOfSelectedAttribute.join("_");
-    this.context.addToCartItems(this.state.product.id, copyOfSelectedAttribute);
+    this.context.addToCartItems(
+      this.state.product.id,
+      copyOfSelectedAttribute,
+      this.state.productPrice
+    );
     this.props.navigate("/cart");
   };
 

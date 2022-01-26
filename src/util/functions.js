@@ -36,9 +36,11 @@ export const getPriceInSelectedCurrency = (product, currencyInUse) => {
  */
 export const isProductInCart = (productId, cartItems, attributes) => {
   const item = cartItems.find((item) => {
-    const itemId = item.split(" ")[0];
-    const itemAttributes = item.split(" ")[2];
-    if (itemId === productId && attributes === itemAttributes) return item;
+    if (
+      item.productId === productId &&
+      arrayEquality(item.productAttributes, attributes)
+    )
+      return item;
   });
   if (item) return true;
 
@@ -54,14 +56,11 @@ export const isProductInCart = (productId, cartItems, attributes) => {
  */
 export const getUpdatedCartItems = (productId, cartItems, attributeToAdd) => {
   const items = cartItems.map((item) => {
-    const itemId = item.split(" ")[0];
-    const itemAttributes = item.split(" ")[2];
-    if (itemId === productId && attributeToAdd === itemAttributes) {
-      item = item.split(" ").map((val, index) => {
-        if (index === 1) val = parseInt(val) + 1;
-        return val;
-      });
-      item = item.join(" ");
+    if (
+      item.productId === productId &&
+      arrayEquality(item.productAttributes, attributeToAdd)
+    ) {
+      item.productCount += 1;
       return item;
     }
     return item;
@@ -79,18 +78,10 @@ export const getUpdatedCartItems = (productId, cartItems, attributeToAdd) => {
  */
 export const getUpdatedCartItemsCount = (productId, items, count) => {
   items = items.map((item) => {
-    let key = item.split(" ")[0];
-    if (key === productId) {
-      let itemToArray = item.split(" ");
-      itemToArray.splice(1, 1);
-      itemToArray.splice(1, 0, count);
-      item = itemToArray.join(" ");
-      return item;
-    }
+    if (item.productId === productId) item.productCount = count;
     return item;
   });
-  // this.setState({ cartItems: items });
-  // localStorage.setItem("cartItem", items);
+
   return items;
 };
 
@@ -102,8 +93,7 @@ export const getUpdatedCartItemsCount = (productId, items, count) => {
  */
 export const removeFromCart = (productId, items) => {
   items = items.filter((item) => {
-    const key = item.split(" ")[0];
-    if (key !== productId) return item;
+    if (item.productId !== productId) return item;
   });
   return items;
 };
@@ -122,11 +112,9 @@ export const getTotalAmountOfAllItemsInCart = (
 ) => {
   if (products === null || products === undefined) return;
   const total = items.reduce((total, item) => {
-    const productId = item.split(" ")[0];
-    const productCount = parseInt(item.split(" ")[1]);
-    const product = products.find((product) => productId === product.id);
+    const product = products.find((product) => item.productId === product.id);
     const itemPrice = getPriceInSelectedCurrency(product, currencyInUse);
-    return total + itemPrice * productCount;
+    return total + itemPrice * item.productCount;
   }, 0);
 
   return total;
@@ -152,8 +140,29 @@ export const defaultAttributes = (product) => {
  */
 export const totalItems = (items) => {
   const total = items.reduce((currentTotal, item) => {
-    const itemCount = parseInt(item.split(" ")[1]);
-    return (currentTotal += itemCount);
+    return (currentTotal += item.productCount);
   }, 0);
   return total;
 };
+
+/**
+ * Returns true if all element in
+ * b are in a
+ * @param {firtst array} a
+ * @param {second array} b
+ * @returns
+ */
+function checkEveryElement(a, b) {
+  return a.every((v, i) => v === b[i]);
+}
+
+/**
+ * Returns true if both array are
+ * the same in length and values.
+ * @param {first array} a
+ * @param {second array} b
+ */
+function arrayEquality(a, b) {
+  if (a.length === b.length && checkEveryElement(a, b)) return true;
+  return false;
+}

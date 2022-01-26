@@ -21,21 +21,10 @@ export class SelectedAttributes extends Component {
 
   setAttributes = (items) => {
     const item = items.find((item) => {
-      const productId = item.split(" ")[0];
-      if (productId === this.props.productId) return item;
+      if (item.productId === this.props.productId) return item;
     });
-    let itemToArray = item
-      .split(" ")
-      .filter((val, index) => index > 1)
-      .filter((val) => val !== "");
-    let allAttribute = [];
-    let numOfAttributes = 0;
-    itemToArray.map((attributeSet) => {
-      numOfAttributes = attributeSet.split("_").length;
-      attributeSet
-        .split("_")
-        .forEach((attribute) => allAttribute.push(attribute));
-    });
+    let numOfAttributes = item.productAttributes.length;
+    const allAttribute = item.productAttributes.map((attribute) => attribute);
     this.setState({ numberOfAttributes: numOfAttributes });
     this.setState({ attributes: allAttribute });
   };

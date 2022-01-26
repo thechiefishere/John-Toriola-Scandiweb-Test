@@ -110,36 +110,42 @@ export class ContextProvider extends Component {
     this.setState({ activeLink: link });
   };
 
-  addToCartItems = (productId, selectedAttributes) => {
-    const productToAdd = `${productId} 1 ${selectedAttributes}`;
+  addToCartItems = (productId, productAttributes, productPrice) => {
+    // const productToAdd = `${productId} 1 ${selectedAttributes}`;
+    const productToAdd = {
+      productId,
+      productCount: 1,
+      productPrice,
+      productAttributes,
+    };
     const items = this.state.cartItems;
-    if (isProductInCart(productId, items, selectedAttributes)) {
+    if (isProductInCart(productId, items, productAttributes)) {
       const updatedCartItems = getUpdatedCartItems(
         productId,
         items,
-        selectedAttributes
+        productAttributes
       );
       this.setState({ cartItems: updatedCartItems });
-      localStorage.setItem("cartItem", updatedCartItems);
+      localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
       return;
     }
     items.unshift(productToAdd);
     this.setState({ cartItems: items });
     this.setTotalAmountOfAllItemsInCart();
-    localStorage.setItem("cartItem", items);
+    localStorage.setItem("cartItem", JSON.stringify(items));
   };
 
   updateCartItemCount = (productId, count) => {
     let items = this.state.cartItems;
     const updatedCartItems = getUpdatedCartItemsCount(productId, items, count);
     this.setState({ cartItems: updatedCartItems });
-    localStorage.setItem("cartItem", updatedCartItems);
+    localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
   };
 
   removeFromCart = (productId) => {
     const updatedItems = removeFromCart(productId, this.state.cartItems);
     this.setState({ cartItems: updatedItems });
-    localStorage.setItem("cartItem", updatedItems);
+    localStorage.setItem("cartItem", JSON.stringify(updatedItems));
   };
 
   /**
@@ -151,8 +157,8 @@ export class ContextProvider extends Component {
       localStorage.getItem("cartItem") !== null &&
       localStorage.getItem("cartItem") !== ""
     ) {
-      const storedString = localStorage.getItem("cartItem").split(",");
-      this.setState({ cartItems: storedString });
+      const items = JSON.parse(localStorage.getItem("cartItem"));
+      this.setState({ cartItems: items });
     }
   };
 
@@ -179,11 +185,11 @@ export class ContextProvider extends Component {
   getItemCountInCart = (productId) => {
     let items = this.state.cartItems;
     let item = items.find((item) => {
-      const key = item.split(" ")[0];
-      if (key === productId) return item;
+      // const key = item.split(" ")[0];
+      if (item.productId === productId) return item;
     });
     if (!item) return;
-    return parseInt(item.split(" ")[1]);
+    return parseInt(item.productCount);
   };
 
   setTotalAmountOfAllItemsInCart = () => {

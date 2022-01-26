@@ -40,9 +40,10 @@ export class MiniCart extends Component {
         </div>
         {cartItems.length > 0 ? (
           cartItems.map((item, index) => {
-            const id = item.split(" ")[0];
-            const key = id.concat(index);
-            return <CartItem key={key} productId={id} mini={true} />;
+            const key = item.productId.concat(index);
+            return (
+              <CartItem key={key} productId={item.productId} mini={true} />
+            );
           })
         ) : (
           <h1>Your cart is empty</h1>
