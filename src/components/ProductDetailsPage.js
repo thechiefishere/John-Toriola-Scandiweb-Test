@@ -5,7 +5,6 @@ import { withRouter } from "../util/withRouter";
 import Attribute from "./Attribute";
 import { AppContext } from "../store/context";
 import {
-  splitName,
   getPriceInSelectedCurrency,
   defaultAttributes,
   getProductPrices,
@@ -52,7 +51,6 @@ export class ProductDetailsPage extends Component {
     const response = await client.post(productQuery(productId));
     this.setState({ product: response.product });
     this.initSelectedAttributes(response.product);
-    const splittedNames = splitName(response.product);
   };
 
   initSelectedAttributes = (product) => {
