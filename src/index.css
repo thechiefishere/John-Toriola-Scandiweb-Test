@@ -25,8 +25,7 @@ ul li {
 }
 
 .container {
-  width: 90%;
-  margin: 0px auto;
+  width: 100%;
 }
 
 .btn {
@@ -112,7 +111,7 @@ ul li {
   justify-content: space-between;
   height: 80px;
   margin-bottom: 30px;
-  padding: 10px;
+  padding: 10px 5%;
 }
 
 .nav {
@@ -218,6 +217,8 @@ ul li {
 }
 
 .category {
+  width: 90%;
+  margin: 0px auto;
   transition: 0.5s ease-out;
 }
 .category__name {
@@ -307,6 +308,8 @@ ul li {
 .pdp {
   position: relative;
   display: flex;
+  width: 90%;
+  margin: 0px auto;
   margin-top: 70px;
   z-index: 1;
 }
@@ -411,6 +414,10 @@ ul li {
   flex-wrap: wrap;
 }
 
+.cart {
+  width: 90%;
+  margin: 0px auto;
+}
 .cart__title {
   text-transform: uppercase;
   margin: 50px 0px;
