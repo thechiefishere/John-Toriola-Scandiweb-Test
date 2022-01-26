@@ -37,7 +37,6 @@ export class ContextProvider extends Component {
       showingMiniCart: false,
       openMiniCart: this.openMiniCart,
       closeMiniCart: this.closeMiniCart,
-      categories: [],
       activeLink: "",
       setActiveLink: this.setActiveLink,
     };
@@ -45,7 +44,6 @@ export class ContextProvider extends Component {
 
   componentDidMount() {
     this.setCurrencies();
-    this.setCategoryNames();
     this.getCartItemsFromLocalStorage();
   }
 
@@ -55,12 +53,6 @@ export class ContextProvider extends Component {
     this.setState({ currencies: data });
     this.setState({ currencyInUse: this.state.currencies[0].symbol });
     this.getCurrencyInUseFromLocalStorage();
-  };
-
-  setCategoryNames = async () => {
-    const response = await client.post(categoryNamesQuery);
-    const allCategories = response.categories.map((category) => category.name);
-    this.setState({ categories: allCategories });
   };
 
   openCurrencyTab = () => {
