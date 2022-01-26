@@ -12,6 +12,7 @@ export const categoryQuery = (category) => {
       new Field("products", true)
         .addField("id")
         .addField("name")
+        .addField("brand")
         .addField("gallery")
         .addField("inStock")
         .addField(
@@ -34,6 +35,7 @@ export const productQuery = (productId) => {
     .addArgument("id", "String!", productId)
     .addField("id")
     .addField("name")
+    .addField("brand")
     .addField("gallery")
     .addField("description")
     .addField("inStock")

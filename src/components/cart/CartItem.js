@@ -14,8 +14,6 @@ export class CartItem extends Component {
 
     this.state = {
       product: null,
-      firstName: "",
-      otherNames: "",
       productPrice: 0,
       currencyInUse: null,
     };
@@ -37,13 +35,6 @@ export class CartItem extends Component {
       this.setState({ productPrice: priceInSelectedCurrency });
       this.setState({ currencyInUse: this.context.currencyInUse });
     }
-    if (prevState.product !== this.state.product) {
-      const splittedNames = splitName(this.state.product);
-      this.setState({
-        firstName: splittedNames[0].firstName,
-        otherNames: splittedNames[0].otherNames,
-      });
-    }
   }
 
   setProduct = async () => {
@@ -54,8 +45,6 @@ export class CartItem extends Component {
   render() {
     const product = this.state.product;
     const mini = this.props.mini;
-    const firstName = this.state.firstName;
-    const otherNames = this.state.otherNames;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
     const position = this.props.position;
@@ -66,10 +55,10 @@ export class CartItem extends Component {
           <section className={mini ? "cart-item cart-item--mini" : "cart-item"}>
             <article className="cart-item__details">
               <h3 className={mini ? "firstname--mini" : "firstname"}>
-                {firstName}
+                {product.name}
               </h3>
               <h5 className={mini ? "othernames--mini" : "othernames"}>
-                {otherNames}
+                {product.brand}
               </h5>
               <h3 className={mini ? "price-value--mini" : "price-value"}>
                 {currencyInUse}

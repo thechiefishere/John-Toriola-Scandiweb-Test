@@ -77,7 +77,7 @@ export class ProductTile extends Component {
                   : "product-tile__name product-tile__name--no-stock"
               }
             >
-              {product.name}
+              {product.name} {product.brand}
             </h4>
             <h4
               className={

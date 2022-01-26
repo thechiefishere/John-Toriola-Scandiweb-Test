@@ -20,8 +20,6 @@ export class ProductDetailsPage extends Component {
 
     this.state = {
       product: null,
-      firstName: "",
-      otherNames: "",
       productPrice: 0,
       currencyInUse: null,
       selectedAttributes: null,
@@ -55,10 +53,6 @@ export class ProductDetailsPage extends Component {
     this.setState({ product: response.product });
     this.initSelectedAttributes(response.product);
     const splittedNames = splitName(response.product);
-    this.setState({
-      firstName: splittedNames[0].firstName,
-      otherNames: splittedNames[0].otherNames,
-    });
   };
 
   initSelectedAttributes = (product) => {
@@ -93,8 +87,6 @@ export class ProductDetailsPage extends Component {
   render() {
     const product = this.state.product;
     const pictureIndex = this.state.pictureIndex;
-    const firstName = this.state.firstName;
-    const otherNames = this.state.otherNames;
     const error = this.state.error;
     const currencyInUse = this.context.currencyInUse;
     const productPrice = this.state.productPrice;
@@ -127,8 +119,8 @@ export class ProductDetailsPage extends Component {
                 alt={product.name}
               />
               <article className="pdp__details__description">
-                <h3 className="firstname">{firstName}</h3>
-                <h5 className="othernames">{otherNames}</h5>
+                <h3 className="firstname">{product.name}</h3>
+                <h5 className="othernames">{product.brand}</h5>
                 {product.attributes.map((attribute, index) => {
                   return (
                     <Attribute
