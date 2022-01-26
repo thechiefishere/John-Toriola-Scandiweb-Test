@@ -92,6 +92,7 @@ export class CartItemCount extends Component {
     const name = this.props.name;
     const mini = this.props.mini;
     const numberOfItem = this.state.numberOfItem;
+    const galleryLength = this.state.imageCount;
 
     return (
       <article className="cart-count">
@@ -118,7 +119,7 @@ export class CartItemCount extends Component {
               alt={name}
             />
           </div>
-          {!mini && (
+          {!mini && galleryLength > 1 && (
             <div className="cart-count__icon-container">
               <img
                 className="cart-count__icon"
