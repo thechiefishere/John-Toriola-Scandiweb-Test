@@ -132,9 +132,28 @@ export const getTotalAmountOfAllItemsInCart = (
   return total;
 };
 
+/**
+ * Returns an array of all the first items in the products attributes.
+ * @param {product whoose default attributes are to be returned} product
+ * @returns
+ */
 export const defaultAttributes = (product) => {
   const defaults = product.attributes.map((attribute) => {
     return attribute.items[0].value + "-" + attribute.type;
   });
   return defaults;
+};
+
+/**
+ * Returns the total number of items in the
+ * cart.
+ * @param {All items in the cart} items
+ * @returns
+ */
+export const totalItems = (items) => {
+  const total = items.reduce((currentTotal, item) => {
+    const itemCount = parseInt(item.split(" ")[1]);
+    return (currentTotal += itemCount);
+  }, 0);
+  return total;
 };

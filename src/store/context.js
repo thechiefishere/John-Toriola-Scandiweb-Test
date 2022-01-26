@@ -106,13 +106,6 @@ export class ContextProvider extends Component {
     this.setState({ showingMiniCart: false });
   };
 
-  // toggleMiniCart = () => {
-  //   this.setState({
-  //     showingMiniCart: !this.state.showingMiniCart,
-  //     showingCurrencyTab: false,
-  //   });
-  // };
-
   setActiveLink = (link) => {
     this.setState({ activeLink: link });
   };

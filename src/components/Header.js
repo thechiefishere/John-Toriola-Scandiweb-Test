@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import shoppingBag from "../shop-bag.jpg";
 import { AppContext } from "../store/context";
 import Navbar from "./Navbar";
+import { totalItems } from "../util/functions";
 
 export class Header extends Component {
   static contextType = AppContext;
@@ -29,9 +30,8 @@ export class Header extends Component {
   render() {
     const currencyInUse = this.context.currencyInUse;
     const showingCurrencyTab = this.context.showingCurrencyTab;
-    const closeCurrencyTab = this.context.closeCurrencyTab;
-    const openCurrencyTab = this.context.openCurrencyTab;
     const cartItems = this.context.cartItems;
+    const numberOfItemsInCart = totalItems(cartItems);
 
     return (
       <header className="header" onClick={this.toggleMiniCart()}>
@@ -64,7 +64,7 @@ export class Header extends Component {
             onClick={this.handleMiniCartToggle()}
           >
             <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
-            <p className="item-count">{cartItems.length}</p>
+            <p className="item-count">{numberOfItemsInCart}</p>
           </div>
         </div>
       </header>
