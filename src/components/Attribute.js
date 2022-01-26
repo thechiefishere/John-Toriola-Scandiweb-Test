@@ -46,7 +46,6 @@ export class Attribute extends Component {
                   );
                 }}
               >
-                {attribute.type !== "swatch" && item.value}
                 <input
                   type="radio"
                   value={item.value}
@@ -54,6 +53,9 @@ export class Attribute extends Component {
                   id={`${item.value}`}
                   className="attribute__input"
                 />
+                <label className="attribute__label" htmlFor={`${item.value}`}>
+                  {attribute.type !== "swatch" && item.value}
+                </label>
               </div>
             );
           })}
