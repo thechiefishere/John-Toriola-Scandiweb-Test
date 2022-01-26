@@ -47,7 +47,7 @@ export class MiniCart extends Component {
     const currencyInUse = this.context.currencyInUse;
     const totalAmountOfAllItemsInCart =
       this.context.totalAmountOfAllItemsInCart;
-    const toggleMiniCart = this.context.toggleMiniCart;
+    const toggleMiniCart = this.context.closeMiniCart;
 
     return (
       <section className="mini-cart">
