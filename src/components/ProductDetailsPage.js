@@ -10,6 +10,7 @@ import {
   defaultAttributes,
   getProductPrices,
 } from "../util/functions";
+import parse from "html-react-parser";
 
 const client = clientClone();
 
@@ -160,12 +161,9 @@ export class ProductDetailsPage extends Component {
                 >
                   {product.inStock ? "ADD TO CART" : "OUT OF STOCK"}
                 </button>
-                <div
-                  className="pdp__description"
-                  dangerouslySetInnerHTML={{
-                    __html: product.description,
-                  }}
-                ></div>
+                <div className="pdp__description">
+                  {parse(product.description)}
+                </div>
               </article>
             </section>
           </section>
