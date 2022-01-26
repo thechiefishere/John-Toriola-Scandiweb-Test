@@ -1,19 +1,4 @@
 /**
- * Splits the product name into two part, firstName and OtherNames
- * @param {The product whose name is to be splitted} product
- * @returns
- */
-export const splitName = (product) => {
-  if (product === null) return;
-  const splittedName = product.name.split(" ");
-  const firstName = splittedName.shift();
-  if (splittedName.length <= 0)
-    return [{ firstName: firstName, otherNames: "" }];
-  const otherNames = splittedName.join(" ");
-  return [{ firstName: firstName, otherNames: otherNames }];
-};
-
-/**
  * Returns the price of the product in the given currency
  * @param {The product whose price is required} product
  * @param {The amount should be returned in this currency} currencyInUse
