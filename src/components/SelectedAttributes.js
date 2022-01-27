@@ -1,80 +1,93 @@
-import React, { Component } from "react";
-import { AppContext } from "../store/context";
+import React, { Component } from 'react';
+import { AppContext } from '../store/context';
+import { object } from 'prop-types';
 
 export class SelectedAttributes extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      attributes: [],
-      attributeState: [],
-      numberOfAttributes: 0,
-    };
-  }
+        this.state = {
+            attributes: [],
+            attributeState: [],
+            numberOfAttributes: 0,
+        };
+    }
 
-  static contextType = AppContext;
+    static contextType = AppContext;
 
-  componentDidMount() {
-    const items = this.context.cartItems;
-    this.setAttributes(items);
-  }
+    componentDidMount() {
+        const items = this.context.cartItems;
+        this.setAttributes(items);
+    }
 
-  setAttributes = (items) => {
-    const item = items.find((item, index) => {
-      if (
-        item.productId === this.props.productId &&
+    setAttributes = (items) => {
+        const item = items.find((item, index) => {
+            if (
+                item.productId === this.props.productId &&
         index === this.props.position
-      )
-        return item;
-    });
-    let numOfAttributes = item.productAttributes.length;
-    const allAttribute = item.productAttributes.map((attribute) => attribute);
-    this.setState({ numberOfAttributes: numOfAttributes });
-    this.setState({ attributes: allAttribute });
-  };
+            )
+                return item;
+        });
+        let numOfAttributes = item.productAttributes.length;
+        const allAttribute = item.productAttributes.map((attribute) => attribute);
+        this.setState({ numberOfAttributes: numOfAttributes });
+        this.setState({ attributes: allAttribute });
+    };
 
-  render() {
-    const attributes = this.state.attributes;
-    const numberOfAttributes = this.state.numberOfAttributes;
-    const mini = this.props.mini;
+    render() {
+        const attributes = this.state.attributes;
+        const numberOfAttributes = this.state.numberOfAttributes;
+        const mini = this.props.mini;
 
-    return (
-      <article className="selected-attributes-set">
-        {attributes.map((attribute, index) => {
-          const attributeValue = attribute.split("-")[0];
-          const attributeType = attribute.split("-")[1];
-          return (
-            <div
-              key={index}
-              className={`attribute attribute--selected ${
-                index >= attributes.length - numberOfAttributes &&
-                attributeType !== "swatch" &&
+        return (
+            <article className="selected-attributes-set">
+                {attributes.map((attribute, index) => {
+                    const attributeValue = attribute.split('-')[0];
+                    const attributeType = attribute.split('-')[1];
+                    return (
+                        <div
+                            key={index}
+                            className={`attribute attribute--selected ${
+                                index >= attributes.length - numberOfAttributes &&
+                attributeType !== 'swatch' &&
                 !mini &&
-                "attribute--clicked"
-              }
+                'attribute--clicked'
+                            }
               ${
-                index >= attributes.length - numberOfAttributes &&
-                attributeType !== "swatch" &&
+                        index >= attributes.length - numberOfAttributes &&
+                attributeType !== 'swatch' &&
                 mini &&
-                "attribute--clicked--mini"
-              }
+                'attribute--clicked--mini'
+                        }
                ${
-                 index >= attributes.length - numberOfAttributes &&
-                 attributeType === "swatch" &&
-                 "attribute--color"
-               }`}
-              style={{
-                backgroundColor:
-                  attributeType === "swatch" && `${attributeValue}`,
-              }}
-            >
-              {attributeType === "text" && attributeValue}
-            </div>
-          );
-        })}
-      </article>
-    );
-  }
+                        index >= attributes.length - numberOfAttributes &&
+                 attributeType === 'swatch' &&
+                 'attribute--color'
+                        }`}
+                            style={{
+                                backgroundColor:
+                  attributeType === 'swatch' && `${attributeValue}`,
+                            }}
+                        >
+                            {attributeType === 'text' && attributeValue}
+                        </div>
+                    );
+                })}
+            </article>
+        );
+    }
 }
+
+SelectedAttributes.propTypes = {
+    productId: object,
+    position: object,
+    mini: object,
+};
+
+SelectedAttributes.defaultProps = {
+    productId: {},
+    position: {},
+    mini: {},
+};
 
 export default SelectedAttributes;
