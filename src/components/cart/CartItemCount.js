@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppContext } from '../../store/context';
-import { object, array } from 'prop-types';
+import { array, number, bool, string } from 'prop-types';
 
 export class CartItemCount extends Component {
     constructor(props) {
@@ -143,19 +143,19 @@ export class CartItemCount extends Component {
 }
 
 CartItemCount.propTypes = {
-    name: object,
-    mini: object,
+    name: string,
+    mini: bool,
     gallery: array,
-    productId: object,
-    position: object,
+    productId: string,
+    position: number,
 };
 
 CartItemCount.defaultProps = {
-    name: {},
-    mini: {},
+    name: string,
+    mini: false,
     gallery: [],
-    productId: {},
-    position: {},
+    productId: '',
+    position: 0,
 };
 
 export default CartItemCount;

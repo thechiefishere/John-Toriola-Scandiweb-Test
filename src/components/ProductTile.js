@@ -16,6 +16,7 @@ export class ProductTile extends Component {
             productPrice: 0,
             currencyInUse: null,
             beingHovered: false,
+            isAddedToCart: false,
         };
     }
 
@@ -34,9 +35,15 @@ export class ProductTile extends Component {
             this.setState({ productPrice: priceInSelectedCurrency });
             this.setState({ currencyInUse: this.context.currencyInUse });
         }
+        if (this.state.isAddedToCart) {
+            setTimeout(() => {
+                this.setState({ isAddedToCart: false });
+            }, 1000);
+        }
     }
 
     addToCart = () => {
+        this.setState({ isAddedToCart: true });
         const selectedAttributes = defaultAttributes(this.props.product);
         const productPrices = getProductPrices(this.props.product);
         this.context.addToCartItems(
@@ -51,6 +58,7 @@ export class ProductTile extends Component {
         const hover = this.state.beingHovered;
         const currencyInUse = this.context.currencyInUse;
         const productPrice = this.state.productPrice;
+        const success = this.state.isAddedToCart;
 
         return (
             <article
@@ -105,6 +113,13 @@ export class ProductTile extends Component {
                         alt="cart-icon"
                     />
                 </button>
+                <p
+                    className={`product-tile__success ${
+                        success && 'product-tile__success-show'
+                    }`}
+                >
+          Added to cart
+                </p>
             </article>
         );
     }

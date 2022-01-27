@@ -287,10 +287,9 @@ ul {
       brightness(103%) contrast(102%);
   }
   &__icon-container {
-    background-color: $primary-color !important;
     width: 0px;
     height: 0px;
-    // padding: 3px 6px;
+    overflow: hidden;
     position: absolute;
     bottom: 14%;
     right: 10%;
@@ -298,9 +297,21 @@ ul {
     transition: 0.4s ease-in;
   }
   &__show-icon-container {
+    background-color: $primary-color !important;
     width: 40px;
     height: 35px;
     padding: 3px 6px;
+  }
+  &__success {
+    position: absolute;
+    bottom: 21%;
+    right: 0.2%;
+    width: 0%;
+    overflow: hidden;
+    color: blue;
+    &-show {
+      width: inherit;
+    }
   }
 }
 .hoveredProduct {
@@ -347,7 +358,7 @@ ul {
         width: 100%;
         height: 45px;
         font-weight: 600;
-        margin-bottom: 30px;
+        margin-bottom: 5px;
         background-color: #a6a6a6;
         color: #fff;
         &-instock {
@@ -359,14 +370,15 @@ ul {
         font-weight: 40;
         line-height: 25px;
       }
-      .pdp__error {
+      .pdp__success {
+        width: 0%;
+        overflow: hidden;
+        color: blue;
         text-align: center;
-        color: rgb(240, 76, 76);
-        margin-bottom: 20px;
-        visibility: hidden;
-      }
-      .pdp__show-error {
-        visibility: visible;
+        &-show {
+          margin-bottom: 30px;
+          width: 100%;
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppContext } from '../store/context';
-import { object } from 'prop-types';
+import { bool, string, number } from 'prop-types';
 
 export class SelectedAttributes extends Component {
     constructor(props) {
@@ -79,15 +79,15 @@ export class SelectedAttributes extends Component {
 }
 
 SelectedAttributes.propTypes = {
-    productId: object,
-    position: object,
-    mini: object,
+    productId: string,
+    position: number,
+    mini: bool,
 };
 
 SelectedAttributes.defaultProps = {
-    productId: {},
-    position: {},
-    mini: {},
+    productId: '',
+    position: 0,
+    mini: false,
 };
 
 export default SelectedAttributes;

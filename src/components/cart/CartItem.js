@@ -5,7 +5,7 @@ import SelectedAttributes from '../SelectedAttributes';
 import { productQuery } from '../../store/queries';
 import { clientClone } from '../../store/context';
 import { getPriceInSelectedCurrency } from '../../util/functions';
-import { object } from 'prop-types';
+import { bool, string, number } from 'prop-types';
 
 const client = clientClone();
 
@@ -86,15 +86,15 @@ export class CartItem extends Component {
 }
 
 CartItem.propTypes = {
-    productId: object,
-    position: object,
-    mini: object,
+    productId: string,
+    position: number,
+    mini: bool,
 };
 
 CartItem.defaultProps = {
-    productId: {},
-    position: {},
-    mini: {},
+    productId: '',
+    position: 0,
+    mini: false,
 };
 
 export default CartItem;
