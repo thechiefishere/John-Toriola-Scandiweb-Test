@@ -40,30 +40,13 @@ export class ContextProvider extends Component {
       closeMiniCart: this.closeMiniCart,
       activeLink: "",
       setActiveLink: this.setActiveLink,
-      newProductToAdd: "",
     };
+    this.addToCartItems = this.addToCartItems.bind(this);
   }
 
   componentDidMount() {
     this.setCurrencies();
     this.getCartItemsFromLocalStorage();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("prevState.cartItems", prevState.cartItems);
-    // console.log("this.state.cartItems", this.state.cartItems);
-    // if (prevState.cartItems !== this.state.cartItems) {
-    //   console.log("cart changed");
-    //   this.state.cartItems.forEach((item) => {
-    //     console.log("each item", item);
-    //   });
-    // }
-    if (prevState.newProductToAdd !== this.state.newProductToAdd) {
-      console.log("hi");
-      let items = this.state.cartItems;
-      items = [this.state.newProductToAdd, ...items];
-      this.setState({ cartItems: items });
-    }
   }
 
   setCurrencies = async () => {
@@ -99,49 +82,35 @@ export class ContextProvider extends Component {
     this.setState({ activeLink: link });
   };
 
-  addToCartItems = (product, productAttributes) => {
-    // console.log("i enterrd addToCart");
+  addToCartItems = (product, attributes) => {
     const productToAdd = {
       product,
       productCount: 1,
-      productAttributes,
+      productAttributes: attributes,
     };
-    // console.log("attribute", productAttributes);
-    let items = this.state.cartItems;
-    items.forEach((item) => {
-      console.log("each item", item);
-    });
+    let items =
+      this.state.cartItems.length === 0 ? [] : JSON.parse(this.state.cartItems);
 
-    if (isProductInCart(product, items, productAttributes)) {
-      //   console.log("i enterred if");
-      const updatedCartItems = getUpdatedCartItems(
-        product,
-        items,
-        productAttributes
-      );
-      //   console.log("cartItems length", updatedCartItems.length);
-      this.setState({ cartItems: updatedCartItems });
+    if (isProductInCart(product, items, attributes)) {
+      const updatedCartItems = getUpdatedCartItems(product, items, attributes);
+      this.setState({ cartItems: JSON.stringify(updatedCartItems) });
       localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
       return;
     }
-    // items = [productToAdd, ...items];
-    this.setState({ newProductToAdd: productToAdd });
-    // items.unshift(productToAdd);
-    // console.log("cartItems length", items.length);
-    // console.log("items are", items);
-    // this.setState({ cartItems: items });
+    items = [productToAdd, ...items];
+    this.setState({ cartItems: JSON.stringify(items) });
     localStorage.setItem("cartItem", JSON.stringify(items));
   };
 
   updateCartItemCount = (productId, position, count) => {
-    let items = this.state.cartItems;
+    let items = JSON.parse(this.state.cartItems);
     const updatedCartItems = getUpdatedCartItemsCount(
       productId,
       position,
       items,
       count
     );
-    this.setState({ cartItems: updatedCartItems });
+    this.setState({ cartItems: JSON.stringify(updatedCartItems) });
     localStorage.setItem("cartItem", JSON.stringify(updatedCartItems));
   };
 
@@ -151,7 +120,7 @@ export class ContextProvider extends Component {
       position,
       this.state.cartItems
     );
-    this.setState({ cartItems: updatedItems });
+    this.setState({ cartItems: JSON.stringify(updatedItems) });
     localStorage.setItem("cartItem", JSON.stringify(updatedItems));
   };
 
@@ -164,7 +133,7 @@ export class ContextProvider extends Component {
       localStorage.getItem("cartItem") !== null &&
       localStorage.getItem("cartItem") !== ""
     ) {
-      const items = JSON.parse(localStorage.getItem("cartItem"));
+      const items = localStorage.getItem("cartItem");
       this.setState({ cartItems: items });
     }
   };
@@ -190,7 +159,7 @@ export class ContextProvider extends Component {
    * @returns
    */
   getItemCountInCart = (productId, position) => {
-    let items = this.state.cartItems;
+    let items = JSON.parse(this.state.cartItems);
     let item = items.find((item, index) => {
       if (item.product.id === productId && index === position) return item;
     });

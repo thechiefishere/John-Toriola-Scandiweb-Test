@@ -20,10 +20,7 @@ export const getPriceInSelectedCurrency = (product, currencyInUse) => {
  * @returns
  */
 export const isProductInCart = (product, cartItems, attributes) => {
-  console.log("cartItems", cartItems);
   const item = cartItems.find((item) => {
-    console.log("attributeToAdd", attributes);
-    console.log("item.productAttributes", item.productAttributes);
     if (
       item.product.id === product.id &&
       arrayEquality(item.productAttributes, attributes)
@@ -48,10 +45,6 @@ export const getUpdatedCartItems = (product, cartItems, attributeToAdd) => {
       item.product.id === product.id &&
       arrayEquality(item.productAttributes, attributeToAdd)
     ) {
-      //   console.log("itemId", item.product.id);
-      //   console.log("productId", product.id);
-      //   console.log("attributeToAdd", attributeToAdd);
-      //   console.log("item.productAttributes", item.productAttributes);
       item.productCount += 1;
       return item;
     }
@@ -85,7 +78,7 @@ export const getUpdatedCartItemsCount = (productId, position, items, count) => {
  * @returns
  */
 export const removeFromCart = (productId, position, items) => {
-  items = items.filter((item, index) => {
+  items = JSON.parse(items).filter((item, index) => {
     if (item.product.id !== productId) return item;
     if (item.product.id === productId && position !== index) return item;
   });
@@ -111,6 +104,8 @@ export const defaultAttributes = (product) => {
  * @returns
  */
 export const totalItems = (items) => {
+  if (items.length === 0) return 0;
+  items = JSON.parse(items);
   const total = items.reduce((currentTotal, item) => {
     return (currentTotal += item.productCount);
   }, 0);

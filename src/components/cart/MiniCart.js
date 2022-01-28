@@ -16,7 +16,7 @@ export class MiniCart extends Component {
 
   static contextType = AppContext;
   componentDidMount() {
-    this.setState({ cartItems: this.context.cartItems });
+    this.setState({ cartItems: [] });
     this.setState({ currencyInUse: this.context.currencyInUse });
   }
 
@@ -33,6 +33,7 @@ export class MiniCart extends Component {
   }
 
   setTotalPrice = (items) => {
+    items = items.length === 0 ? [] : JSON.parse(items);
     if (this.context.currencyInUse === "") return;
     const total = items.reduce((currentTotal, item) => {
       const priceInSelectedCurrency = getPriceInSelectedCurrency(
@@ -45,7 +46,10 @@ export class MiniCart extends Component {
   };
 
   render() {
-    const cartItems = this.context.cartItems;
+    const cartItems =
+      this.context.cartItems.length === 0
+        ? []
+        : JSON.parse(this.context.cartItems);
     const currencyInUse = this.context.currencyInUse;
     const toggleMiniCart = this.context.closeMiniCart;
 

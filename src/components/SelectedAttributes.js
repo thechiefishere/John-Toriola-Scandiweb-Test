@@ -16,7 +16,7 @@ export class SelectedAttributes extends Component {
   static contextType = AppContext;
 
   componentDidMount() {
-    const items = this.context.cartItems;
+    const items = JSON.parse(this.context.cartItems) || [];
     this.setAttributes(items);
   }
 

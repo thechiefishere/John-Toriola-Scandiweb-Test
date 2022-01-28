@@ -6,7 +6,10 @@ export class Cart extends Component {
   static contextType = AppContext;
 
   render() {
-    const cartItems = this.context.cartItems;
+    const cartItems =
+      this.context.cartItems.length === 0
+        ? []
+        : JSON.parse(this.context.cartItems);
 
     return (
       <section className="cart">
