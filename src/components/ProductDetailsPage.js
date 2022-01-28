@@ -63,7 +63,7 @@ export class ProductDetailsPage extends Component {
     return product;
   };
 
-  setAllState = async () => {
+  setAllState = () => {
     const { productId } = this.props.params;
     this.setState({ productId: productId });
   };

@@ -18,6 +18,7 @@ export class Home extends Component {
   componentDidMount() {
     const category = this.props.location.pathname.slice(1);
     this.setState({ categoryName: category });
+    // this.context.changeCategoryName(this.state.categoryName);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,13 +29,10 @@ export class Home extends Component {
     if (prevState.products !== this.context.products) {
       this.setState({ products: this.context.products });
     }
+    if (prevState.categoryName !== this.context.categoryName) {
+      this.context.changeCategoryName(this.state.categoryName);
+    }
   }
-
-  setProducts = async (category) => {
-    // const response = await client.post(categoryQuery(category));
-    // this.setState({ products: response.category.products });
-    // this.context.setProducts(response.category.products);
-  };
 
   render() {
     const products = this.state.products;

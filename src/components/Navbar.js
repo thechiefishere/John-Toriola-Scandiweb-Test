@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { AppContext } from "../store/context";
 import { clientClone } from "../store/context";
-import { categoryNamesQuery } from "../store/queries";
 
 const client = clientClone();
 
@@ -14,16 +13,16 @@ export class Navbar extends Component {
       categories: [],
     };
   }
-  static contextType = AppContext;
-  componentDidMount() {
-    this.setCategoryNames();
-  }
 
-  setCategoryNames = async () => {
-    const response = await client.post(categoryNamesQuery);
-    const allCategories = response.categories.map((category) => category.name);
-    this.setState({ categories: allCategories });
-  };
+  static contextType = AppContext;
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.categories !== this.context.categories &&
+      this.context.categories.length !== 0
+    ) {
+      this.setState({ categories: this.context.categories });
+    }
+  }
 
   render() {
     const setActiveLink = this.context.setActiveLink;

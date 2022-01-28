@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery, categoryQuery } from "./queries";
+import { currenciesQuery, categoryQuery, categoryNamesQuery } from "./queries";
 import {
   isProductInCart,
   getUpdatedCartItems,
@@ -43,14 +43,15 @@ export class ContextProvider extends Component {
       categoryName: "",
       changeCategoryName: this.changeCategoryName,
       products: [],
+      categories: [],
     };
-    this.addToCartItems = this.addToCartItems.bind(this);
   }
 
   componentDidMount() {
     this.setCurrencies();
     this.getCartItemsFromLocalStorage();
     this.setProducts();
+    this.setCategories();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -99,6 +100,12 @@ export class ContextProvider extends Component {
   setProducts = async () => {
     const response = await client.post(categoryQuery(this.state.categoryName));
     this.setState({ products: response.category.products });
+  };
+
+  setCategories = async () => {
+    const response = await client.post(categoryNamesQuery);
+    const allCategories = response.categories.map((category) => category.name);
+    this.setState({ categories: allCategories });
   };
 
   addToCartItems = (product, attributes) => {
