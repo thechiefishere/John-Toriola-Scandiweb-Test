@@ -28,7 +28,7 @@ export class ProductDetailsPage extends Component {
   static contextType = AppContext;
 
   componentDidMount() {
-    this.setAllState();
+    this.setProductId();
     this.setState({ currencyInUse: null });
   }
 
@@ -64,7 +64,7 @@ export class ProductDetailsPage extends Component {
     return product;
   };
 
-  setAllState = () => {
+  setProductId = () => {
     const { productId } = this.props.params;
     this.setState({ productId: productId });
   };
