@@ -53,26 +53,26 @@ ul li {
   margin-bottom: 7px;
 }
 
-.firstname {
+.name {
   font-weight: 600;
   font-size: 2em;
   line-height: 1.5em;
 }
 
-.firstname--mini {
+.name--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 5px;
 }
 
-.othernames {
+.brand {
   font-weight: 400;
   font-size: 2em;
   line-height: 1.5em;
   margin-bottom: 10px;
 }
 
-.othernames--mini {
+.brand--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 20px;
@@ -341,7 +341,7 @@ ul li {
   box-shadow: 2px 4px 5px #1d1f22;
 }
 .pdp__details {
-  width: 70%;
+  width: 70vw;
   display: flex;
 }
 .pdp__details__image {
@@ -350,7 +350,7 @@ ul li {
   margin-right: 10%;
 }
 .pdp__details__description {
-  width: 30%;
+  width: 20vw;
 }
 .pdp__details__description .pdp__price-title {
   font-family: "Roboto Condensed", sans-serif;

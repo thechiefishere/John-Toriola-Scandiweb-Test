@@ -60,23 +60,23 @@ ul {
   }
 }
 
-.firstname {
+.name {
   font-weight: 600;
   font-size: 2em;
   line-height: 1.5em;
 }
-.firstname--mini {
+.name--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 5px;
 }
-.othernames {
+.brand {
   font-weight: 400;
   font-size: 2em;
   line-height: 1.5em;
   margin-bottom: 10px;
 }
-.othernames--mini {
+.brand--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 20px;
@@ -341,7 +341,7 @@ ul {
     }
   }
   &__details {
-    width: 70%;
+    width: 70vw;
     display: flex;
     &__image {
       width: 42.5vw;
@@ -349,7 +349,7 @@ ul {
       margin-right: 10%;
     }
     &__description {
-      width: 30%;
+      width: 20vw;
       .pdp__price-title {
         font-family: $roboto-condensed-font;
         font-weight: 700;
