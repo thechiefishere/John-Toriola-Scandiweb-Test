@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { client } from "@tilework/opus";
-import { currenciesQuery } from "./queries";
+import { currenciesQuery, categoryQuery } from "./queries";
 import {
   isProductInCart,
   getUpdatedCartItems,
@@ -40,6 +40,9 @@ export class ContextProvider extends Component {
       closeMiniCart: this.closeMiniCart,
       activeLink: "",
       setActiveLink: this.setActiveLink,
+      categoryName: "",
+      changeCategoryName: this.changeCategoryName,
+      products: [],
     };
     this.addToCartItems = this.addToCartItems.bind(this);
   }
@@ -47,6 +50,13 @@ export class ContextProvider extends Component {
   componentDidMount() {
     this.setCurrencies();
     this.getCartItemsFromLocalStorage();
+    this.setProducts();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.categoryName !== this.state.categoryName) {
+      this.setProducts();
+    }
   }
 
   setCurrencies = async () => {
@@ -80,6 +90,15 @@ export class ContextProvider extends Component {
 
   setActiveLink = (link) => {
     this.setState({ activeLink: link });
+  };
+
+  changeCategoryName = (categoryName) => {
+    this.setState({ categoryName: categoryName });
+  };
+
+  setProducts = async () => {
+    const response = await client.post(categoryQuery(this.state.categoryName));
+    this.setState({ products: response.category.products });
   };
 
   addToCartItems = (product, attributes) => {

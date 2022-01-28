@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { productQuery } from "../store/queries";
-import { clientClone } from "../store/context";
 import { withRouter } from "../util/withRouter";
 import Attribute from "./Attribute";
 import { AppContext } from "../store/context";
@@ -11,14 +9,14 @@ import {
 import parse from "html-react-parser";
 import { object, func } from "prop-types";
 
-const client = clientClone();
-
 export class ProductDetailsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       product: null,
+      productId: "",
+      products: [],
       productPrice: 0,
       currencyInUse: null,
       selectedAttributes: null,
@@ -35,6 +33,13 @@ export class ProductDetailsPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.products !== this.context.products &&
+      this.context.products.length !== 0
+    ) {
+      this.setState({ products: this.context.products });
+      this.setState({ product: this.getProduct() });
+    }
     if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
       const priceInSelectedCurrency = getPriceInSelectedCurrency(
@@ -51,11 +56,16 @@ export class ProductDetailsPage extends Component {
     }
   }
 
+  getProduct = () => {
+    const product = this.context.products.find(
+      (product) => product.id === this.state.productId
+    );
+    return product;
+  };
+
   setAllState = async () => {
     const { productId } = this.props.params;
-    const response = await client.post(productQuery(productId));
-    this.setState({ product: response.product });
-    this.initSelectedAttributes(response.product);
+    this.setState({ productId: productId });
   };
 
   initSelectedAttributes = (product) => {
