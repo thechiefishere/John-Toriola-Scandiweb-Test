@@ -36,12 +36,6 @@ ul li {
   background-color: #5ece7b;
   color: #fff;
 }
-.btn--bag {
-  color: #000;
-  background-color: #fff;
-  border: 1px solid #1d1f22;
-  padding: 5px 32px;
-}
 
 .icon {
   width: 20px;
@@ -630,6 +624,15 @@ ul li {
   width: 45%;
   font-weight: 600;
   text-transform: uppercase;
+}
+.mini-cart__btn-grp .link--bag {
+  border: 1px solid #1d1f22;
+}
+.mini-cart__btn-grp .btn--bag {
+  color: #000;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
 }
 
 .show-cart-overlay {

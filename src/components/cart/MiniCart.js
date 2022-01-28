@@ -92,12 +92,11 @@ export class MiniCart extends Component {
           </h3>
         </div>
         <div className="mini-cart__btn-grp">
-          <button
-            className="btn mini-cart__btn-grp__btn btn--bag"
-            onClick={toggleMiniCart}
-          >
-            <Link to="/cart">View Bag</Link>
-          </button>
+          <Link to="/cart" className="btn mini-cart__btn-grp__btn link--bag">
+            <button className="btn--bag" onClick={toggleMiniCart}>
+              View Bag
+            </button>
+          </Link>
           <button className="btn mini-cart__btn-grp__btn btn--checkout">
             Checkout
           </button>
