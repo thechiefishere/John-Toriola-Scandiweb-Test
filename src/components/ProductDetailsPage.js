@@ -39,6 +39,7 @@ export class ProductDetailsPage extends Component {
     ) {
       this.setState({ products: this.context.products });
       this.setState({ product: this.getProduct() });
+      this.initSelectedAttributes(this.getProduct());
     }
     if (this.state.product === null) return;
     if (prevState.currencyInUse !== this.context.currencyInUse) {
