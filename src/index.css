@@ -194,7 +194,7 @@ ul li {
   width: 105px;
   position: absolute;
   top: 60px;
-  right: 4.5%;
+  right: 8.5%;
   height: 0px;
   overflow: hidden;
   transition: 0.5s ease-out;
@@ -284,8 +284,7 @@ ul li {
 .product-tile__cart-icon {
   width: 30px;
   height: 25px;
-  filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg) brightness(103%)
-    contrast(102%);
+  filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg) brightness(103%) contrast(102%);
 }
 .product-tile__icon-container {
   width: 0px;
@@ -305,7 +304,7 @@ ul li {
 }
 .product-tile__success {
   position: absolute;
-  bottom: 22%;
+  bottom: 21%;
   right: 0.2%;
   width: 0%;
   overflow: hidden;
@@ -337,7 +336,6 @@ ul li {
   width: 100%;
   height: 80px;
   margin-bottom: 10px;
-  transition: 0.5s ease-out;
 }
 .pdp__all-images img:hover {
   box-shadow: 2px 4px 5px #1d1f22;
@@ -557,8 +555,7 @@ ul li {
 .cart-count__img-switcher .cart-count__icon-container .cart-count__icon {
   width: 20px;
   height: 20px;
-  filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg) brightness(103%)
-    contrast(102%);
+  filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg) brightness(103%) contrast(102%);
 }
 
 .cart-overlay {
@@ -608,8 +605,7 @@ ul li {
 .mini-cart__cancel {
   width: 8%;
   height: 30px;
-  filter: invert(11%) sepia(96%) saturate(7314%) hue-rotate(2deg)
-    brightness(101%) contrast(110%);
+  filter: invert(11%) sepia(96%) saturate(7314%) hue-rotate(2deg) brightness(101%) contrast(110%);
 }
 .mini-cart__total {
   display: flex;
