@@ -25,7 +25,6 @@ export class Navbar extends Component {
         const setActiveLink = this.context.setActiveLink;
         const activeLink = this.context.activeLink;
         const categories = this.state.categories;
-        const changeCategoryName = this.context.changeCategoryName;
 
         return (
             <nav className="nav">
@@ -34,7 +33,6 @@ export class Navbar extends Component {
                         <li
                             onClick={() => {
                                 setActiveLink('/');
-                                changeCategoryName(`${categories[0]}`);
                             }}
                             className={activeLink === '/' ? 'active' : ''}
                         >
@@ -43,7 +41,6 @@ export class Navbar extends Component {
                         <li
                             onClick={() => {
                                 setActiveLink('/clothes');
-                                changeCategoryName(`${categories[1]}`);
                             }}
                             className={activeLink === '/clothes' ? 'active' : ''}
                         >
@@ -52,7 +49,6 @@ export class Navbar extends Component {
                         <li
                             onClick={() => {
                                 setActiveLink('/tech');
-                                changeCategoryName(`${categories[2]}`);
                             }}
                             className={activeLink === '/tech' ? 'active' : ''}
                         >

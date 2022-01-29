@@ -57,7 +57,6 @@ export class ContextProvider extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.categoryName !== this.state.categoryName) {
             this.setProducts();
-            this.setState({ categoryName: this.state.categoryName });
         }
     }
 
