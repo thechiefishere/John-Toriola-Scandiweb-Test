@@ -18,7 +18,6 @@ export class Home extends Component {
     componentDidMount() {
         const category = this.props.location.pathname.slice(1);
         this.setState({ categoryName: category });
-    // this.context.changeCategoryName(this.state.categoryName);
     }
 
     componentDidUpdate(prevProps, prevState) {

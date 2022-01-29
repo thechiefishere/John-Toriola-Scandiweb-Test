@@ -9,8 +9,6 @@ ReactDOM.render(
     <React.StrictMode>
         <ContextProvider>
             <App />
-            {/* <Router>
-    </Router> */}
         </ContextProvider>
     </React.StrictMode>,
     document.getElementById('root')
