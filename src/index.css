@@ -641,7 +641,7 @@ ul li {
 
 @media (min-width: 600px) {
   .product-tile {
-    width: 48%;
+    width: 47%;
   }
 }
 @media (min-width: 1000px) {
