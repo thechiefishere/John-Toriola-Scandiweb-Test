@@ -42,12 +42,6 @@ ul {
     background-color: $primary-color;
     color: #fff;
   }
-  &--bag {
-    color: #000;
-    background-color: #fff;
-    border: 1px solid $secondary-color;
-    padding: 5px 32px;
-  }
 }
 
 .icon {
@@ -60,23 +54,23 @@ ul {
   }
 }
 
-.firstname {
+.name {
   font-weight: 600;
   font-size: 2em;
   line-height: 1.5em;
 }
-.firstname--mini {
+.name--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 5px;
 }
-.othernames {
+.brand {
   font-weight: 400;
   font-size: 2em;
   line-height: 1.5em;
   margin-bottom: 10px;
 }
-.othernames--mini {
+.brand--mini {
   font-weight: 300;
   font-size: 1em;
   margin-bottom: 20px;
@@ -305,7 +299,7 @@ ul {
   }
   &__success {
     position: absolute;
-    bottom: 21%;
+    bottom: 22%;
     right: 0.2%;
     width: 0%;
     overflow: hidden;
@@ -341,7 +335,7 @@ ul {
     }
   }
   &__details {
-    width: 70%;
+    width: 70vw;
     display: flex;
     &__image {
       width: 42.5vw;
@@ -349,7 +343,7 @@ ul {
       margin-right: 10%;
     }
     &__description {
-      width: 30%;
+      width: 20vw;
       .pdp__price-title {
         font-family: $roboto-condensed-font;
         font-weight: 700;
@@ -628,6 +622,15 @@ ul {
       font-weight: 600;
       text-transform: uppercase;
     }
+    .link--bag {
+      border: 1px solid $secondary-color;
+    }
+    .btn--bag {
+      color: #000;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+    }
   }
 }
 .show-cart-overlay {
@@ -636,7 +639,7 @@ ul {
 
 @media (min-width: "600px") {
   .product-tile {
-    width: 48%;
+    width: 47%;
   }
 }
 
