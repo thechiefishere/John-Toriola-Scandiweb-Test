@@ -36,23 +36,23 @@ export class Navbar extends Component {
                             }}
                             className={activeLink === '/' ? 'active' : ''}
                         >
-                            <Link to="/">ALL</Link>
+                            <Link to="/">{categories[0]}</Link>
                         </li>
                         <li
                             onClick={() => {
-                                setActiveLink('/clothes');
+                                setActiveLink(`/${categories[1]}`);
                             }}
-                            className={activeLink === '/clothes' ? 'active' : ''}
+                            className={activeLink === `/${categories[1]}` ? 'active' : ''}
                         >
-                            <NavLink to={`/${categories[1]}`}>CLOTHES</NavLink>
+                            <NavLink to={`/${categories[1]}`}>{categories[1]}</NavLink>
                         </li>
                         <li
                             onClick={() => {
-                                setActiveLink('/tech');
+                                setActiveLink(`/${categories[2]}`);
                             }}
-                            className={activeLink === '/tech' ? 'active' : ''}
+                            className={activeLink === `/${categories[2]}` ? 'active' : ''}
                         >
-                            <NavLink to={`/${categories[2]}`}>TECH</NavLink>
+                            <NavLink to={`/${categories[2]}`}>{categories[2]}</NavLink>
                         </li>
                     </ul>
                 )}
