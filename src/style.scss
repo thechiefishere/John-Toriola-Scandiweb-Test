@@ -430,7 +430,6 @@ ul {
   margin-bottom: 30px;
 }
 .cart-item {
-  // background-color: green;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -464,12 +463,10 @@ ul {
   align-items: center;
   height: 28vh;
   width: 13.7vw;
-  // background-color: red;
   &__btn-grp {
     height: 100%;
     width: 18%;
     flex-direction: column;
-    // align-content: space-between;
     font-size: 1.2em;
     position: relative;
     .cart-count__btn {
