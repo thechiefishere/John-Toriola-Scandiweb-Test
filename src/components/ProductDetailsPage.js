@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { productQuery } from '../store/queries';
+import { clientClone } from '../store/context';
 import { withRouter } from '../util/withRouter';
 import Attribute from './Attribute';
 import { AppContext } from '../store/context';
@@ -9,14 +11,14 @@ import {
 import parse from 'html-react-parser';
 import { object, func } from 'prop-types';
 
+const client = clientClone();
+
 export class ProductDetailsPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             product: null,
-            productId: '',
-            products: [],
             productPrice: 0,
             currencyInUse: null,
             selectedAttributes: null,
@@ -28,19 +30,11 @@ export class ProductDetailsPage extends Component {
     static contextType = AppContext;
 
     componentDidMount() {
-        this.setProductId();
+        this.setAllState();
         this.setState({ currencyInUse: null });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (
-            prevState.products !== this.context.products &&
-      this.context.products.length !== 0
-        ) {
-            this.setState({ products: this.context.products });
-            this.setState({ product: this.getProduct() });
-            this.initSelectedAttributes(this.getProduct());
-        }
         if (this.state.product === null) return;
         if (prevState.currencyInUse !== this.context.currencyInUse) {
             const priceInSelectedCurrency = getPriceInSelectedCurrency(
@@ -57,16 +51,11 @@ export class ProductDetailsPage extends Component {
         }
     }
 
-    getProduct = () => {
-        const product = this.context.products.find(
-            (product) => product.id === this.state.productId
-        );
-        return product;
-    };
-
-    setProductId = () => {
+    setAllState = async () => {
         const { productId } = this.props.params;
-        this.setState({ productId: productId });
+        const response = await client.post(productQuery(productId));
+        this.setState({ product: response.product });
+        this.initSelectedAttributes(response.product);
     };
 
     initSelectedAttributes = (product) => {
@@ -125,8 +114,8 @@ export class ProductDetailsPage extends Component {
                                 alt={product.name}
                             />
                             <article className="pdp__details__description">
-                                <h3 className="name">{product.name}</h3>
-                                <h5 className="brand">{product.brand}</h5>
+                                <h3 className="firstname">{product.name}</h3>
+                                <h5 className="othernames">{product.brand}</h5>
                                 {product.attributes.map((attribute, index) => {
                                     return (
                                         <Attribute
