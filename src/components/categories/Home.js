@@ -16,7 +16,8 @@ export class Home extends Component {
 
     static contextType = AppContext;
     componentDidMount() {
-        const category = this.props.location.pathname.slice(1);
+        const location = this.props.location.pathname.slice(1);
+        const category = location === '' ? 'all' : location;
         this.setState({ categoryName: category });
         this.context.changeCategoryName(category);
     }

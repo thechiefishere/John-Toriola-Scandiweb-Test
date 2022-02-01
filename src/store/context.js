@@ -50,7 +50,6 @@ export class ContextProvider extends Component {
     componentDidMount() {
         this.setCurrencies();
         this.getCartItemsFromLocalStorage();
-        this.setProducts();
         this.setCategories();
     }
 
