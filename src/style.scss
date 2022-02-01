@@ -86,21 +86,6 @@ ul {
   margin-bottom: 25px;
 }
 
-.active {
-  position: relative;
-}
-
-.active::after {
-  content: "";
-  position: absolute;
-  width: 120%;
-  height: 2px;
-  top: 40px;
-  left: -10%;
-  text-align: center;
-  background-color: $primary-color;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -135,6 +120,7 @@ ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     li {
       margin-right: 10%;
       font-family: $raleway-font;

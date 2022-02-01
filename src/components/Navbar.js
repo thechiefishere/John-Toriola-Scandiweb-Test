@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AppContext } from '../store/context';
 
 export class Navbar extends Component {
@@ -29,7 +29,7 @@ export class Navbar extends Component {
                 {categories !== null > 0 && (
                     <ul>
                         <li>
-                            <Link to="/">{categories[0]}</Link>
+                            <NavLink to="/">{categories[0]}</NavLink>
                         </li>
                         <li>
                             <NavLink to={`/${categories[1]}`}>{categories[1]}</NavLink>
