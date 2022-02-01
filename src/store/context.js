@@ -38,8 +38,6 @@ export class ContextProvider extends Component {
             showingMiniCart: false,
             openMiniCart: this.openMiniCart,
             closeMiniCart: this.closeMiniCart,
-            activeLink: '',
-            setActiveLink: this.setActiveLink,
             categoryName: '',
             changeCategoryName: this.changeCategoryName,
             products: [],
@@ -86,10 +84,6 @@ export class ContextProvider extends Component {
 
     closeMiniCart = () => {
         this.setState({ showingMiniCart: false });
-    };
-
-    setActiveLink = (link) => {
-        this.setState({ activeLink: link });
     };
 
     changeCategoryName = (categoryName) => {
