@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import { AppContext } from '../store/context';
+import { object } from 'prop-types';
+import { withRouter } from '../util/withRouter';
 
 export class Currency extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            path: '',
+        };
+    }
     static contextType = AppContext;
+    componentDidMount() {
+        const location = this.props.location.pathname;
+        this.setState({ path: location });
+    }
+
+    componentDidUpdate() {
+        if (this.state.path !== this.props.location.pathname) {
+            this.context.closeCurrencyTab();
+            this.setState({ path: this.props.location.pathname });
+        }
+    }
 
     render() {
         const currency = this.context.currency;
@@ -41,4 +60,12 @@ export class Currency extends Component {
     }
 }
 
-export default Currency;
+Currency.propTypes = {
+    location: object,
+};
+
+Currency.defaultProps = {
+    location: {},
+};
+
+export default withRouter(Currency);
