@@ -114,8 +114,8 @@ export class ProductDetailsPage extends Component {
                                 alt={product.name}
                             />
                             <article className="pdp__details__description">
-                                <h3 className="firstname">{product.name}</h3>
-                                <h5 className="othernames">{product.brand}</h5>
+                                <h3 className="name">{product.name}</h3>
+                                <h5 className="brand">{product.brand}</h5>
                                 {product.attributes.map((attribute, index) => {
                                     return (
                                         <Attribute

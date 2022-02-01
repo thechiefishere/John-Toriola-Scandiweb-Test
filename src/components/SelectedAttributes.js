@@ -45,8 +45,9 @@ export class SelectedAttributes extends Component {
                     const attributeValue = attribute.split('-')[0];
                     const attributeType = attribute.split('-')[1];
                     return (
-                        <div
+                        <label
                             key={index}
+                            htmlFor={`${attribute.value}`}
                             className={`attribute attribute--selected ${
                                 index >= attributes.length - numberOfAttributes &&
                 attributeType !== 'swatch' &&
@@ -70,7 +71,7 @@ export class SelectedAttributes extends Component {
                             }}
                         >
                             {attributeType === 'text' && attributeValue}
-                        </div>
+                        </label>
                     );
                 })}
             </article>
