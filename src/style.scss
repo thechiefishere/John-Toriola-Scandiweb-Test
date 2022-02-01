@@ -220,7 +220,6 @@ ul {
 
 .product-tile {
   width: 100%;
-  height: 56vh;
   padding: 1em;
   background-color: #fff;
   position: relative;
@@ -325,8 +324,7 @@ ul {
     width: 70vw;
     display: flex;
     &__image {
-      width: 42.5vw;
-      height: 511px;
+      width: 35vw;
       margin-right: 10%;
     }
     &__description {
@@ -512,16 +510,6 @@ ul {
         height: 100%;
       }
     }
-    .cart-count__img-container::after {
-      content: "";
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background-color: #333;
-      opacity: 0.3;
-    }
     .cart-count__icon-container {
       display: flex;
       justify-content: space-between;
@@ -533,6 +521,8 @@ ul {
         height: 20px;
         filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg)
           brightness(103%) contrast(102%);
+        background-color: #666;
+        border-radius: 30%;
       }
     }
   }
