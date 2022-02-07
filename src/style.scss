@@ -233,6 +233,7 @@ ul {
     .product-tile__img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
     .product-tile__stock-msg {
       color: #8d8f9a;
@@ -315,6 +316,7 @@ ul {
       width: 100%;
       height: 80px;
       margin-bottom: 10px;
+      object-fit: cover;
     }
     img:hover {
       box-shadow: 2px 4px 5px $secondary-color;
@@ -324,7 +326,7 @@ ul {
     width: 70vw;
     display: flex;
     &__image {
-      width: 35vw;
+      width: 42.5vw;
       margin-right: 10%;
     }
     &__description {
@@ -511,6 +513,7 @@ ul {
       .cart-count__img {
         width: 100%;
         height: 100%;
+        object-fit: contain;
       }
     }
     .cart-count__icon-container {
@@ -525,7 +528,8 @@ ul {
         filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(154deg)
           brightness(103%) contrast(102%);
         background-color: #666;
-        border-radius: 30%;
+        padding: 2px;
+        border-radius: 50%;
       }
     }
   }
