@@ -69,9 +69,14 @@ export class ProductDetailsPage extends Component {
    * @param {index of the attribute in the list of attributes} index
    * @param {value of the selected attribute} value
    */
-    setSelectedAttributes = (attributeIndex, attributeValue, attributeType) => {
+    setSelectedAttributes = (
+        attributeIndex,
+        attributeValue,
+        attributeType,
+        attributeName
+    ) => {
         let copyOfSelectedAttribute = this.state.selectedAttributes;
-        const attributeToAdd = `${attributeValue}-${attributeType}`;
+        const attributeToAdd = `${attributeValue}-${attributeType}-${attributeName}`;
         copyOfSelectedAttribute[attributeIndex] = attributeToAdd;
         this.setState({ selectedAttributes: copyOfSelectedAttribute });
     };

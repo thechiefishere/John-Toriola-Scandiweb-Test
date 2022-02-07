@@ -92,7 +92,9 @@ export const removeFromCart = (productId, position, items) => {
  */
 export const defaultAttributes = (product) => {
     const defaults = product.attributes.map((attribute) => {
-        return attribute.items[0].value + '-' + attribute.type;
+        return (
+            attribute.items[0].value + '-' + attribute.type + '-' + attribute.name
+        );
     });
     return defaults;
 };

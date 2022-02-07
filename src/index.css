@@ -405,9 +405,14 @@ ul li {
   opacity: 0;
 }
 
-.selected-attributes-set {
+.selected-attributes-set .attribute__container {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+.selected-attributes-set .attribute__container .attribute__name {
+  margin-right: 20px;
 }
 
 .cart {
@@ -436,7 +441,6 @@ ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 185px;
   width: 76vw;
   margin-bottom: 25px;
 }

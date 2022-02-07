@@ -43,7 +43,8 @@ export class Attribute extends Component {
                                     setSelectedAttributes(
                                         attributeIndex,
                                         item.value,
-                                        attribute.type
+                                        attribute.type,
+                                        attribute.name
                                     );
                                 }}
                             >

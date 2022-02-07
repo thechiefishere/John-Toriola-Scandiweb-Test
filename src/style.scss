@@ -407,8 +407,15 @@ ul {
 }
 
 .selected-attributes-set {
-  display: flex;
-  flex-wrap: wrap;
+  .attribute__container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    .attribute__name {
+      margin-right: 20px;
+    }
+  }
 }
 
 .cart {
@@ -436,7 +443,6 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 185px;
   width: 76vw;
   margin-bottom: 25px;
   &__details {
