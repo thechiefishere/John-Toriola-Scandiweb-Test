@@ -7,24 +7,8 @@ import { totalItems } from '../util/functions';
 export class Header extends Component {
     static contextType = AppContext;
 
-    handleCurrencyToggle = () => {
-        if (this.context.showingCurrencyTab) {
-            return this.context.closeCurrencyTab;
-        }
-        return this.context.openCurrencyTab;
-    };
-
     handleMiniCartToggle = () => {
-        if (this.context.showingMiniCart) {
-            return this.context.closeMiniCart;
-        }
-        return this.context.openMiniCart;
-    };
-
-    toggleMiniCart = () => {
-        if (this.context.showingMiniCart) {
-            return this.context.closeMiniCart;
-        }
+        if (!this.context.showingMiniCart) return this.context.openMiniCart;
     };
 
     render() {
@@ -33,12 +17,12 @@ export class Header extends Component {
         const numberOfItemsInCart = totalItems(this.context.cartItems);
 
         return (
-            <header className="header" onClick={this.toggleMiniCart()}>
+            <header className="header">
                 <Navbar />
                 <img src={shoppingBag} alt="shop-bag" className="bag" />
                 <div className="header-end">
                     {currencyInUse !== null && (
-                        <div className="currency" onClick={this.handleCurrencyToggle()}>
+                        <div className="currency" onClick={this.context.openCurrencyTab}>
                             <p className="currency-in-use">{currencyInUse}</p>
                             {showingCurrencyTab ? (
                                 <img

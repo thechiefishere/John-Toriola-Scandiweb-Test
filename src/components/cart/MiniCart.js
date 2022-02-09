@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
 import { AppContext } from '../../store/context';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { getPriceInSelectedCurrency } from '../../util/functions';
+import { withRouter } from '../../util/withRouter';
+import { func, object } from 'prop-types';
 
 export class MiniCart extends Component {
     constructor(props) {
@@ -45,13 +47,23 @@ export class MiniCart extends Component {
         return total.toFixed(2);
     };
 
+    toggleMiniCart = () => {
+        const path = this.props.location.pathname.slice(1);
+        if (path !== 'cart') {
+            Array.from(Array(2).keys()).forEach(() => {
+                this.props.navigate('/cart');
+            });
+        }
+        this.context.closeMiniCart();
+    };
+
     render() {
         const cartItems =
       this.context.cartItems.length === 0
           ? []
           : JSON.parse(this.context.cartItems);
         const currencyInUse = this.context.currencyInUse;
-        const toggleMiniCart = this.context.closeMiniCart;
+        const closeMiniCart = this.context.closeMiniCart;
 
         return (
             <section className="mini-cart">
@@ -66,7 +78,7 @@ export class MiniCart extends Component {
                         src={'/icons/cancel.svg'}
                         alt="Cancel"
                         className="mini-cart__cancel"
-                        onClick={toggleMiniCart}
+                        onClick={closeMiniCart}
                     />
                 </div>
                 {cartItems.length > 0 ? (
@@ -92,11 +104,12 @@ export class MiniCart extends Component {
                     </h3>
                 </div>
                 <div className="mini-cart__btn-grp">
-                    <Link to="/cart" className="btn mini-cart__btn-grp__btn link--bag">
-                        <button className="btn--bag" onClick={toggleMiniCart}>
-              View Bag
-                        </button>
-                    </Link>
+                    <button
+                        className="btn mini-cart__btn-grp__btn link--bag"
+                        onClick={this.toggleMiniCart}
+                    >
+            View Bag
+                    </button>
                     <button className="btn mini-cart__btn-grp__btn btn--checkout">
             Checkout
                     </button>
@@ -106,4 +119,14 @@ export class MiniCart extends Component {
     }
 }
 
-export default MiniCart;
+MiniCart.propTypes = {
+    navigate: func,
+    location: object,
+};
+
+MiniCart.defaultProps = {
+    navigate: () => {},
+    location: {},
+};
+
+export default withRouter(MiniCart);

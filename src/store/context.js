@@ -49,7 +49,16 @@ export class ContextProvider extends Component {
         this.setCurrencies();
         this.getCartItemsFromLocalStorage();
         this.setCategories();
+        window.addEventListener('popstate', this.handlePop);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('popstate', this.handlePop);
+    }
+
+    handlePop = () => {
+        this.setState({ showingMiniCart: false });
+    };
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.categoryName !== this.state.categoryName) {
@@ -79,11 +88,15 @@ export class ContextProvider extends Component {
     };
 
     openMiniCart = () => {
+        if (this.state.showingMiniCart) {
+            window.history.back();
+        }
         this.setState({ showingMiniCart: true });
+        window.history.pushState('forward', null, '');
     };
 
     closeMiniCart = () => {
-        this.setState({ showingMiniCart: false });
+        window.history.back();
     };
 
     changeCategoryName = (categoryName) => {

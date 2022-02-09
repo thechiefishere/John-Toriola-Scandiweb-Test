@@ -31,6 +31,7 @@ ul li {
 .btn {
   width: 20%;
   height: 5vh;
+  background-color: #fff;
 }
 .btn--checkout {
   background-color: #5ece7b;
