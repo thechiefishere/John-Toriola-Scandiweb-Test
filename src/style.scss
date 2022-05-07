@@ -625,6 +625,27 @@ ul {
 .show-cart-overlay {
   height: 100%;
 }
+.filter__heading {
+  margin-bottom: 15px;
+}
+.filter__box-container {
+  display: flex;
+  margin-left: 15px;
+  .filter__box {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border: 1px solid #a6a6a6;
+  }
+}
+.filter__element {
+  margin-bottom: 8px;
+}
+.filter__input {
+  display: block;
+  margin-left: 15px;
+  border: 1px solid #a6a6a6;
+}
 
 @media (min-width: "600px") {
   .product-tile {

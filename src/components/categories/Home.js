@@ -3,6 +3,7 @@ import { AppContext } from '../../store/context';
 import ProductTile from '../ProductTile';
 import { withRouter } from '../../util/withRouter';
 import { object } from 'prop-types';
+import Filter from '../Filter';
 
 export class Home extends Component {
     constructor(props) {
@@ -41,8 +42,9 @@ export class Home extends Component {
 
         return (
             <div>
-                {this.state.allProducts !== null && (
+                {this.state.products !== null && (
                     <section className="category">
+                        <Filter products={products} />
                         <h1 className="category__name">{categoryName || 'All'}</h1>
                         <section className="category__products">
                             {products.map((product) => {

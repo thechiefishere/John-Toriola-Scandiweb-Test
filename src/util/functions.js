@@ -135,3 +135,47 @@ export const arrayEquality = (a, b) => {
     if (a.length === b.length && checkEveryElement(a, b)) return true;
     return false;
 };
+
+export const getAllAttributes = (products) => {
+    const allAttributes = [];
+    products.forEach((product) =>
+        product.attributes.forEach((attribute) => {
+            allAttributes.push(attribute);
+        })
+    );
+    return allAttributes;
+};
+
+export const getAllOfType = (type, attributes, usedAttributes) => {
+    if (!usedAttributes.includes(type)) return [];
+    // console.log('attributes in getAllOf', attributes);
+    const allOfType = new Set(
+        attributes.map((val) => {
+            // val.map()
+            // console.log('items in map', val);
+            if (val.name === type) return val.items.map((item) => item.value);
+        })
+    );
+    return allOfType;
+};
+
+export const getAllAttributeSetAndName = (products) => {
+    const attributes = getAllAttributes(products);
+    const usedAttributes = [];
+    const allAttributeSet = [];
+    attributes.forEach((attribute) => {
+        const set = [];
+        if (!usedAttributes.includes(attribute.name)) {
+            attributes.forEach((val) => {
+                if (val.name === attribute.name) {
+                    val.items.forEach((item) => {
+                        if (!set.includes(item.value)) set.push(item.value);
+                    });
+                }
+            });
+            allAttributeSet.push(set);
+            usedAttributes.push(attribute.name);
+        }
+    });
+    return [allAttributeSet, usedAttributes];
+};
