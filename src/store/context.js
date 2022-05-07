@@ -6,6 +6,7 @@ import {
     getUpdatedCartItems,
     getUpdatedCartItemsCount,
     removeFromCart,
+    adjustFilters,
 } from '../util/functions';
 import { object } from 'prop-types';
 
@@ -42,6 +43,9 @@ export class ContextProvider extends Component {
             changeCategoryName: this.changeCategoryName,
             products: [],
             categories: [],
+            filteredProducts: [],
+            filterValues: [],
+            updateFilterValues: this.updateFilterValues,
         };
     }
 
@@ -63,6 +67,14 @@ export class ContextProvider extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.categoryName !== this.state.categoryName) {
             this.setProducts();
+        }
+        if (prevState.filterValues !== this.state.filterValues) {
+            const remainingProducts = this.filterProducts(
+                this.state.products,
+                this.state.filterValues
+            );
+            console.log('remaingProducts', remainingProducts);
+            this.setState({ filteredProducts: remainingProducts });
         }
     }
 
@@ -105,7 +117,10 @@ export class ContextProvider extends Component {
 
     setProducts = async () => {
         const response = await client.post(categoryQuery(this.state.categoryName));
-        this.setState({ products: response.category.products });
+        this.setState({
+            products: response.category.products,
+            filteredProducts: response.category.products,
+        });
     };
 
     setCategories = async () => {
@@ -197,6 +212,42 @@ export class ContextProvider extends Component {
         });
         if (!item) return;
         return item.productCount;
+    };
+
+    updateFilterValues = (update, updateType) => {
+        if (updateType === 'ADD')
+            this.setState({ filterValues: [...this.state.filterValues, update] });
+        else {
+            const updatedFilter = this.state.filterValues.filter(
+                (value) =>
+                    value.attributeName !== update.attributeName ||
+          value.attributeValue !== update.attributeValue
+            );
+            this.setState({ filterValues: [...updatedFilter] });
+        }
+    };
+
+    filterProducts = (products, filters) => {
+        const adjustedFilters = adjustFilters(filters);
+        if (adjustedFilters.length === 0) return products;
+        let remainingProducts = [];
+        adjustedFilters.forEach((filter) => {
+            const attributeName = filter.attributeName;
+            const attributeValue = filter.attributeValue;
+            products.forEach((product) => {
+                product.attributes.forEach((attribute) => {
+                    if (attribute.name === attributeName) {
+                        attribute.items.forEach((item) => {
+                            if (item.value === attributeValue)
+                                remainingProducts.push(product);
+                        });
+                    }
+                });
+            });
+            products = remainingProducts;
+            remainingProducts = [];
+        });
+        return products;
     };
 
     render() {

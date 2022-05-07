@@ -34,8 +34,6 @@ export class Home extends Component {
         }
     }
 
-    setCategory = () => {};
-
     render() {
         const products = this.state.products;
         const categoryName = this.state.categoryName;

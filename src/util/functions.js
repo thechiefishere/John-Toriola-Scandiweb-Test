@@ -179,3 +179,10 @@ export const getAllAttributeSetAndName = (products) => {
     });
     return [allAttributeSet, usedAttributes];
 };
+
+export const adjustFilters = (filters) => {
+    const adjustedFilters = filters.filter(
+        (filter) => filter.attributeValue !== 'All'
+    );
+    return adjustedFilters;
+};

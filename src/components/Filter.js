@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppContext } from '../store/context';
 import { getAllAttributeSetAndName } from '../util/functions';
 import { array } from 'prop-types';
 
@@ -12,6 +13,7 @@ export class Filter extends Component {
         };
     }
 
+    static contextType = AppContext;
     componentDidUpdate(prevProps) {
         if (prevProps.products !== this.props.products) {
             const setAndName = getAllAttributeSetAndName(this.props.products);
@@ -21,6 +23,35 @@ export class Filter extends Component {
             });
         }
     }
+
+    handleInputChange = (filterName, value = 'Yes') => {
+    // const filter =
+    //   type === "checkbox" ? `${filterName}` : `${filterName} ${value}`;
+        const filter = { attributeName: filterName, attributeValue: value };
+        const inFilter = this.context.filterValues.find(
+            (value) =>
+                value.attributeName === filter.attributeName &&
+        value.attributeValue === filter.attributeValue
+        );
+        if (inFilter) this.context.updateFilterValues(filter, 'REMOVE');
+        else this.context.updateFilterValues(filter, 'ADD');
+    };
+
+    selectChange = (filterName, value) => {
+        const filter = { attributeName: filterName, attributeValue: value };
+        let currentFilter;
+        const inFilter = this.context.filterValues.find((next) => {
+            if (next.attributeName === filterName) {
+                currentFilter = next;
+                return next;
+            }
+        });
+        if (inFilter) this.context.updateFilterValues(currentFilter, 'REMOVE');
+
+        setTimeout(() => {
+            this.context.updateFilterValues(filter, 'ADD');
+        }, 1);
+    };
 
     render() {
         const attributeSets = this.state.attributeSets;
@@ -37,7 +68,13 @@ export class Filter extends Component {
                                 return (
                                     <div key={index} className="filter__element">
                                         <label>{attributeNames[index]}: </label>
-                                        <input type="checkbox" />
+                                        <input
+                                            type="checkbox"
+                                            name={attributeNames[index]}
+                                            onChange={() => {
+                                                this.handleInputChange(attributeNames[index]);
+                                            }}
+                                        />
                                     </div>
                                 );
                             else if (set[0].length === 7 && set[0].indexOf('#') !== -1) {
@@ -53,6 +90,13 @@ export class Filter extends Component {
                                                         style={{
                                                             backgroundColor: val,
                                                         }}
+                                                        onClick={() =>
+                                                            this.handleInputChange(
+                                                                attributeNames[index],
+                                                                val,
+                                                                'color'
+                                                            )
+                                                        }
                                                     ></div>
                                                 );
                                             })}
@@ -68,7 +112,11 @@ export class Filter extends Component {
                                         <select
                                             name={attributeNames[index]}
                                             className="filter__input"
+                                            onChange={(e) =>
+                                                this.selectChange(attributeNames[index], e.target.value)
+                                            }
                                         >
+                                            <option value={'All'}>All</option>
                                             {set.map((val, position) => {
                                                 return (
                                                     <option key={position} value={val}>
