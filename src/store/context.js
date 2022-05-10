@@ -45,6 +45,7 @@ export class ContextProvider extends Component {
             categories: [],
             filteredProducts: [],
             filterValues: [],
+            setFilterValues: this.setFilterValues,
             updateFilterValues: this.updateFilterValues,
         };
     }
@@ -69,12 +70,11 @@ export class ContextProvider extends Component {
             this.setProducts();
         }
         if (prevState.filterValues !== this.state.filterValues) {
-            const remainingProducts = this.filterProducts(
+            const filteredProducts = this.filterProducts(
                 this.state.products,
                 this.state.filterValues
             );
-            console.log('remaingProducts', remainingProducts);
-            this.setState({ filteredProducts: remainingProducts });
+            this.setState({ filteredProducts: filteredProducts });
         }
     }
 
@@ -112,7 +112,7 @@ export class ContextProvider extends Component {
     };
 
     changeCategoryName = (categoryName) => {
-        this.setState({ categoryName: categoryName });
+        this.setState({ categoryName: categoryName, filterValues: [] });
     };
 
     setProducts = async () => {
@@ -127,6 +127,11 @@ export class ContextProvider extends Component {
         const response = await client.post(categoryNamesQuery);
         const allCategories = response.categories.map((category) => category.name);
         this.setState({ categories: allCategories });
+    };
+
+    setFilterValues = (values) => {
+        console.log('i got here');
+        this.setState({ filterValues: values });
     };
 
     addToCartItems = (product, attributes) => {

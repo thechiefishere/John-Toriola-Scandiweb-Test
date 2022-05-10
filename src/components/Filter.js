@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { AppContext } from '../store/context';
-import { getAllAttributeSetAndName } from '../util/functions';
-import { array } from 'prop-types';
+import {
+    getAllAttributeSetAndName,
+    getQueryParameters,
+} from '../util/functions';
+import { array, object } from 'prop-types';
+import { withRouter } from '../util/withRouter';
 
 export class Filter extends Component {
     constructor(props) {
@@ -10,11 +14,18 @@ export class Filter extends Component {
         this.state = {
             attributeSets: [],
             attributeNames: [],
+            categoryName: '',
+            selectOption: 'All',
         };
     }
 
     static contextType = AppContext;
-    componentDidUpdate(prevProps) {
+
+    componentDidMount() {
+        this.setState({ categoryName: this.context.categoryName });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.products !== this.props.products) {
             const setAndName = getAllAttributeSetAndName(this.props.products);
             this.setState({
@@ -22,19 +33,26 @@ export class Filter extends Component {
                 attributeNames: setAndName[1],
             });
         }
+        if (prevState.categoryName !== this.context.categoryName) {
+            this.resetSelectTag();
+            this.setState({ categoryName: this.context.categoryName });
+        }
     }
 
     handleInputChange = (filterName, value = 'Yes') => {
-    // const filter =
-    //   type === "checkbox" ? `${filterName}` : `${filterName} ${value}`;
         const filter = { attributeName: filterName, attributeValue: value };
         const inFilter = this.context.filterValues.find(
             (value) =>
                 value.attributeName === filter.attributeName &&
         value.attributeValue === filter.attributeValue
         );
-        if (inFilter) this.context.updateFilterValues(filter, 'REMOVE');
-        else this.context.updateFilterValues(filter, 'ADD');
+        if (inFilter) {
+            this.context.updateFilterValues(filter, 'REMOVE');
+            this.removeFromSearchParams(filterName, value);
+        } else {
+            this.context.updateFilterValues(filter, 'ADD');
+            this.addToSearchParams(filterName, value, 'color');
+        }
     };
 
     selectChange = (filterName, value) => {
@@ -51,6 +69,37 @@ export class Filter extends Component {
         setTimeout(() => {
             this.context.updateFilterValues(filter, 'ADD');
         }, 1);
+        this.setState({ selectOption: value });
+        this.addToSearchParams(filterName, value, 'select');
+    };
+
+    resetSelectTag = () => {
+        this.setState({ selectOption: 'All' });
+    };
+
+    addToSearchParams = (filterName, value, addType) => {
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+        addType === 'select'
+            ? params.set(filterName, value)
+            : params.append(filterName, value);
+        url.search = params.toString();
+        window.history.pushState(null, '', url);
+    };
+
+    removeFromSearchParams = (filterName, value) => {
+        let here = new URL(window.location.href);
+        const updatedQuery = getQueryParameters(window.location.search).filter(
+            (filter) =>
+                filter.attributeName !== filterName || filter.attributeValue !== value
+        );
+        let queryToString = '';
+        updatedQuery.forEach((query) => {
+            queryToString = `${queryToString}${query.attributeName}=${query.attributeValue}&`;
+        });
+        queryToString = queryToString.substring(0, queryToString.length - 1);
+        here.search = queryToString;
+        window.history.pushState(null, '', here);
     };
 
     render() {
@@ -112,6 +161,7 @@ export class Filter extends Component {
                                         <select
                                             name={attributeNames[index]}
                                             className="filter__input"
+                                            value={this.state.selectOption}
                                             onChange={(e) =>
                                                 this.selectChange(attributeNames[index], e.target.value)
                                             }
@@ -138,10 +188,12 @@ export class Filter extends Component {
 
 Filter.propTypes = {
     products: array,
+    location: object,
 };
 
 Filter.defaultProps = {
     products: [],
+    location: {},
 };
 
-export default Filter;
+export default withRouter(Filter);

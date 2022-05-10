@@ -4,6 +4,7 @@ import ProductTile from '../ProductTile';
 import { withRouter } from '../../util/withRouter';
 import { object } from 'prop-types';
 import Filter from '../Filter';
+import { arrayEquality, getQueryParameters } from '../../util/functions';
 
 export class Home extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ export class Home extends Component {
 
         this.state = {
             products: [],
+            filteredProducts: [],
             categoryName: '',
         };
     }
@@ -29,23 +31,36 @@ export class Home extends Component {
             this.setState({ categoryName: category });
             this.context.changeCategoryName(category);
         }
-        if (prevState.products !== this.context.products) {
+        if (prevState.products !== this.context.products)
             this.setState({ products: this.context.products });
+
+        if (prevState.filteredProducts !== this.context.filteredProducts)
+            this.setState({ filteredProducts: this.context.filteredProducts });
+
+        console.log('search', location.search);
+        const queryString = getQueryParameters(location.search);
+        console.log('queryString', queryString);
+        console.log('this.context.filterValues', this.context.filterValues);
+        // this.context.setFilterValues(queryString);
+        if (!arrayEquality(queryString, this.context.filterValues)) {
+            console.log('noot equal');
+            this.context.setFilterValues(queryString);
         }
     }
 
     render() {
         const products = this.state.products;
         const categoryName = this.state.categoryName;
+        const filteredProducts = this.state.filteredProducts;
 
         return (
             <div>
-                {this.state.products !== null && (
+                {filteredProducts !== null && (
                     <section className="category">
                         <Filter products={products} />
                         <h1 className="category__name">{categoryName || 'All'}</h1>
                         <section className="category__products">
-                            {products.map((product) => {
+                            {filteredProducts.map((product) => {
                                 return <ProductTile key={product.id} product={product} />;
                             })}
                         </section>
