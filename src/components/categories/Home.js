@@ -34,16 +34,14 @@ export class Home extends Component {
         if (prevState.products !== this.context.products)
             this.setState({ products: this.context.products });
 
-        if (prevState.filteredProducts !== this.context.filteredProducts)
+        if (
+            !arrayEquality(prevState.filteredProducts, this.context.filteredProducts)
+        ) {
             this.setState({ filteredProducts: this.context.filteredProducts });
+        }
 
-        console.log('search', location.search);
         const queryString = getQueryParameters(location.search);
-        console.log('queryString', queryString);
-        console.log('this.context.filterValues', this.context.filterValues);
-        // this.context.setFilterValues(queryString);
         if (!arrayEquality(queryString, this.context.filterValues)) {
-            console.log('noot equal');
             this.context.setFilterValues(queryString);
         }
     }

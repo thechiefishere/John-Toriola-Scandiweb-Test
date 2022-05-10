@@ -123,6 +123,10 @@ export class Filter extends Component {
                                             onChange={() => {
                                                 this.handleInputChange(attributeNames[index]);
                                             }}
+                                            checked={this.context.filterValues.some(
+                                                (filter) =>
+                                                    filter.attributeName === attributeNames[index]
+                                            )}
                                         />
                                     </div>
                                 );

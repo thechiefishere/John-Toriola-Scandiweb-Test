@@ -215,7 +215,12 @@ export const getQueryParameters = (search) => {
             attributeName: pair[0],
             attributeValue: pair[1],
         });
-    // console.log(pair[0] + ', ' + pair[1]);
     }
     return queryString;
+};
+
+export const getFilterValuesFromQueryString = (search, presentFilterValues) => {
+    const queryString = getQueryParameters(search);
+    if (!arrayEquality(queryString, presentFilterValues)) return queryString;
+    else return [];
 };

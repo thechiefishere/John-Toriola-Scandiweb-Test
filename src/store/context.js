@@ -7,6 +7,8 @@ import {
     getUpdatedCartItemsCount,
     removeFromCart,
     adjustFilters,
+    arrayEquality,
+    getFilterValuesFromQueryString,
 } from '../util/functions';
 import { object } from 'prop-types';
 
@@ -69,7 +71,7 @@ export class ContextProvider extends Component {
         if (prevState.categoryName !== this.state.categoryName) {
             this.setProducts();
         }
-        if (prevState.filterValues !== this.state.filterValues) {
+        if (!arrayEquality(prevState.filterValues, this.state.filterValues)) {
             const filteredProducts = this.filterProducts(
                 this.state.products,
                 this.state.filterValues
@@ -112,7 +114,7 @@ export class ContextProvider extends Component {
     };
 
     changeCategoryName = (categoryName) => {
-        this.setState({ categoryName: categoryName, filterValues: [] });
+        this.setState({ categoryName: categoryName });
     };
 
     setProducts = async () => {
@@ -121,6 +123,11 @@ export class ContextProvider extends Component {
             products: response.category.products,
             filteredProducts: response.category.products,
         });
+        const filterValuesFromQueryString = getFilterValuesFromQueryString(
+            location.search,
+            this.state.filterValues
+        );
+        this.setState({ filterValues: filterValuesFromQueryString });
     };
 
     setCategories = async () => {
@@ -130,7 +137,6 @@ export class ContextProvider extends Component {
     };
 
     setFilterValues = (values) => {
-        console.log('i got here');
         this.setState({ filterValues: values });
     };
 
