@@ -15,7 +15,6 @@ export class Filter extends Component {
             attributeSets: [],
             attributeNames: [],
             categoryName: '',
-            selectOption: 'All',
         };
     }
 
@@ -34,7 +33,6 @@ export class Filter extends Component {
             });
         }
         if (prevState.categoryName !== this.context.categoryName) {
-            this.resetSelectTag();
             this.setState({ categoryName: this.context.categoryName });
         }
     }
@@ -69,12 +67,7 @@ export class Filter extends Component {
         setTimeout(() => {
             this.context.updateFilterValues(filter, 'ADD');
         }, 1);
-        this.setState({ selectOption: value });
         this.addToSearchParams(filterName, value, 'select');
-    };
-
-    resetSelectTag = () => {
-        this.setState({ selectOption: 'All' });
     };
 
     addToSearchParams = (filterName, value, addType) => {
@@ -105,6 +98,7 @@ export class Filter extends Component {
     render() {
         const attributeSets = this.state.attributeSets;
         const attributeNames = this.state.attributeNames;
+        const filterValues = this.context.filterValues;
 
         return (
             <div>
@@ -123,7 +117,7 @@ export class Filter extends Component {
                                             onChange={() => {
                                                 this.handleInputChange(attributeNames[index]);
                                             }}
-                                            checked={this.context.filterValues.some(
+                                            checked={filterValues.some(
                                                 (filter) =>
                                                     filter.attributeName === attributeNames[index]
                                             )}
@@ -138,7 +132,14 @@ export class Filter extends Component {
                                             {set.map((val, position) => {
                                                 return (
                                                     <div
-                                                        className="filter__box"
+                                                        className={`filter__box ${
+                                                            filterValues.find(
+                                                                (filter) =>
+                                                                    filter.attributeName ===
+                                    attributeNames[index] &&
+                                  filter.attributeValue === val
+                                                            ) && 'filter__box--selected'
+                                                        }`}
                                                         key={position}
                                                         style={{
                                                             backgroundColor: val,
@@ -165,7 +166,17 @@ export class Filter extends Component {
                                         <select
                                             name={attributeNames[index]}
                                             className="filter__input"
-                                            value={this.state.selectOption}
+                                            value={
+                                                filterValues.find(
+                                                    (filter) =>
+                                                        filter.attributeName === attributeNames[index]
+                                                )
+                                                    ? filterValues.find(
+                                                        (filter) =>
+                                                            filter.attributeName === attributeNames[index]
+                                                    ).attributeValue
+                                                    : 'All'
+                                            }
                                             onChange={(e) =>
                                                 this.selectChange(attributeNames[index], e.target.value)
                                             }
