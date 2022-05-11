@@ -200,6 +200,28 @@ export const getAllAttributeSetAndName = (products) => {
     return [allAttributeSet, usedAttributes];
 };
 
+export const filterProducts = (products, filters) => {
+    const adjustedFilters = adjustFilters(filters);
+    if (adjustedFilters.length === 0) return products;
+    let remainingProducts = [];
+    adjustedFilters.forEach((filter) => {
+        const attributeName = filter.attributeName;
+        const attributeValue = filter.attributeValue;
+        products.forEach((product) => {
+            product.attributes.forEach((attribute) => {
+                if (attribute.name === attributeName) {
+                    attribute.items.forEach((item) => {
+                        if (item.value === attributeValue) remainingProducts.push(product);
+                    });
+                }
+            });
+        });
+        products = remainingProducts;
+        remainingProducts = [];
+    });
+    return products;
+};
+
 export const adjustFilters = (filters) => {
     const adjustedFilters = filters.filter(
         (filter) => filter.attributeValue !== 'All'

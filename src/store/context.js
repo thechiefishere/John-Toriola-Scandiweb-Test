@@ -6,9 +6,9 @@ import {
     getUpdatedCartItems,
     getUpdatedCartItemsCount,
     removeFromCart,
-    adjustFilters,
     arrayEquality,
     getFilterValuesFromQueryString,
+    filterProducts,
 } from '../util/functions';
 import { object } from 'prop-types';
 
@@ -72,7 +72,7 @@ export class ContextProvider extends Component {
             this.setProducts();
         }
         if (!arrayEquality(prevState.filterValues, this.state.filterValues)) {
-            const filteredProducts = this.filterProducts(
+            const filteredProducts = filterProducts(
                 this.state.products,
                 this.state.filterValues
             );
@@ -236,29 +236,6 @@ export class ContextProvider extends Component {
             );
             this.setState({ filterValues: [...updatedFilter] });
         }
-    };
-
-    filterProducts = (products, filters) => {
-        const adjustedFilters = adjustFilters(filters);
-        if (adjustedFilters.length === 0) return products;
-        let remainingProducts = [];
-        adjustedFilters.forEach((filter) => {
-            const attributeName = filter.attributeName;
-            const attributeValue = filter.attributeValue;
-            products.forEach((product) => {
-                product.attributes.forEach((attribute) => {
-                    if (attribute.name === attributeName) {
-                        attribute.items.forEach((item) => {
-                            if (item.value === attributeValue)
-                                remainingProducts.push(product);
-                        });
-                    }
-                });
-            });
-            products = remainingProducts;
-            remainingProducts = [];
-        });
-        return products;
     };
 
     render() {
