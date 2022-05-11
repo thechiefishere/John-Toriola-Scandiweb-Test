@@ -56,12 +56,14 @@ export class Home extends Component {
                 {filteredProducts !== null && (
                     <section className="category">
                         <Filter products={products} />
-                        <h1 className="category__name">{categoryName || 'All'}</h1>
-                        <section className="category__products">
-                            {filteredProducts.map((product) => {
-                                return <ProductTile key={product.id} product={product} />;
-                            })}
-                        </section>
+                        <main className="category__main">
+                            <h1 className="category__name">{categoryName || 'All'}</h1>
+                            <section className="category__products">
+                                {filteredProducts.map((product) => {
+                                    return <ProductTile key={product.id} product={product} />;
+                                })}
+                            </section>
+                        </main>
                     </section>
                 )}
             </div>

@@ -101,10 +101,10 @@ export class Filter extends Component {
         const filterValues = this.context.filterValues;
 
         return (
-            <div>
+            <div className="filter">
                 {attributeSets.length > 0 && (
-                    <aside className="filter">
-                        <h1 className="filter__heading">Filter</h1>
+                    <aside>
+                        <h1 className="filter__heading">Filter By:</h1>
 
                         {attributeSets.map((set, index) => {
                             if (set[0] === 'Yes' || set[0] === 'No')
