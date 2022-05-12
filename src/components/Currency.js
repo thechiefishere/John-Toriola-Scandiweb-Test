@@ -39,7 +39,7 @@ export class Currency extends Component {
                                 : 'currencyTab'
                         }
                         style={{
-                            height: showingCurrencyTab && `${currencies.length * 35}px`,
+                            height: showingCurrencyTab && `${currencies.length * 45}px`,
                         }}
                     >
                         {currencies.map((currency, index) => {
