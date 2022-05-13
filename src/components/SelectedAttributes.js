@@ -38,47 +38,11 @@ export class SelectedAttributes extends Component {
 
     render() {
         const selectedAttributes = this.state.attributes;
-        // const numberOfAttributes = this.state.numberOfAttributes;
         const mini = this.props.mini;
         const product = this.props.product;
 
         return (
             <article className="selected-attributes-set">
-                {/* {attributes.map((attribute, index) => {
-                    const attributeValue = attribute.split('-')[0];
-                    const attributeType = attribute.split('-')[1];
-                    const attributeName = attribute.split('-')[2];
-                    return (
-                        <article className="attribute__container" key={index}>
-                            <h3 className="attribute__name">{attributeName}: </h3>
-                            <div
-                                className={`attribute attribute--selected ${
-                                    index >= attributes.length - numberOfAttributes &&
-                  attributeType !== 'swatch' &&
-                  !mini &&
-                  'attribute--clicked'
-                                }
-              ${
-                        index >= attributes.length - numberOfAttributes &&
-                attributeType !== 'swatch' &&
-                mini &&
-                'attribute--clicked--mini'
-                        }
-               ${
-                        index >= attributes.length - numberOfAttributes &&
-                 attributeType === 'swatch' &&
-                 'attribute--color--selected'
-                        }`}
-                                style={{
-                                    backgroundColor:
-                    attributeType === 'swatch' && `${attributeValue}`,
-                                }}
-                            >
-                                {attributeType === 'text' && attributeValue}
-                            </div>
-                        </article>
-                    );
-                })} */}
                 {product.attributes.map((attribute, index) => (
                     <article key={index} className="attribute-container">
                         <h3 className="attribute-set__name">{attribute.name}:</h3>

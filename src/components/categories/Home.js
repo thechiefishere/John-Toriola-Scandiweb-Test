@@ -54,7 +54,11 @@ export class Home extends Component {
         return (
             <div>
                 {filteredProducts !== null && (
-                    <section className="category">
+                    <section
+                        className={`category ${
+                            this.context.showingMiniCart && 'disable-page'
+                        }`}
+                    >
                         <Filter products={products} />
                         <main className="category__main">
                             <h1 className="category__name">{categoryName || 'All'}</h1>

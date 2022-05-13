@@ -97,7 +97,9 @@ export class ProductDetailsPage extends Component {
         return (
             <section>
                 {product !== null && (
-                    <section className="pdp">
+                    <section
+                        className={`pdp ${this.context.showingMiniCart && 'disable-page'}`}
+                    >
                         <article className="pdp__all-images">
                             {product.gallery.map((pictureLink, index) => {
                                 return (

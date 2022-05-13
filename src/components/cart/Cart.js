@@ -13,7 +13,9 @@ export class Cart extends Component {
           : JSON.parse(this.context.cartItems);
 
         return (
-            <section className="cart">
+            <section
+                className={`cart ${this.context.showingMiniCart && 'disable-page'}`}
+            >
                 <h1 className="cart__title">cart</h1>
                 {cartItems.length > 0 ? (
                     cartItems.map((item, index) => {
