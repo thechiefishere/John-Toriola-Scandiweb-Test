@@ -114,6 +114,7 @@ export class ContextProvider extends Component {
 
     closeMiniCart = () => {
         window.history.back();
+        document.body.classList.remove('remove-overflow');
     };
 
     changeCategoryName = (categoryName) => {
