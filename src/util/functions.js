@@ -243,3 +243,21 @@ export const getFilterValuesFromQueryString = (search, presentFilterValues) => {
     if (!arrayEquality(queryString, presentFilterValues)) return queryString;
     else return [];
 };
+
+export const getTotalPrice = (items, currencyInUse) => {
+    items = items.length === 0 ? [] : JSON.parse(items);
+    if (currencyInUse === '') return;
+    const total = items.reduce((currentTotal, item) => {
+        const priceInSelectedCurrency = getPriceInSelectedCurrency(
+            item.product,
+            currencyInUse
+        );
+        return (currentTotal += priceInSelectedCurrency * item.productCount);
+    }, 0);
+    return total.toFixed(2);
+};
+
+export const getTaxValue = (amount) => {
+    const tax = 0.21 * amount;
+    return tax.toFixed(2);
+};

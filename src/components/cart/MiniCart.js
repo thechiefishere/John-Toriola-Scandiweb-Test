@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
 import { AppContext } from '../../store/context';
-// import { Link } from 'react-router-dom';
-import { getPriceInSelectedCurrency } from '../../util/functions';
+import { getTotalPrice } from '../../util/functions';
 import { withRouter } from '../../util/withRouter';
 import { func, object } from 'prop-types';
 
@@ -27,25 +26,15 @@ export class MiniCart extends Component {
             prevState.cartItems !== this.context.cartItems ||
       prevState.currencyInUse !== this.context.currencyInUse
         ) {
-            const total = this.setTotalPrice(this.context.cartItems);
+            const total = getTotalPrice(
+                this.context.cartItems,
+                this.context.currencyInUse
+            );
             this.setState({ cartItems: this.context.cartItems });
             this.setState({ currencyInUse: this.context.currencyInUse });
             this.setState({ totalPrice: total });
         }
     }
-
-    setTotalPrice = (items) => {
-        items = items.length === 0 ? [] : JSON.parse(items);
-        if (this.context.currencyInUse === '') return;
-        const total = items.reduce((currentTotal, item) => {
-            const priceInSelectedCurrency = getPriceInSelectedCurrency(
-                item.product,
-                this.context.currencyInUse
-            );
-            return (currentTotal += priceInSelectedCurrency * item.productCount);
-        }, 0);
-        return total.toFixed(2);
-    };
 
     toggleMiniCart = () => {
         const path = this.props.location.pathname.slice(1);

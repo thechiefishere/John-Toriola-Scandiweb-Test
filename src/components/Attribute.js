@@ -15,7 +15,7 @@ export class Attribute extends Component {
         const clickedItem = this.state.clickedItem;
         const setSelectedAttributes = this.props.setSelectedAttributes;
         const attributeIndex = this.props.attributeIndex;
-        const productName = this.props.productName;
+        // const productName = this.props.productName;
 
         return (
             <article className="attribute-container">
@@ -24,40 +24,37 @@ export class Attribute extends Component {
                     {attribute.items.map((item, index) => {
                         return (
                             <div
-                                className={`attribute ${
-                                    clickedItem === index &&
-                  attribute.type !== 'swatch' &&
-                  'attribute--clicked'
-                                } ${
+                                className={`attribute__wrap ${
                                     clickedItem === index &&
                   attribute.type === 'swatch' &&
-                  'attribute--color'
-                                } `}
+                  'attribute__color--selected'
+                                }`}
                                 key={item.id}
-                                style={{
-                                    backgroundColor:
-                    attribute.type === 'swatch' ? item.value : 'none',
-                                }}
-                                onClick={() => {
-                                    this.setState({ clickedItem: index });
-                                    setSelectedAttributes(
-                                        attributeIndex,
-                                        item.value,
-                                        attribute.type,
-                                        attribute.name
-                                    );
-                                }}
                             >
-                                <input
-                                    type="radio"
-                                    value={item.value}
-                                    name={`${attribute.name}${productName}`}
-                                    id={`${item.value}`}
-                                    className="attribute__input"
-                                />
-                                <label className="attribute__label" htmlFor={`${item.value}`}>
+                                <div
+                                    className={`attribute ${
+                                        attribute.type === 'swatch' && 'attribute__color'
+                                    } ${
+                                        clickedItem === index &&
+                    attribute.type !== 'swatch' &&
+                    'attribute--clicked'
+                                    }`}
+                                    style={{
+                                        backgroundColor:
+                      attribute.type === 'swatch' ? item.value : 'none',
+                                    }}
+                                    onClick={() => {
+                                        this.setState({ clickedItem: index });
+                                        setSelectedAttributes(
+                                            attributeIndex,
+                                            item.value,
+                                            attribute.type,
+                                            attribute.name
+                                        );
+                                    }}
+                                >
                                     {attribute.type !== 'swatch' && item.value}
-                                </label>
+                                </div>
                             </div>
                         );
                     })}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
 import { AppContext } from '../../store/context';
+import CartTotal from './CartTotal';
 
 export class Cart extends Component {
     static contextType = AppContext;
@@ -29,6 +30,7 @@ export class Cart extends Component {
                 ) : (
                     <h1 className="cart__empty">Your cart is empty</h1>
                 )}
+                <CartTotal />
             </section>
         );
     }

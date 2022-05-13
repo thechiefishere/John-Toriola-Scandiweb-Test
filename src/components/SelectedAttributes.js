@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppContext } from '../store/context';
-import { bool, string, number } from 'prop-types';
+import { bool, string, number, object } from 'prop-types';
 
 export class SelectedAttributes extends Component {
     constructor(props) {
@@ -34,14 +34,17 @@ export class SelectedAttributes extends Component {
         this.setState({ attributes: allAttribute });
     };
 
+    getSwatch = () => 'swatch';
+
     render() {
-        const attributes = this.state.attributes;
-        const numberOfAttributes = this.state.numberOfAttributes;
+        const selectedAttributes = this.state.attributes;
+        // const numberOfAttributes = this.state.numberOfAttributes;
         const mini = this.props.mini;
+        const product = this.props.product;
 
         return (
             <article className="selected-attributes-set">
-                {attributes.map((attribute, index) => {
+                {/* {attributes.map((attribute, index) => {
                     const attributeValue = attribute.split('-')[0];
                     const attributeType = attribute.split('-')[1];
                     const attributeName = attribute.split('-')[2];
@@ -49,7 +52,6 @@ export class SelectedAttributes extends Component {
                         <article className="attribute__container" key={index}>
                             <h3 className="attribute__name">{attributeName}: </h3>
                             <div
-                                htmlFor={`${attribute.value}`}
                                 className={`attribute attribute--selected ${
                                     index >= attributes.length - numberOfAttributes &&
                   attributeType !== 'swatch' &&
@@ -65,7 +67,7 @@ export class SelectedAttributes extends Component {
                ${
                         index >= attributes.length - numberOfAttributes &&
                  attributeType === 'swatch' &&
-                 'attribute--color'
+                 'attribute--color--selected'
                         }`}
                                 style={{
                                     backgroundColor:
@@ -76,7 +78,53 @@ export class SelectedAttributes extends Component {
                             </div>
                         </article>
                     );
-                })}
+                })} */}
+                {product.attributes.map((attribute, index) => (
+                    <article key={index} className="attribute-container">
+                        <h3 className="attribute-set__name">{attribute.name}:</h3>
+                        <div className="attribute-set">
+                            {attribute.items.map((item) => {
+                                return (
+                                    <div
+                                        className={`attribute__wrap ${
+                                            selectedAttributes.length > 0 &&
+                      selectedAttributes[index].split('-')[0] === item.value &&
+                      attribute.type === 'swatch' &&
+                      'attribute__color--selected'
+                                        }
+                      ${mini && 'attribute__color--selected--mini'}`}
+                                        key={item.id}
+                                    >
+                                        <div
+                                            className={`attribute ${mini && 'attribute--mini'} ${
+                                                attribute.type === 'swatch' && 'attribute__color'
+                                            } ${
+                                                attribute.type === 'swatch' &&
+                        mini &&
+                        'attribute__color--mini'
+                                            }
+                                            } ${
+                                    selectedAttributes.length > 0 &&
+                                              item.value ===
+                                                selectedAttributes[index].split(
+                                                    '-'
+                                                )[0] &&
+                                              attribute.type !== 'swatch' &&
+                                              'attribute--clicked'
+                                    } `}
+                                            style={{
+                                                backgroundColor:
+                          attribute.type === 'swatch' ? item.value : 'none',
+                                            }}
+                                        >
+                                            {attribute.type !== 'swatch' && item.value}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </article>
+                ))}
             </article>
         );
     }
@@ -86,12 +134,14 @@ SelectedAttributes.propTypes = {
     productId: string,
     position: number,
     mini: bool,
+    product: object,
 };
 
 SelectedAttributes.defaultProps = {
     productId: '',
     position: 0,
     mini: false,
+    product: {},
 };
 
 export default SelectedAttributes;

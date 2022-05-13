@@ -44,7 +44,6 @@ export class CartItem extends Component {
             <section>
                 {this.state.product !== null && (
                     <section>
-                        {!mini && <div className="cart-item-line"></div>}
                         <section
                             className={mini ? 'cart-item cart-item--mini' : 'cart-item'}
                         >
@@ -61,6 +60,7 @@ export class CartItem extends Component {
                                     productId={product.id}
                                     mini={mini}
                                     position={position}
+                                    product={product}
                                 />
                             </article>
                             <CartItemCount
