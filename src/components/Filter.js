@@ -132,7 +132,8 @@ export class Filter extends Component {
                                             {set.map((val, position) => {
                                                 return (
                                                     <div
-                                                        className={`filter__box ${
+                                                        key={position}
+                                                        className={`${
                                                             filterValues.find(
                                                                 (filter) =>
                                                                     filter.attributeName ===
@@ -140,18 +141,21 @@ export class Filter extends Component {
                                   filter.attributeValue === val
                                                             ) && 'filter__box--selected'
                                                         }`}
-                                                        key={position}
-                                                        style={{
-                                                            backgroundColor: val,
-                                                        }}
-                                                        onClick={() =>
-                                                            this.handleInputChange(
-                                                                attributeNames[index],
-                                                                val,
-                                                                'color'
-                                                            )
-                                                        }
-                                                    ></div>
+                                                    >
+                                                        <div
+                                                            className="filter__box"
+                                                            style={{
+                                                                backgroundColor: val,
+                                                            }}
+                                                            onClick={() =>
+                                                                this.handleInputChange(
+                                                                    attributeNames[index],
+                                                                    val,
+                                                                    'color'
+                                                                )
+                                                            }
+                                                        ></div>
+                                                    </div>
                                                 );
                                             })}
                                         </div>

@@ -246,12 +246,12 @@ ul li {
 .filter__box-container .filter__box {
   width: 20px;
   height: 20px;
-  margin-right: 5px;
+  margin: 1px;
   border: 1px solid #a6a6a6;
 }
 .filter__box-container .filter__box--selected {
-  border-radius: 50%;
-  box-shadow: 2px 4px 10px #a6a6a6;
+  margin: 0px 2px;
+  border: 1px solid #5ece7b;
 }
 
 .filter__element {
