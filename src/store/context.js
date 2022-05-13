@@ -109,6 +109,7 @@ export class ContextProvider extends Component {
         }
         this.setState({ showingMiniCart: true });
         window.history.pushState('forward', null, '');
+        document.body.classList.add('remove-overflow');
     };
 
     closeMiniCart = () => {

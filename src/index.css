@@ -11,6 +11,10 @@ body {
   color: #1d1f22;
 }
 
+.remove-overflow {
+  overflow-y: hidden;
+}
+
 a {
   text-decoration: none;
   color: #1d1f22;
