@@ -5,10 +5,22 @@ import Navbar from './Navbar';
 import { totalItems } from '../util/functions';
 
 export class Header extends Component {
+    constructor(props) {
+        super(props);
+
+        this.cartIconRef = React.createRef();
+    }
+
     static contextType = AppContext;
+    componentDidUpdate = () => {
+        if (this.cartIconRef !== this.context.cartIconRef) {
+            this.context.setCartIconRef(this.cartIconRef);
+        }
+    };
 
     handleMiniCartToggle = () => {
-        if (!this.context.showingMiniCart) return this.context.openMiniCart;
+        if (!this.context.showingMiniCart) return this.context.openMiniCart();
+        this.context.closeMiniCart();
     };
 
     render() {
@@ -17,7 +29,9 @@ export class Header extends Component {
         const numberOfItemsInCart = totalItems(this.context.cartItems);
 
         return (
-            <header className="header">
+            <header
+                className={`header ${this.context.showingMiniCart && 'disable-page'}`}
+            >
                 <Navbar />
                 <img src={shoppingBag} alt="shop-bag" className="bag" />
                 <div className="header-end">
@@ -44,7 +58,10 @@ export class Header extends Component {
                     <div
                         data-testid="cartLogo"
                         className="cart-icon"
-                        onClick={this.handleMiniCartToggle()}
+                        ref={this.cartIconRef}
+                        onClick={() => {
+                            this.handleMiniCartToggle();
+                        }}
                     >
                         <img className="icon" src="/icons/cart.svg" alt="cart-icon" />
                         <p className="item-count">{numberOfItemsInCart}</p>

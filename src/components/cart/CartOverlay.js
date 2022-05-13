@@ -12,8 +12,8 @@ export class CartOverlay extends Component {
         };
         this.overlayRef = React.createRef();
     }
-    static contextType = AppContext;
 
+    static contextType = AppContext;
     componentDidMount() {
         const location = this.props.location.pathname;
         this.setState({ path: location });
@@ -25,7 +25,10 @@ export class CartOverlay extends Component {
     }
 
     handleMouseClick = (e) => {
-        if (!this.overlayRef.current.contains(e.target)) {
+        if (
+            !this.overlayRef.current.contains(e.target) &&
+      !this.context.cartIconRef.current.contains(e.target)
+        ) {
             if (this.context.showingMiniCart) this.context.closeMiniCart();
         }
     };

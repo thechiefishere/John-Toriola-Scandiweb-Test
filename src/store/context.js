@@ -49,6 +49,8 @@ export class ContextProvider extends Component {
             filterValues: [],
             setFilterValues: this.setFilterValues,
             updateFilterValues: this.updateFilterValues,
+            cartIconRef: null,
+            setCartIconRef: this.setCartIconRef,
         };
     }
 
@@ -138,6 +140,10 @@ export class ContextProvider extends Component {
 
     setFilterValues = (values) => {
         this.setState({ filterValues: values });
+    };
+
+    setCartIconRef = (ref) => {
+        this.setState({ cartIconRef: ref });
     };
 
     addToCartItems = (product, attributes) => {
