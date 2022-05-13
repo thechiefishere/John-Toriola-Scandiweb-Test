@@ -418,6 +418,11 @@ ul {
   &__name {
     font-family: $roboto-condensed-font;
     font-weight: 700;
+    &--mini {
+      font-family: $raleway-font;
+      font-weight: 400;
+      font-size: 14px;
+    }
   }
 }
 

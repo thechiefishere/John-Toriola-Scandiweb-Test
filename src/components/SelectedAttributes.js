@@ -45,7 +45,13 @@ export class SelectedAttributes extends Component {
             <article className="selected-attributes-set">
                 {product.attributes.map((attribute, index) => (
                     <article key={index} className="attribute-container">
-                        <h3 className="attribute-set__name">{attribute.name}:</h3>
+                        <h3
+                            className={`attribute-set__name ${
+                                mini && 'attribute-set__name--mini'
+                            }`}
+                        >
+                            {attribute.name}:
+                        </h3>
                         <div className="attribute-set">
                             {attribute.items.map((item) => {
                                 return (
