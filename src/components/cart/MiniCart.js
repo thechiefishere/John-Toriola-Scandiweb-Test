@@ -58,7 +58,7 @@ export class MiniCart extends Component {
             <section className="mini-cart">
                 <div className="mini-cart__heading-container">
                     <h1 className="mini-cart__heading">
-            My bag,{' '}
+            My Bag,{' '}
                         <span>
                             {cartItems.length} {cartItems.length > 1 ? 'items' : 'item'}
                         </span>

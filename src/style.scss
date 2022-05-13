@@ -76,7 +76,7 @@ ul {
   font-weight: 400;
   font-size: 2em;
   line-height: 1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .brand--mini {
   font-weight: 300;
@@ -379,7 +379,7 @@ ul {
       .pdp__price-title {
         font-family: $roboto-condensed-font;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin: 30px 0px 10px 0px;
       }
       .pdp__btn {
         width: 100%;
@@ -418,10 +418,12 @@ ul {
   &__name {
     font-family: $roboto-condensed-font;
     font-weight: 700;
+    text-transform: uppercase;
     &--mini {
       font-family: $raleway-font;
       font-weight: 400;
       font-size: 14px;
+      text-transform: none;
     }
   }
 }

@@ -133,7 +133,7 @@ export class ProductDetailsPage extends Component {
                                         />
                                     );
                                 })}
-                                <h3 className="pdp__price-title">Price:</h3>
+                                <h3 className="pdp__price-title">PRICE:</h3>
                                 {currencyInUse !== null && (
                                     <h1 className="price-value">
                                         {currencyInUse} {productPrice}

@@ -15,7 +15,6 @@ export class Attribute extends Component {
         const clickedItem = this.state.clickedItem;
         const setSelectedAttributes = this.props.setSelectedAttributes;
         const attributeIndex = this.props.attributeIndex;
-        // const productName = this.props.productName;
 
         return (
             <article className="attribute-container">
