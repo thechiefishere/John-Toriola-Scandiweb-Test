@@ -48,9 +48,11 @@ export class CartItem extends Component {
                             className={mini ? 'cart-item cart-item--mini' : 'cart-item'}
                         >
                             <article className="cart-item__details">
-                                <h3 className={mini ? 'name--mini' : 'name'}>{product.name}</h3>
-                                <h5 className={mini ? 'brand--mini' : 'brand'}>
+                                <h3 className={mini ? 'name--mini' : 'name'}>
                                     {product.brand}
+                                </h3>
+                                <h5 className={mini ? 'brand--mini' : 'brand'}>
+                                    {product.name}
                                 </h5>
                                 <h3 className={mini ? 'price-value--mini' : 'price-value'}>
                                     {currencyInUse}
