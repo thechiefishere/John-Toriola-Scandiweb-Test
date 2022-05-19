@@ -13,12 +13,14 @@ export class MiniCart extends Component {
             cartItems: null,
             currencyInUse: '',
         };
+        this.overlayRef = React.createRef();
     }
 
     static contextType = AppContext;
     componentDidMount() {
         this.setState({ cartItems: [] });
         this.setState({ currencyInUse: this.context.currencyInUse });
+        window.addEventListener('mousedown', this.handleMouseClick);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -35,6 +37,19 @@ export class MiniCart extends Component {
             this.setState({ totalPrice: total });
         }
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('mousedown', this.handleMouseClick);
+    }
+
+    handleMouseClick = (e) => {
+        if (
+            !this.overlayRef.current.contains(e.target) &&
+      !this.context.cartIconRef.current.contains(e.target)
+        ) {
+            if (this.context.showingMiniCart) this.context.closeMiniCart();
+        }
+    };
 
     toggleMiniCart = () => {
         const path = this.props.location.pathname.slice(1);
@@ -55,7 +70,7 @@ export class MiniCart extends Component {
         const closeMiniCart = this.context.closeMiniCart;
 
         return (
-            <section className="mini-cart">
+            <section className="mini-cart" ref={this.overlayRef}>
                 <div className="mini-cart__heading-container">
                     <h1 className="mini-cart__heading">
             My Bag,{' '}
